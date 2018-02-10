@@ -27,9 +27,21 @@
     
     NSString *userID =  [[NSUserDefaults standardUserDefaults] objectForKey:@"userid"];
     //self.dataSource = [ForumDB getallforum];
+
     self.dataSource = [ForumDB getselectforum:userID];
+//    NSLog(@"%@",self.dataSource);
+//    NSLog(@"0000000000000000000");
+//    NSLog(@"%@",userID);
+//    for (MinePuComModel *item  in self.dataSource) {
+//        NSLog(@"%zd",item.pid);
+//        NSLog(@"%@",item.nickname);
+//        NSLog(@"%zd",item.sid);
+//        NSLog(@"mainID:%zd",item.mainID);
+//    }
+//    NSLog(@"0000000000000000000");
+    
     //[ForumDB deleteCommentTable];
-    NSLog(@"-----%@--全部%@", [ForumDB getselectforum:userID], [ForumDB getallforum]);
+//    NSLog(@"-----%@--全部%@", [ForumDB getselectforum:userID], [ForumDB getallforum]);
     if (self.dataSource.count) {
         self.noLabel.text = @"";
     }else{
@@ -37,9 +49,6 @@
         
     }
 
-    
-    
-    
     // Do any additional setup after loading the view.
 }
 -(UILabel *)noLabel

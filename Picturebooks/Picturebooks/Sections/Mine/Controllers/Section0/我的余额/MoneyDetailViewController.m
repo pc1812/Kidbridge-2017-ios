@@ -133,12 +133,14 @@
     
     UILabel *waterLab = [[UILabel alloc] init];
     [cell.contentView addSubview:waterLab];
-     NSString *waterStr = [NSString stringWithFormat:@"%.2f", [model.fees doubleValue]];
-    waterLab.text = waterStr;
-    if ([model.fees integerValue] > 0) {
+//    NSString *waterStr = [NSString stringWithFormat:@"%.2f", [model.fees doubleValue]];
+//    waterLab.text = waterStr;
+    if ([model.fees floatValue] >= 0) {
         waterLab.textColor = RGBHex(0x14d02f);
+        waterLab.text = [NSString stringWithFormat:@"+%.2f", [model.fees floatValue]];
     }else{
         waterLab.textColor = [Global convertHexToRGB:@"fe6a76"];
+        waterLab.text = [NSString stringWithFormat:@"%.2f", [model.fees floatValue]];
     }
     
     waterLab.font = [UIFont systemFontOfSize:19 weight:2];

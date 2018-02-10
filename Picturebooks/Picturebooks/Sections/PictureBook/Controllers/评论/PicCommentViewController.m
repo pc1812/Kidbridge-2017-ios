@@ -250,34 +250,70 @@
 
 //录音后创建录音视图
 - (void)creatUI {
-    for (UIView *view in self.recordView.subviews) {
-        [view removeFromSuperview];
-    }
     
-    UIView *view = [[UIView alloc] init];
-    view.frame = FRAMEMAKE_F(10, 0, 90, 20);
-    view.layer.cornerRadius = 10;
-    view.clipsToBounds = YES;
-    view.backgroundColor = [Global convertHexToRGB:@"14d02f"];
-    [self.recordView addSubview:view];
+    // Jxd-start------------------ // 180  35
+#pragma mark - Jxd-修改
+    [self.recordView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    UIImage *image = [UIImage imageNamed:@"c_pause"];
-    UIButton *playBtn = [UIButton new];
-    playBtn.frame = CGRectMake(CGRectGetMinX(view.frame), (CGRectGetHeight(view.frame) - image.size.width) / 2 , image.size.width , image.size.height);
+    CGFloat viewW = XDWidthRatio(150);
+    CGFloat viewX = XDWidthRatio(5);
+    CGFloat viewH = XDHightRatio(30);
+    
+    UIButton *playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    playBtn.frame = CGRectMake(viewX, 0, viewW, viewH);
+    [self.recordView addSubview:playBtn];
+    playBtn.backgroundColor = [Global convertHexToRGB:@"14d02f"];
+    playBtn.frame = FRAMEMAKE_F(viewX, 0, viewW, viewH);
+    playBtn.layer.cornerRadius = viewH * 0.5;
+    playBtn.layer.masksToBounds = YES;
     playBtn.tag = 1201;
-    [playBtn setImage:image forState:UIControlStateNormal];
+    
+    [playBtn setImage:[UIImage imageNamed:@"c_pause"] forState:UIControlStateNormal];
     [playBtn setImage:[UIImage imageNamed:@"c_play"] forState:UIControlStateSelected];
     [playBtn addTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    playBtn.userInteractionEnabled = YES;
-    [view addSubview:playBtn];
-    
-    UILabel *timeLab = [UILabel new];
     NSInteger seconds = floor([[LGSoundRecorder shareInstance] soundRecordTime]);
     self.recordTime = seconds * 1000;
     NSString *timeString = [AppTools secondsToMinutesAndSeconds:[NSString stringWithFormat:@"%ld", (long)seconds]];
-    LabelSet(timeLab, timeString, [UIColor whiteColor], 12, timeDic, timeSize);
-    timeLab.frame = FRAMEMAKE_F(CGRectGetMaxX(view.frame) - timeSize.width - 15, (CGRectGetHeight(view.frame) - timeSize.height) / 2, timeSize.width, timeSize.height);
-    [view addSubview:timeLab];
+    [playBtn setTitle:timeString forState:UIControlStateNormal];
+    playBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    
+    playBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    playBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    playBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 65, 0, 0);
+    // Jxd-end--------------------
+    
+    
+//    for (UIView *view in self.recordView.subviews) {
+//        [view removeFromSuperview];
+//    }
+    
+//    UIView *view = [[UIView alloc] init];
+//    view.frame = FRAMEMAKE_F(10, 0, 90, 20);
+//    view.layer.cornerRadius = 10;
+//    view.clipsToBounds = YES;
+//    view.backgroundColor = [Global convertHexToRGB:@"14d02f"];
+//    view.backgroundColor = JXDRandomColor;
+//    [self.recordView addSubview:view];
+    
+//    UIImage *image = [UIImage imageNamed:@"c_pause"];
+//    UIButton *playBtn = [UIButton new];
+//    playBtn.frame = CGRectMake(CGRectGetMinX(view.frame), (CGRectGetHeight(view.frame) - image.size.width) / 2 , image.size.width , image.size.height);
+//    playBtn.tag = 1201;
+//    [playBtn setImage:image forState:UIControlStateNormal];
+//    [playBtn setImage:[UIImage imageNamed:@"c_play"] forState:UIControlStateSelected];
+//    [playBtn addTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    playBtn.userInteractionEnabled = YES;
+//    [view addSubview:playBtn];
+//
+//    UILabel *timeLab = [UILabel new];
+//    NSInteger seconds = floor([[LGSoundRecorder shareInstance] soundRecordTime]);
+//    self.recordTime = seconds * 1000;
+//    NSString *timeString = [AppTools secondsToMinutesAndSeconds:[NSString stringWithFormat:@"%ld", (long)seconds]];
+//    LabelSet(timeLab, timeString, [UIColor whiteColor], 12, timeDic, timeSize);
+//    timeLab.frame = FRAMEMAKE_F(CGRectGetMaxX(view.frame) - timeSize.width - 15, (CGRectGetHeight(view.frame) - timeSize.height) / 2, timeSize.width, timeSize.height);
+//    [view addSubview:timeLab];
+    
+    
 }
 
 //录音播放按钮

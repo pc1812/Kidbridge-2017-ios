@@ -62,10 +62,11 @@
     soundView.layer.cornerRadius = 10;
     
     [soundView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(20);
+        make.height.mas_equalTo(20); // 之前20
         make.width.mas_equalTo(182);
         make.left.equalTo(self.headImageView.mas_right).offset(12);
-        make.top.mas_equalTo(55 / 2);
+//        make.top.mas_equalTo(55 / 2);
+        make.centerY.mas_equalTo(self.contentView);
     }];
     
     //音频草稿label
@@ -74,10 +75,13 @@
     draftLabel.text = @"音频草稿";
     draftLabel.font = [UIFont systemFontOfSize:11];
     draftLabel.textColor = [UIColor whiteColor];
+    draftLabel.textAlignment = NSTextAlignmentCenter;
     
     [draftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
-        make.top.mas_equalTo(3);
+//        make.top.mas_equalTo(3);
+        make.top.mas_equalTo(0);
+        make.height.mas_equalTo(soundView);
     }];
     
     //时间label
@@ -85,10 +89,13 @@
     [soundView addSubview:self.timeLabel];
     self.timeLabel.font = [UIFont systemFontOfSize:11];
     self.timeLabel.textColor = [UIColor whiteColor];
+    self.timeLabel.textAlignment = NSTextAlignmentCenter;
     
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-10);
-        make.top.mas_equalTo(3);
+//        make.top.mas_equalTo(3);
+        make.top.mas_equalTo(0);
+        make.height.mas_equalTo(soundView);
     }];
     
     //播放按钮初始化与布局
@@ -100,9 +107,10 @@
     self.playBtn.layer.cornerRadius = 12.5;
     
     [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(soundView.mas_right).offset(22);
-        make.top.mas_equalTo(25);
-        make.height.and.width.mas_equalTo(25);
+        make.left.equalTo(soundView.mas_right).offset(18);
+//        make.top.mas_equalTo(25);
+        make.height.and.width.mas_equalTo(32); // 之前25
+        make.centerY.mas_equalTo(self.contentView);
     }];
     [self.playBtn addTarget:self action:@selector(playAndStop:) forControlEvents:UIControlEventTouchUpInside];
     

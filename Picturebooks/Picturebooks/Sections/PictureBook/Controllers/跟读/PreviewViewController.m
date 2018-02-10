@@ -47,8 +47,11 @@ static NSString * const cellIdentifier = @"draftCell";
     
     //navigationBar背景颜色
     self.navigationController.navigationBar.barTintColor = RGBHex(0x14d02f);
+    
     //navigationBar标题
-    self.navigationItem.title = self.name;
+//     self.navigationItem.title = self.name;
+    self.navigationItem.titleView = [UINavigationItem titleViiewWithTitle:self.name];
+    
     //navigationBar标题字体、颜色
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18], NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
@@ -534,7 +537,8 @@ static NSString * const cellIdentifier = @"draftCell";
     DraftTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     NSString *headImage = [[NSUserDefaults standardUserDefaults] objectForKey:@"User_headimage"];
-    if ([Global isNullOrEmpty:headImage]) {
+   
+    if ([Global isNullOrEmpty:headImage] || [headImage isEqualToString:Qiniu_host]) {
         cell.headImageView.image = [UIImage imageNamed:@"m_noheadimage"];
     }else{
         NSURL *imageUrl = [NSURL URLWithString:headImage];

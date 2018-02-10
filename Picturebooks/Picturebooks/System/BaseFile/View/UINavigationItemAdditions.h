@@ -12,4 +12,5 @@
 
 + (UILabel *)titleViewForTitle:(NSString *)title;
 
++ (UIView *)titleViiewWithTitle:(NSString *)title;
 @end

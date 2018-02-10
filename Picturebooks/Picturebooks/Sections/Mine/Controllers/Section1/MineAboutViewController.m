@@ -41,19 +41,19 @@
     [self fuwenbenLabel:desLabel FontNumber:[UIFont systemFontOfSize:15] AndRange:NSMakeRange(6, appVersion.length + 1) AndColor:[Global convertHexToRGB:@"14d02f"]];
     [self.view addSubview:desLabel];
     
-//    UILabel *proLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(desLabel.frame) + 20, SCREEN_WIDTH, 15)];
-//    proLabel.textColor=[UIColor blackColor];
-//    proLabel.font=[UIFont systemFontOfSize:15];
-//    proLabel.textAlignment=NSTextAlignmentCenter;
-//    proLabel.text= @"本产品的最终解释权归属XX公司";
-//    [self.view addSubview:proLabel];
-//
-//    UILabel *proLabel1=[[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(proLabel.frame) + 20, SCREEN_WIDTH, 15)];
-//    proLabel1.textColor=[UIColor blackColor];
-//    proLabel1.font=[UIFont systemFontOfSize:15];
-//    proLabel1.textAlignment=NSTextAlignmentCenter;
-//    proLabel1.text= @"使用协议版本声明";
-//    [self.view addSubview:proLabel1];
+    UILabel *proLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(desLabel.frame) + 20, SCREEN_WIDTH, 15)];
+    proLabel.textColor=[UIColor blackColor];
+    proLabel.font=[UIFont systemFontOfSize:15];
+    proLabel.textAlignment=NSTextAlignmentCenter;
+    proLabel.text= @"本产品的最终解释权归属藤桥教育科技(上海)有限公司";
+    [self.view addSubview:proLabel];
+
+    UILabel *proLabel1=[[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(proLabel.frame) + 20, SCREEN_WIDTH, 15)];
+    proLabel1.textColor=[UIColor blackColor];
+    proLabel1.font=[UIFont systemFontOfSize:15];
+    proLabel1.textAlignment=NSTextAlignmentCenter;
+    proLabel1.text= @"使用协议版本声明";
+    [self.view addSubview:proLabel1];
 }
 
 //设置不同字体颜色

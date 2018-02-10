@@ -15,13 +15,13 @@
 // 开发环境
 #ifdef DEV 
 #define language = "English"
-#define URL_API_DOMAIN @"http://api.kidbridge.org"
+#define URL_API_DOMAIN @"http://52.53.124.16"
 #endif
 
 // 测试部测试环境 http://15y2926z54.imwork.net/zhefei-app-web
 #ifdef TEST
 #define language = "英文"
-#define URL_API_DOMAIN @"http://dev.51zhiyuan.net:83"
+#define URL_API_DOMAIN @"http://api.kidbridge.org"
 #endif
 
 // 上架生产环境
@@ -118,6 +118,9 @@ static HttpManager *_instance;
     [self.sessionManager.requestSerializer setValue:[lastParame objectForKey:@"timestamp"] forHTTPHeaderField:@"timestamp"];
     [lastParame removeObjectForKey:@"timestamp"];
     
+    [self.sessionManager.requestSerializer setValue:[lastParame objectForKey:@"device"] forHTTPHeaderField:@"device"];
+    [lastParame removeObjectForKey:@"device"];
+    
     //NSLog(@"-----%@", self.sessionManager.requestSerializer.HTTPRequestHeaders);
     
     
@@ -185,6 +188,7 @@ static HttpManager *_instance;
     [tmpDict addEntriesFromDictionary:@{@"version":@"1.0.0",
                                         @"token":token,
                                         @"timestamp":timestamp,
+                                        @"device":@"ios"
                                         }];
     return tmpDict;
 }

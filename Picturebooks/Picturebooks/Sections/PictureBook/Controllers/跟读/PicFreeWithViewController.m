@@ -84,7 +84,9 @@
     //navigationBar背景颜色
     self.navigationController.navigationBar.barTintColor = RGBHex(0x14d02f);
     //navigationBar标题
-    self.navigationItem.title = self.name;
+    self.navigationItem.titleView = [UINavigationItem titleViiewWithTitle:self.name];
+
+    
     //navigationBar标题字体、颜色
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18], NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
@@ -364,7 +366,7 @@
     self.headImg = [[UIImageView alloc] initWithFrame:self.headView.bounds];
     NSURL *url = [NSURL URLWithString:[Qiniu_host stringByAppendingPathComponent:imageArray[0]]];
     [self.headImg sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"head_placeholder"]];
-    //self.headImg.contentMode = UIViewContentModeScaleAspectFit;
+    self.headImg.contentMode = UIViewContentModeScaleAspectFit;
     [self.headView addSubview:self.headImg];
     
     self.pageLabel = [[UILabel alloc] init];
@@ -1364,9 +1366,11 @@
 //下方草稿scrollView跟随
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-    [UIView animateWithDuration:0.3 animations:^{
-        self.draftScrollView.contentOffset = CGPointMake(scrollView.contentOffset.x / self.myCollectionView.frame.size.width * SCREEN_WIDTH, 0);
-    }];
+//    [UIView animateWithDuration:0.3 animations:^{
+//        self.draftScrollView.contentOffset = CGPointMake(scrollView.contentOffset.x / self.myCollectionView.frame.size.width * SCREEN_WIDTH, 0);
+//    }];
+    
+    self.draftScrollView.contentOffset = CGPointMake(scrollView.contentOffset.x / self.myCollectionView.frame.size.width * SCREEN_WIDTH, 0);
     
 }
 

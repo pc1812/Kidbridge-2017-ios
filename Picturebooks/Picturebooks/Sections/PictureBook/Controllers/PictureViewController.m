@@ -610,9 +610,9 @@ static NSString * const footIdentifierView = @"footView";
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-#pragma mark - NewPagedFlowView Delegate
+#pragma mark - NewPagedFlowView Delegate  
 - (CGSize)sizeForPageInFlowView:(NewPagedFlowView *)flowView {
-    return CGSizeMake(SCREEN_WIDTH - 80, (SCREEN_WIDTH - 80) * 9 / 16);
+    return CGSizeMake(SCREEN_WIDTH - 80, (SCREEN_WIDTH - 80) * 5 / 9);
 }
 
 - (void)didSelectCell:(UIView *)subView withSubViewIndex:(NSInteger)subIndex {
@@ -635,13 +635,15 @@ static NSString * const footIdentifierView = @"footView";
 - (UIView *)flowView:(NewPagedFlowView *)flowView cellForPageAtIndex:(NSInteger)index{
     PGIndexBannerSubiew *bannerView = (PGIndexBannerSubiew *)[flowView dequeueReusableCell];
     if (!bannerView) {
-        bannerView = [[PGIndexBannerSubiew alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * 9 / 16)]; //9/16
+//        bannerView = [[PGIndexBannerSubiew alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * 9 / 16)]; //9/16
+        bannerView = [[PGIndexBannerSubiew alloc] initWithFrame:CGRectMake(0, 0, (SCREEN_WIDTH - 80), (SCREEN_WIDTH - 80) * 5 / 9)]; //9/16
         bannerView.tag = index;
         bannerView.layer.cornerRadius = 4;
         bannerView.layer.masksToBounds = YES;
     }
     CarouselModel *model = self.carouselArray[index];
     NSString * url = [NSString stringWithFormat:@"%@%@", Qiniu_host, model.icon];
+    
     //在这里下载网络图片
     [bannerView.mainImageView sd_setImageWithURL:[NSURL URLWithString:url]];
     

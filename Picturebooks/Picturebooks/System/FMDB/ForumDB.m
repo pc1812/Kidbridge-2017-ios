@@ -21,7 +21,8 @@
         
         if (![db tableExists:@"commenttable"])
         {
-            [db executeUpdate:@"CREATE TABLE commenttable (id integer primary key,textName text,head text,nickname text,createTime text,pid integer,type integer)"];
+//            [db executeUpdate:@"CREATE TABLE commenttable (id integer primary key,textName text,head text,nickname text,createTime text,pid integer,type integer)"];
+            [db executeUpdate:@"CREATE TABLE commenttable (id integer primary key,textName text,head text,nickname text,createTime text,pid integer,type integer,mainID integer,sid integer)"];
         }
         
     
@@ -35,7 +36,8 @@
 //        }
 //        [db executeUpdate:@"delete from forumtable"];
         
-        [db executeUpdate:@"insert into commenttable (textName,head,nickname,createTime,pid,type,userid) values (?,?,?,?,?,?,?)",comModel.text,comModel.head,comModel.nickname,comModel.createTime,@(comModel.pid),@(comModel.type), userID];
+//        [db executeUpdate:@"insert into commenttable (textName,head,nickname,createTime,pid,type,userid) values (?,?,?,?,?,?,?)",comModel.text,comModel.head,comModel.nickname,comModel.createTime,@(comModel.pid),@(comModel.type), userID];
+        [db executeUpdate:@"insert into commenttable (textName,head,nickname,createTime,pid,type,mainID,sid,userid) values (?,?,?,?,?,?,?,?,?)",comModel.text,comModel.head,comModel.nickname,comModel.createTime,@(comModel.pid),@(comModel.type),@(comModel.mainID),@(comModel.sid), userID];
         
 //        for ( FhomeInfoModel *fhome in forumarray) {
 //            [db executeUpdate:@"insert into forumtable (menuName,desc,mainImage,type,countNote) values (?,?,?,?,?)",fhome.menuName,fhome.desc,fhome.mainImage,@(fhome.type),@(fhome.countNote)
@@ -54,6 +56,7 @@
         if (![db tableExists:@"pushtable"])
         {
             [db executeUpdate:@"CREATE TABLE pushtable (id integer primary key,textName text,createTime text)"];
+        
         }
         
         NSString *userID =  [[NSUserDefaults standardUserDefaults] objectForKey:@"userid"];
@@ -76,7 +79,8 @@
         
         if (![db tableExists:@"commenttable"])
         {
-            [db executeUpdate:@"CREATE TABLE commenttable (id integer primary key,textName text,head text,nickname text,createTime text,pid integer,type integer, userid  text)"];
+//            [db executeUpdate:@"CREATE TABLE commenttable (id integer primary key,textName text,head text,nickname text,createTime text,pid integer,type integer, userid  text)"];
+            [db executeUpdate:@"CREATE TABLE commenttable (id integer primary key,textName text,head text,nickname text,createTime text,pid integer,type integer,mainID integer,sid integer)"];
         }
         
         FMResultSet *resultSet=[db executeQuery:@"select  * from commenttable where userid=?",userStr];
@@ -89,6 +93,8 @@
             aModel.createTime=[resultSet stringForColumn:@"createTime"];
             aModel.pid=[resultSet intForColumn:@"pid"];
             aModel.type=[resultSet intForColumn:@"type"];
+            aModel.sid = [resultSet intForColumn:@"sid"];
+            aModel.mainID = [resultSet intForColumn:@"mainID"];
             [commentArray insertObject:aModel atIndex:0];
         }
         [resultSet close];

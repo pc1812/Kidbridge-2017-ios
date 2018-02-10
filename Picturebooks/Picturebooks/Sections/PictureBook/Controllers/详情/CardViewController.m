@@ -34,7 +34,9 @@ static NSString * const footIdentifierView = @"MainfootView";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.titleView = [UINavigationItem titleViewForTitle:self.titleStr];
+//    self.navigationItem.titleView = [UINavigationItem titleViewForTitle:self.titleStr];
+    self.navigationItem.titleView = [UINavigationItem titleViiewWithTitle:self.titleStr];
+    
     [self.view addSubview:self.collectionView];
 
     self.noSearchImageView = [[UIImageView alloc] initWithFrame : CGRectMake(0.0f, 0.0f, 200, 200)];

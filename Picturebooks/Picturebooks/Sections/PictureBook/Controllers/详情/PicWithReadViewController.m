@@ -222,7 +222,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = self.name;
+//    self.navigationItem.title = self.name;
+    self.navigationItem.titleView = [UINavigationItem titleViiewWithTitle:self.name];
+        
     self.automaticallyAdjustsScrollViewInsets = NO;
     ///self.navigationItem.rightBarButtonItem = [UIBarButtonItem rightBarButtonItemWithImage:[UIImage imageNamed:@"pic_share"] highlighted:[UIImage imageNamed:@"pic_share"] target:self selector:@selector(share)];
     [LGAudioPlayer sharePlayer].delegate = self;

@@ -26,7 +26,8 @@ static NSString * const collectionIdentifier = @"collectionViewIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.titleView = [UINavigationItem titleViewForTitle:_titleStr];
+//    self.navigationItem.titleView = [UINavigationItem titleViewForTitle:_titleStr];
+    self.navigationItem.titleView = [UINavigationItem titleViiewWithTitle:_titleStr];
     
     self.collectionView.mj_header=[MJRefreshNormalHeader headerWithRefreshingBlock:^{
         _pageNum=0;

@@ -20,4 +20,16 @@
     return titleView;
 }
 
++ (UIView *)titleViiewWithTitle:(NSString *)title
+{
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH * 0.65, XDHightRatio(40))];
+    UILabel *titleLab = [[UILabel alloc] initWithFrame:titleView.bounds];
+    [titleView addSubview:titleLab];
+    titleLab.text = title;
+    titleLab.textColor = [UIColor whiteColor];
+    titleLab.font = [UIFont systemFontOfSize:18 weight:2];
+    titleLab.textAlignment = NSTextAlignmentCenter;
+    return titleView;
+}
+
 @end

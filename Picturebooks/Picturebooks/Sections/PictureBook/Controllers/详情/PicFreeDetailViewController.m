@@ -48,7 +48,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = self.name;
+    
+    //navigationBar标题
+    //    self.navigationItem.title = self.name;
+    self.navigationItem.titleView = [UINavigationItem titleViiewWithTitle:self.name];
+    
     [self.view addSubview:self.tableView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickShare:) name:@"wechatShare" object:nil];

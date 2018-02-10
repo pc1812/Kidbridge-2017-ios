@@ -21,14 +21,15 @@
 #import <UserNotifications/UserNotifications.h>
 #endif
 
-@interface AppDelegate ()<UIApplicationDelegate, WXApiDelegate,JPUSHRegisterDelegate >
+@interface AppDelegate ()<UIApplicationDelegate, WXApiDelegate,JPUSHRegisterDelegate,UIAlertViewDelegate>
 
 @end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-      [NSThread sleepForTimeInterval:1];
+    
+    [NSThread sleepForTimeInterval:1];
     
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -97,7 +98,9 @@
         NSLog(@"notwifi");
     }
     
-
+    // 检测 APP 版本号
+    [self updateAppVersion];
+    
     return YES;
 }
 
@@ -117,6 +120,7 @@
     if ([responseDictionary[@"type"] integerValue] == 0) {
         //评论消息
         MinePuComModel *model = [MinePuComModel modelWithDictionary:responseDictionary[@"body"]];
+        
         [ForumDB saveSystemInfo:model];
         
     }else{
@@ -285,9 +289,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    NSLog(@"进入前台");
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    NSLog(@"进入活动");
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
@@ -437,4 +443,99 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
     return str;
 }
 
+
+#pragma mark - 检测 APP 的版本号是否需要更新
+- (void)updateAppVersion
+{
+    [[HttpManager sharedManager] POST:@"https://itunes.apple.com/cn/lookup?id=1297122816" parame:nil sucess:^(id success) {
+        NSArray *result = success[@"results"];
+    
+        if (result) {
+            NSDictionary *dict = [result firstObject];
+            if (dict) {
+                NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+                NSString *appCurVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+                NSString *newAppVersion = dict[@"version"];
+                if (![appCurVersion isEqualToString:newAppVersion]) {
+                    [self showAppHaveNewVeresion];
+                }
+                
+//                if ([newAppVersion compare:appCurVersion] == NSOrderedDescending) {
+//                    NSDate *lastDate = [NSDate fs_dateFromString:[CPUserDefaultsTool getValueForKey:CPAppVersioncancelDate] format:@"yyyy-MM-dd"];
+//                    NSDate *nowDate = [NSDate date];
+//                    if ([nowDate fs_day] - [lastDate fs_day] > 1) {
+//                        self.releaseNotes = dict[@"releaseNotes"];
+//                        [self showAppHaveNewVeresion];
+//                    }
+//                }
+            }
+        }
+        
+    } failure:^(NSError *error) {
+        [Global showWithView:self.window withText:@"网络异常～"];
+    }];
+}
+
+// APP 更新提示弹窗
+- (void)showAppHaveNewVeresion{
+    
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"App 有更新"
+                                                       message:nil
+                                                      delegate:self
+                                             cancelButtonTitle:@"取消"
+                                             otherButtonTitles:@"确定", nil];
+    //显示alertView
+    [alertView show];
+}
+
+// alertView 的代理方法
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        // 前往 App Store
+        NSString *appleID = @"1297122816";// iOS7和iOS8的打开方式不一样
+        if (IOS7) {
+            NSString *str = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@",appleID];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+            
+        } else {
+            NSString *str = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@", appleID];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+        }
+    }
+}
+
+//每天进行一次版本判断
+- (BOOL)judgeNeedVersionUpdate {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    //获取年-月-日
+    NSString *dateString = [formatter stringFromDate:[NSDate date]];
+    NSString *currentDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentDate"];
+    if ([currentDate isEqualToString:dateString]) {
+        return NO;
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:dateString forKey:@"currentDate"];
+    return YES;
+}
+
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

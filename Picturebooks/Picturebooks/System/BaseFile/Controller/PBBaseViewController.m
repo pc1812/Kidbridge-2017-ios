@@ -42,10 +42,11 @@
     self.view.backgroundColor = RGBHex(0xefeff4);
     
     if (self.navigationController.childViewControllers.count > 1) {
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25 + 10, 30)];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25 + 20, 40)];
         [button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
         // 内容水平左对齐
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [button setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
         
         [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
         button.adjustsImageWhenHighlighted = NO;
@@ -54,6 +55,7 @@
         [containView addSubview:button];
         UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:containView];
         self.navigationItem.leftBarButtonItem = barButton;
+        
     }
     
 }

@@ -200,6 +200,11 @@
         nameLabs.backgroundColor = [UIColor yellowColor];
         NSDictionary *nameDic = [NSDictionary dictionaryWithObjectsAndKeys:nameLabs.font,NSFontAttributeName, nil];
         CGSize nameSize = [nameLabs.text sizeWithAttributes:nameDic];
+        
+        if (nameSize.width > 76) {
+            nameSize.width = 76;
+        }
+        
         nameLabs.frame = FRAMEMAKE_F(SCREEN_WIDTH/2-(nameSize.width + 10) / 2, CGRectGetMaxY(self.photoImage.frame) - 10, nameSize.width + 10, nameSize.height);
         [headView addSubview:nameLabs];
         
@@ -282,10 +287,11 @@
         }
         
 
-        //右上角小铃铛
+        //右上角小铃铛 25 40
         UIImage *infoImage = [UIImage imageNamed:@"m_info"];
         UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        backButton.frame = CGRectMake(SCREEN_WIDTH - infoImage.size.width - 25, 40, infoImage.size.width + 20,infoImage.size.height + 10);
+        
+        backButton.frame = CGRectMake(SCREEN_WIDTH - infoImage.size.width - 30, 40, infoImage.size.width + 20,infoImage.size.height + 10);
         [backButton setImage:infoImage forState:UIControlStateNormal];
         [backButton addTarget:self action:@selector(infoBtnClick:)
              forControlEvents:UIControlEventTouchUpInside];
@@ -597,6 +603,10 @@
     
     [[HttpManager sharedManager] POST:USER_MESSAGE parame:parame sucess:^(id success) {
         
+//        NSLog(@"=======================");
+//        NSLog(@"%@",success);
+//        NSLog(@"=======================");
+        
         if ([[success objectForKey:@"event"] isEqualToString:@"SUCCESS"]) {
             
             // Jxd-start----------------------------------------
@@ -611,12 +621,13 @@
             self.moneyStr = [NSString stringWithFormat:@"%.2f", [success[@"data"][@"user"][@"balance"] floatValue]];
           
             //年龄
-            self.ageStr = [NSString stringWithFormat:@"%@岁", success[@"data"][@"user"][@"age"]];
-            if ([Global isNullOrEmpty:self.ageStr]) {
-                self.ageStr = @"未设置";
-            }else{
-                self.ageStr = [NSString stringWithFormat:@"%@岁", success[@"data"][@"user"][@"age"]];
-            }
+            self.ageStr = [NSString stringWithFormat:@"%@", success[@"data"][@"user"][@"age"]];
+            
+//            if ([Global isNullOrEmpty:self.ageStr]) {
+//                self.ageStr = @"未设置";
+//            }else{
+//                self.ageStr = [NSString stringWithFormat:@"%@岁", success[@"data"][@"user"][@"age"]];
+//            }
             
             //昵称
             self.nameStr = [NSString stringWithFormat:@"%@", success[@"data"][@"user"][@"nickname"]];

@@ -13,6 +13,7 @@
     if ([key isEqualToString:@"comment"]){
         self.type = [[NSString stringWithFormat:@"%@", value[@"type"]] integerValue];
         self.pid = [[NSString stringWithFormat:@"%@", value[@"pid"]] integerValue];
+        self.sid = [[NSString stringWithFormat:@"%@",value[@"sid"]] integerValue];
     }
     if ([key isEqualToString:@"message"]) {
         self.createTime = [AppTools timestampToTime:value[@"createTime"] format:@"MM/dd HH:mm"];
@@ -21,8 +22,11 @@
     if ([key isEqualToString:@"user"]) {
         self.head = value[@"head"];
         self.nickname = value[@"nickname"];
+        self.mainID = [[NSString stringWithFormat:@"%@",value[@"id"]] integerValue];
     }
     
 }
+
+
 
 @end

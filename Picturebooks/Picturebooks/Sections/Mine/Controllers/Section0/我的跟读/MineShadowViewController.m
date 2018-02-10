@@ -237,6 +237,8 @@
 //        self.title = nickName ? nickName : self.nameStr;
 //    }
     
+    
+    
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem rightBarButtonItemWithImage:[UIImage imageNamed:@"pic_share"] highlighted:[UIImage imageNamed:@"pic_share"] target:self selector:@selector(share)];
     
 //    playBtn = [UIButton new];
@@ -352,7 +354,8 @@
             
             // Jxd-start------------------------
 #pragma mark - Jxd-修改标题
-            self.title = model.book[@"name"];
+//            self.title = model.book[@"name"];
+            self.navigationItem.titleView = [UINavigationItem titleViiewWithTitle:model.book[@"name"]];
             // 当前用户的点赞的状态
             self.likeState = success[@"data"][@"user"][@"like"];
             likeBtn.selected = self.likeState.integerValue;

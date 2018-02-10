@@ -36,7 +36,7 @@
     _nameLab.font = [UIFont systemFontOfSize:15 weight:2];
     NSDictionary *conDic = StringFont_DicK(_nameLab.font);
     CGSize conSize = [_nameLab.text sizeWithAttributes:conDic];
-    _nameLab.frame = FRAMEMAKE_F(CGRectGetMaxX(_photoImg.frame) + 12, CGRectGetMinY(_photoImg.frame), conSize.width, conSize.height);
+    _nameLab.frame = FRAMEMAKE_F(CGRectGetMaxX(_photoImg.frame) + 12, CGRectGetMinY(_photoImg.frame), SCREEN_WIDTH * 0.45, conSize.height);
 
     _detailLab.text = detail;
     _detailLab.textColor = RGBHex(0x999999);

@@ -38,9 +38,9 @@
 
 @end
 
+#define NicKLenght 30  // 限制昵称的长度
+
 @implementation MineInfoViewController
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -57,8 +57,16 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     
-    self.nameLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickname"];
-    
+    //    self.nameLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickname"];
+    // jxd-start------------------
+#pragma mark - Jxd-修改:昵称的长度
+    NSString *nameString = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickname"];
+    if (nameString.length > NicKLenght) {
+        nameString = [NSString stringWithFormat:@"%@...",[nameString substringToIndex:NicKLenght]];
+    }
+    self.nameLabel.text = nameString;
+    // jxd-start------------------
+
     // 请求数据
     [self requestData];
 }
@@ -93,7 +101,16 @@
             
             self.datasourceDic = [success objectForKey:@"data"];
             
-            self.nameLabel.text = [self.datasourceDic objectForKey:@"nickname"];
+//            self.nameLabel.text = [self.datasourceDic objectForKey:@"nickname"];
+            
+            // jxd-start------------------
+#pragma mark - Jxd-修改:昵称的长度
+            NSString *nameString = [self.datasourceDic objectForKey:@"nickname"];
+            if (nameString.length > NicKLenght) {
+                nameString = [NSString stringWithFormat:@"%@...",[nameString substringToIndex:NicKLenght]];
+            }
+            self.nameLabel.text = nameString;
+            // jxd-start------------------
             
             [self.nameLabel sizeToFit];
             self.birthdayTextField.text = [AppTools timestampToTimeChinese:[self.datasourceDic objectForKey:@"birthday"]];
@@ -195,15 +212,28 @@
             
             self.nameLabel = [UILabel new];
             [cell.contentView addSubview:self.nameLabel];
-           
-            self.nameLabel.text = [self.datasourceDic objectForKey:@"nickname"];
+            
+            
+            // jxd-start------------------
+#pragma mark - Jxd-修改:昵称的长度
+            NSString *nameString = [self.datasourceDic objectForKey:@"nickname"];
+            if (nameString.length > NicKLenght) {
+                nameString = [NSString stringWithFormat:@"%@...",[nameString substringToIndex:NicKLenght]];
+            }
+            self.nameLabel.text = nameString;
+            // jxd-start------------------
+        
+//            self.nameLabel.text = [self.datasourceDic objectForKey:@"nickname"];
+//            self.nameLabel.text = nameString;
             self.nameLabel.textColor = [UIColor blackColor];
             self.nameLabel.font = [UIFont systemFontOfSize:15];
+            self.nameLabel.textAlignment = NSTextAlignmentCenter;
             [self.nameLabel sizeToFit];
             [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.mas_equalTo(cell.contentView.mas_right).offset(- 18);
+                make.right.mas_equalTo(cell.contentView.mas_right).offset(-18);
                 make.centerY.mas_equalTo(cell.contentView.mas_centerY);
             }];
+            
         }else if (indexPath.row == 2){
             
             self.birthdayTextField = [[UITextField alloc] init];

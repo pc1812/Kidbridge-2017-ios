@@ -540,7 +540,8 @@ static NSString * const footIdentifierView = @"foot";
 
 #pragma mark NewPagedFlowView Delegate
 - (CGSize)sizeForPageInFlowView:(NewPagedFlowView *)flowView {
-    return CGSizeMake(SCREEN_WIDTH - 80, (SCREEN_WIDTH - 80) * 9 / 16);
+//    return CGSizeMake(SCREEN_WIDTH - 80, (SCREEN_WIDTH - 80) * 9 / 16);
+    return CGSizeMake(SCREEN_WIDTH - 80, (SCREEN_WIDTH - 80) * 5 / 9);
 }
 
 - (void)didSelectCell:(UIView *)subView withSubViewIndex:(NSInteger)subIndex {
@@ -561,7 +562,8 @@ static NSString * const footIdentifierView = @"foot";
 - (UIView *)flowView:(NewPagedFlowView *)flowView cellForPageAtIndex:(NSInteger)index{
     PGIndexBannerSubiew *bannerView = (PGIndexBannerSubiew *)[flowView dequeueReusableCell];
     if (!bannerView) {
-        bannerView = [[PGIndexBannerSubiew alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * 9 / 16)];
+//        bannerView = [[PGIndexBannerSubiew alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * 9 / 16)];
+        bannerView = [[PGIndexBannerSubiew alloc] initWithFrame:CGRectMake(0, 0, (SCREEN_WIDTH - 80), (SCREEN_WIDTH - 80) * 5 / 9)];
         bannerView.tag = index;
         bannerView.layer.cornerRadius = 4;
         bannerView.layer.masksToBounds = YES;

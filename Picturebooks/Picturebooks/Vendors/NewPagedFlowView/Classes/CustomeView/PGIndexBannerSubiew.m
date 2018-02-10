@@ -30,7 +30,8 @@
     if (_mainImageView == nil) {
         _mainImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         _mainImageView.userInteractionEnabled = YES;
-        //_mainImageView.contentMode = UIViewContentModeScaleAspectFit;
+        
+//        _mainImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _mainImageView;
 }

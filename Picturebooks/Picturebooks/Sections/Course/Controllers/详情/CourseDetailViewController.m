@@ -67,7 +67,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = self.name;
+    
+//    self.navigationItem.title = self.name;
+    self.navigationItem.titleView = [UINavigationItem titleViiewWithTitle:self.name];
     
     [self.view addSubview:self.tableView];
     
