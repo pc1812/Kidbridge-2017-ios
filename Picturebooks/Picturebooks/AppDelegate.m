@@ -21,6 +21,8 @@
 #import <UserNotifications/UserNotifications.h>
 #endif
 
+#import "JxdAppPurchaseTool.h" // 内购工具类
+
 @interface AppDelegate ()<UIApplicationDelegate, WXApiDelegate,JPUSHRegisterDelegate,UIAlertViewDelegate>
 
 @end
@@ -44,7 +46,7 @@
         NSLog(@"微信注册失败");
     }
     
-//    //激光推送
+    //激光推送
     [JPUSHService setupWithOption:launchOptions appKey:appKey
                           channel:channel
                  apsForProduction:isProduction
@@ -100,6 +102,9 @@
     
     // 检测 APP 版本号
     [self updateAppVersion];
+    
+    // 验证内购凭据对单处理
+    [[JxdAppPurchaseTool defaultTool] verifyPruchase];
     
     return YES;
 }
@@ -289,13 +294,15 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    NSLog(@"进入前台");
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    NSLog(@"进入活动");
+    
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
 }
+
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
@@ -447,9 +454,13 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
 #pragma mark - 检测 APP 的版本号是否需要更新
 - (void)updateAppVersion
 {
-    [[HttpManager sharedManager] POST:@"https://itunes.apple.com/cn/lookup?id=1297122816" parame:nil sucess:^(id success) {
+    [[HttpManager sharedManager] POST:@"https://itunes.apple.com/cn/lookup?id=1353729754" parame:nil sucess:^(id success) {
         NSArray *result = success[@"results"];
-    
+        
+//        NSLog(@"======================");
+//        NSLog(@"%@",result);
+//        NSLog(@"======================");
+        
         if (result) {
             NSDictionary *dict = [result firstObject];
             if (dict) {
@@ -492,8 +503,8 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
-        // 前往 App Store
-        NSString *appleID = @"1297122816";// iOS7和iOS8的打开方式不一样
+        // 前往 App Store 1297122816
+        NSString *appleID = @"1353729754";// iOS7和iOS8的打开方式不一样
         if (IOS7) {
             NSString *str = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@",appleID];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];

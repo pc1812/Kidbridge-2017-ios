@@ -13,6 +13,8 @@
 #import "WXApi.h"
 #import <AlipaySDK/AlipaySDK.h>
 
+#import "MinePayListViewController.h" // 充值列表
+
 @interface MineMoneysViewController ()<SRActionSheetDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong)UIScrollView *rootScrollView;
@@ -47,6 +49,14 @@
     [self.rootScrollView addSubview:self.promptLab];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMyMoney) name:@"WeChatPayResult" object:nil];
+    
+//    [self reloadMyMoney];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+    
     [self reloadMyMoney];
 }
 
@@ -121,7 +131,7 @@
     if (!_detailLab) {
         _detailLab = [UILabel new];
         _detailLab.textColor = [Global convertHexToRGB:@"fe6b76"];
-        _detailLab.font = [UIFont systemFontOfSize:15];
+        _detailLab.font = [UIFont systemFontOfSize:18];
         NSString *textStr = @"余额明细";
         // 下划线
         NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
@@ -159,9 +169,10 @@
         _promptLab.textColor = [Global convertHexToRGB:@"999999"];
         _promptLab.font = [UIFont systemFontOfSize:12 weight:2];
         _promptLab.text = @"注: 余额可用于购买绘本和课程,不可提现,可用水滴兑换";
+        _promptLab.textAlignment = NSTextAlignmentCenter;
         _promptLab.numberOfLines = 0;
         double height=[Global getSizeOfString:_promptLab.text  maxWidth:SCREEN_WIDTH- 60 maxHeight:10000 withFontSize:12].height;
-        _promptLab.frame = FRAMEMAKE_F(45, CGRectGetMaxY( _rechargeBtn.frame) + 20, SCREEN_WIDTH - 90, height);
+        _promptLab.frame = FRAMEMAKE_F(0, CGRectGetMaxY( _rechargeBtn.frame) + 20, SCREEN_WIDTH, height);
     }
     return _promptLab;
 }
@@ -171,44 +182,50 @@
     [self.navigationController pushViewController:moneyDetail animated:YES];
 }
 
+
 #pragma mark - 充值、兑换触发方法
 //充值
 - (void)btnClick:(UIButton *)button{
     
-    CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
-    //添加子视图
-    alertView.backgroundColor = [UIColor whiteColor];
-    [alertView setSubView:[self addSubView]];
-    //添加按钮标题数组
-    [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"确定", @"取消", nil]];
-    //添加按钮点击方法
-    [alertView setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
-        if (buttonIndex == 0) {
-            [alertView close];
-            
-            if ([Global isNullOrEmpty:self.numField.text]) {
-                [Global showWithView:self.view withText:@"请输入充值金额"];
-                return;
-            }else if ([self.numField.text isEqualToString:@"0"] || [self.numField.text isEqualToString:@"0.0"] || [self.numField.text isEqualToString:@"0.00"]){
-                [Global showWithView:self.view withText:@"输入的金额不能为0"];
-                return;
-                
-            }
-            SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
-                                                                        cancelTitle:@"取消"
-                                                                   destructiveTitle:nil
-                                                                        otherTitles:@[@"支付宝支付", @"微信支付"]
-                                                                        otherImages:@[[UIImage imageNamed:@"m_ali"],
-                                                                                      [UIImage imageNamed:@"m_wechat"]]
-                                                                           delegate:self];
-            actionSheet.otherActionItemAlignment = SROtherActionItemAlignmentCenter;
-            [actionSheet show];
-        }
-        //关闭
-        [alertView close];
-    }];
-    //显示
-    [alertView show];
+    // 充值列表
+    MinePayListViewController *payListVC = [[MinePayListViewController alloc] init];
+    [self.navigationController pushViewController:payListVC animated:YES];
+    
+//    CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
+//    //添加子视图
+//    alertView.backgroundColor = [UIColor whiteColor];
+//    [alertView setSubView:[self addSubView]];
+//    //添加按钮标题数组
+//    [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"确定", @"取消", nil]];
+//    //添加按钮点击方法
+//    [alertView setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+//        if (buttonIndex == 0) {
+//            [alertView close];
+//
+//            if ([Global isNullOrEmpty:self.numField.text]) {
+//                [Global showWithView:self.view withText:@"请输入充值金额"];
+//                return;
+//            }else if ([self.numField.text isEqualToString:@"0"] || [self.numField.text isEqualToString:@"0.0"] || [self.numField.text isEqualToString:@"0.00"]){
+//                [Global showWithView:self.view withText:@"输入的金额不能为0"];
+//                return;
+//
+//            }
+//            SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
+//                                                                        cancelTitle:@"取消"
+//                                                                   destructiveTitle:nil
+//                                                                        otherTitles:@[@"支付宝支付", @"微信支付"]
+//                                                                        otherImages:@[[UIImage imageNamed:@"m_ali"],
+//                                                                                      [UIImage imageNamed:@"m_wechat"]]
+//                                                                           delegate:self];
+//            actionSheet.otherActionItemAlignment = SROtherActionItemAlignmentCenter;
+//            [actionSheet show];
+//        }
+//        //关闭
+//        [alertView close];
+//    }];
+//    //显示
+//    [alertView show];
+    
 }
 
 //自定义的子视图
@@ -344,10 +361,7 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = NO;
-}
+
 
 #pragma mark - UITextField代理方法
 -(void)textFieldChangeMethod:(UITextField *)textField{

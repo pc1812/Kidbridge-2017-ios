@@ -333,6 +333,13 @@
                 
                 [self killNSTimer];
                 [alertView close];
+                
+                for (UIViewController *tempVC in self.navigationController.viewControllers) {
+                    if ([tempVC isKindOfClass:[PicFreeDetailViewController class]]) {
+                        [self.navigationController popToViewController:tempVC animated:YES];
+                    }
+                }
+                
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }];

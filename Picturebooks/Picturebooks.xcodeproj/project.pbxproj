@@ -18,6 +18,10 @@
 		31A79BB620133BD800A31079 /* PicReplyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A79BB220133BD700A31079 /* PicReplyTableViewCell.m */; };
 		31A79BB720133BD800A31079 /* PicWithComTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A79BB420133BD700A31079 /* PicWithComTableViewCell.m */; };
 		31A79BBA20133D1600A31079 /* PicWithReadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A79BB920133D1600A31079 /* PicWithReadViewController.m */; };
+		31B030F92047D19C00556C78 /* MinePayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B030F82047D19C00556C78 /* MinePayListViewController.m */; };
+		31B030FB20492C2400556C78 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B030FA20492C2400556C78 /* StoreKit.framework */; };
+		31B030FE2049450C00556C78 /* JxdAppPurchaseTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B030FD2049450C00556C78 /* JxdAppPurchaseTool.m */; };
+		31B031012049527700556C78 /* SaveFileTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B031002049527700556C78 /* SaveFileTools.m */; };
 		3823FDD31F3EE9F500006D7D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3823FDD21F3EE9F500006D7D /* LoginViewController.m */; };
 		3823FDD61F3EEA0100006D7D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3823FDD51F3EEA0100006D7D /* RegisterViewController.m */; };
 		3823FDD91F3EEA4D00006D7D /* MissViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3823FDD81F3EEA4D00006D7D /* MissViewController.m */; };
@@ -380,6 +384,13 @@
 		31A79BB520133BD700A31079 /* PicWithComTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicWithComTableViewCell.h; sourceTree = "<group>"; };
 		31A79BB820133D1600A31079 /* PicWithReadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicWithReadViewController.h; sourceTree = "<group>"; };
 		31A79BB920133D1600A31079 /* PicWithReadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicWithReadViewController.m; sourceTree = "<group>"; };
+		31B030F72047D19C00556C78 /* MinePayListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MinePayListViewController.h; sourceTree = "<group>"; };
+		31B030F82047D19C00556C78 /* MinePayListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MinePayListViewController.m; sourceTree = "<group>"; };
+		31B030FA20492C2400556C78 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		31B030FC2049450C00556C78 /* JxdAppPurchaseTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JxdAppPurchaseTool.h; sourceTree = "<group>"; };
+		31B030FD2049450C00556C78 /* JxdAppPurchaseTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JxdAppPurchaseTool.m; sourceTree = "<group>"; };
+		31B030FF2049527700556C78 /* SaveFileTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveFileTools.h; sourceTree = "<group>"; };
+		31B031002049527700556C78 /* SaveFileTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaveFileTools.m; sourceTree = "<group>"; };
 		3823FDCE1F3EE98500006D7D /* LoginAndRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginAndRegisterViewController.h; sourceTree = "<group>"; };
 		3823FDCF1F3EE98500006D7D /* LoginAndRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginAndRegisterViewController.m; sourceTree = "<group>"; };
 		3823FDD11F3EE9F500006D7D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -1118,6 +1129,7 @@
 				3879E35B1F550973006B2384 /* libsqlite3.0.tbd in Frameworks */,
 				93E374AE1FE8CC8800A99155 /* libssl.a in Frameworks */,
 				38D9C6681F45B5A0008D33B9 /* libz.tbd in Frameworks */,
+				31B030FB20492C2400556C78 /* StoreKit.framework in Frameworks */,
 				93E374B31FE8CE1900A99155 /* jpush-ios-3.0.6.a in Frameworks */,
 				93E374B21FE8CE1900A99155 /* jcore-ios-1.1.5.a in Frameworks */,
 				38D9C6661F45B59A008D33B9 /* libresolv.tbd in Frameworks */,
@@ -1369,6 +1381,10 @@
 				38C8F1241F218E8A00FC0644 /* MineMoneysViewController.m */,
 				38C8F1251F218E8A00FC0644 /* MoneyDetailViewController.h */,
 				38C8F1261F218E8A00FC0644 /* MoneyDetailViewController.m */,
+				31B030F72047D19C00556C78 /* MinePayListViewController.h */,
+				31B030F82047D19C00556C78 /* MinePayListViewController.m */,
+				31B030FC2049450C00556C78 /* JxdAppPurchaseTool.h */,
+				31B030FD2049450C00556C78 /* JxdAppPurchaseTool.m */,
 			);
 			path = "我的余额";
 			sourceTree = "<group>";
@@ -1788,6 +1804,7 @@
 		38D9C6641F45B59A008D33B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				31B030FA20492C2400556C78 /* StoreKit.framework */,
 				93E374AD1FE8CC8700A99155 /* libcrypto.a */,
 				93E374AC1FE8CC8700A99155 /* libssl.a */,
 				843A5E2B1F7F3AA1007AEC3C /* libsqlite3.tbd */,
@@ -2002,6 +2019,8 @@
 				38DC25B51F5123A900F33CE4 /* YKCalendarDate.m */,
 				38DC25B71F5123F700F33CE4 /* YKCalendarView.h */,
 				38DC25B81F5123F700F33CE4 /* YKCalendarView.m */,
+				31B030FF2049527700556C78 /* SaveFileTools.h */,
+				31B031002049527700556C78 /* SaveFileTools.m */,
 			);
 			path = AppTools;
 			sourceTree = "<group>";
@@ -2874,9 +2893,12 @@
 				TargetAttributes = {
 					38CA3BC71F1D938E0070AC93 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = X7KYAC3T68;
+						DevelopmentTeam = YWK943Y8LK;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -2884,13 +2906,11 @@
 					};
 					38CA3BE01F1D938E0070AC93 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 7RQ3MF2Y9X;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 38CA3BC71F1D938E0070AC93;
 					};
 					38CA3BEB1F1D938E0070AC93 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 7RQ3MF2Y9X;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 38CA3BC71F1D938E0070AC93;
 					};
@@ -2981,6 +3001,7 @@
 				84A995A41F21E37000CEB6AE /* CardViewCell.m in Sources */,
 				8484B66E1F20B82F00F86025 /* CourseDetailViewController.m in Sources */,
 				382EE6581F46820200BF0A9F /* PreviewViewController.m in Sources */,
+				31B031012049527700556C78 /* SaveFileTools.m in Sources */,
 				38D9C6541F45B497008D33B9 /* QNDomain.m in Sources */,
 				848DCC211F1DF5980008B291 /* CoAgeViewController.m in Sources */,
 				848DCDB51F1DF6910008B291 /* SDWebImageDownloaderOperation.m in Sources */,
@@ -2998,6 +3019,7 @@
 				848DCD731F1DF6910008B291 /* IQTextView.m in Sources */,
 				848DCD601F1DF6910008B291 /* UIButton+AFNetworking.m in Sources */,
 				8408C2DB1F972CE8006B5560 /* SignModel.m in Sources */,
+				31B030FE2049450C00556C78 /* JxdAppPurchaseTool.m in Sources */,
 				848DCC271F1DF5980008B291 /* COSixViewController.m in Sources */,
 				848DCD681F1DF6910008B291 /* FlipTableView.m in Sources */,
 				38C8F1471F218E8A00FC0644 /* MineMoneysViewController.m in Sources */,
@@ -3148,6 +3170,7 @@
 				848DCC481F1DF5980008B291 /* NineAgeViewController.m in Sources */,
 				848DCD8E1F1DF6910008B291 /* MASViewConstraint.m in Sources */,
 				38CA3C1C1F1D9CF00070AC93 /* LLLUserMessage.m in Sources */,
+				31B030F92047D19C00556C78 /* MinePayListViewController.m in Sources */,
 				848DCDA31F1DF6910008B291 /* NSBundle+MJRefresh.m in Sources */,
 				38C8F1511F218E8A00FC0644 /* MineAboutViewController.m in Sources */,
 				8484B6621F20885600F86025 /* HttpManager.m in Sources */,
@@ -3379,10 +3402,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Picturebooks/Picturebooks.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: xu jiqiu (78YFZ6WVSV)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X7KYAC3T68;
+				DEVELOPMENT_TEAM = YWK943Y8LK;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3407,7 +3430,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.51zhiyuan.Picbooks;
+				PRODUCT_BUNDLE_IDENTIFIER = com.51zhiyuan.Picturebook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3421,10 +3444,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Picturebooks/Picturebooks.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: xu jiqiu (X7KYAC3T68)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X7KYAC3T68;
+				DEVELOPMENT_TEAM = YWK943Y8LK;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3449,7 +3472,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.51zhiyuan.Picbooks;
+				PRODUCT_BUNDLE_IDENTIFIER = com.51zhiyuan.Picturebook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3461,7 +3484,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 7RQ3MF2Y9X;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PicturebooksTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.51zhiyuan.PicturebooksTests;
@@ -3474,7 +3497,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 7RQ3MF2Y9X;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PicturebooksTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.51zhiyuan.PicturebooksTests;
@@ -3486,7 +3509,7 @@
 		38CA3BFC1F1D938E0070AC93 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = 7RQ3MF2Y9X;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PicturebooksUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.51zhiyuan.PicturebooksUITests;
@@ -3498,7 +3521,7 @@
 		38CA3BFD1F1D938E0070AC93 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = 7RQ3MF2Y9X;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PicturebooksUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.51zhiyuan.PicturebooksUITests;

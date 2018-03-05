@@ -269,7 +269,7 @@
                            range:NSMakeRange(0, 5)];
     newUserlabel.attributedText = newUserString;
     [newUserlabel sizeToFit];
-    newUserlabel.font = [UIFont systemFontOfSize:12];
+    newUserlabel.font = [UIFont systemFontOfSize:13];
     
     [newUser mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(secondShadow.mas_left).offset(22);
@@ -293,7 +293,7 @@
                         range:NSMakeRange(0, 4)];
     missLabel.attributedText = missString;
     [missLabel sizeToFit];
-    missLabel.font = [UIFont systemFontOfSize:12];
+    missLabel.font = [UIFont systemFontOfSize:13];
     
     [miss mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(missLabel.mas_width);

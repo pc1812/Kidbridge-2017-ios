@@ -669,10 +669,10 @@
             total = self.commentArr.count;
             NSInteger totalPages = total / kOffset;
             
-            NSLog(@"===========================");
-            NSLog(@"commentArr:%zd",self.commentArr.count);
-            NSLog(@"pageNum:%zd,totalPages:%zd",self.pageNum,totalPages);
-            NSLog(@"===========================");
+//            NSLog(@"===========================");
+//            NSLog(@"commentArr:%zd",self.commentArr.count);
+//            NSLog(@"pageNum:%zd,totalPages:%zd",self.pageNum,totalPages);
+//            NSLog(@"===========================");
             
             if (self.pageNum >= totalPages) {
                 _isMorePage = NO;
@@ -1088,7 +1088,8 @@
 //            nameLab.frame = FRAMEMAKE_F(10, CGRectGetMaxY(cycleScrollView.frame) + 15 + (i % 3) * nameSize.height  + 10 * i, nameSize.width + 10, nameSize.height);
             nameLab.frame = FRAMEMAKE_F(10, 15 + (i % 3) * nameSize.height  + 10 * i, nameSize.width + 10, nameSize.height);
             
-            [nameLab setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
+//            [nameLab setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
+            nameLab.font = [UIFont systemFontOfSize:15];
             [view addSubview:nameLab];
             
             UILabel *detailLab = [UILabel new];
@@ -1170,7 +1171,8 @@
         [tigView addSubview:nameLab];
         nameLab.text = @"绘本正文";
         nameLab.textColor = [UIColor blackColor];
-        nameLab.font = [UIFont systemFontOfSize:16 weight:2];
+//        nameLab.font = [UIFont systemFontOfSize:16 weight:2];
+        nameLab.font = [UIFont systemFontOfSize:16];
         NSDictionary *conDic = StringFont_DicK(nameLab.font);
         CGSize conSize = [nameLab.text sizeWithAttributes:conDic];
         nameLab.frame = FRAMEMAKE_F(CGRectGetMaxX(greenLab.frame) + 13, CGRectGetMinY(greenLab.frame), conSize.width, conSize.height);

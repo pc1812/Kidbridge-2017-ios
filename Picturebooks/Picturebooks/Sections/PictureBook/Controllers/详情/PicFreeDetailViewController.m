@@ -392,6 +392,7 @@
     photoImg.frame = FRAMEMAKE_F(10, 14, 45, 45);
     photoImg.aliCornerRadius = 45 / 2;
     
+    
     UILabel *nameLab = [[UILabel alloc] init];
     [cell.contentView addSubview:nameLab];
     nameLab.textColor = [UIColor blackColor];
@@ -532,7 +533,8 @@
         
         SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * 3/4) delegate:self placeholderImage:[UIImage imageNamed:@"litongOne"]];
         cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
-       // cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFit;
+        cycleScrollView.backgroundColor = [UIColor whiteColor];
+        cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFit;
         //         --- 模拟加载延迟
         cycleScrollView.currentPageDotColor = [Global convertHexToRGB:@"14d02f"];
         NSMutableArray *mainArray = [NSMutableArray array];

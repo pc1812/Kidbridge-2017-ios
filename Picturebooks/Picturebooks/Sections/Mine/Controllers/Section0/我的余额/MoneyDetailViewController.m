@@ -32,6 +32,7 @@
         _pageNum = 0;
         [self loadData];
     }];
+    
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         if (_isMorePage) {
             _pageNum++;

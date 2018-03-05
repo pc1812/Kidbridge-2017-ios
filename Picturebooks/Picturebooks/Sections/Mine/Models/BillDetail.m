@@ -34,6 +34,8 @@
             self.type = @"系统赠送";
         }else if ([[NSString stringWithFormat:@"%@", value] isEqualToString:@"10"]) {
             self.type = @"系统扣除";
+        }else if ([[NSString stringWithFormat:@"%@", value] isEqualToString:@"11"]) {
+            self.type = @"余额充值";
         }
     }
     if ([key isEqualToString:@"createTime"]) {

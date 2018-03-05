@@ -145,12 +145,12 @@
             [cell.contentView addSubview:self.moneyLab];
             self.moneyLab.textColor = [UIColor blackColor];
             self.moneyLab.font = [UIFont systemFontOfSize:15];
-            if ([hideStr isEqualToString:@"1"]) {
-                self.moneyLab.text = @"";
-            }else{
-                self.moneyLab.text = self.moneyStr;
-                
-            }
+//            if ([hideStr isEqualToString:@"1"]) {
+//                self.moneyLab.text = @"";
+//            }else{
+//                self.moneyLab.text = self.moneyStr;
+//
+//            }
             [self.moneyLab mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.mas_equalTo(cell.contentView.mas_right).offset(-30);
                 make.centerY.mas_equalTo(cell.contentView.mas_centerY);
@@ -158,6 +158,14 @@
         }
         [Global viewFrame:CGRectMake(10, 45 - 1, SCREEN_WIDTH - 20, 1) andBackView:cell.contentView];
     }
+    
+    if ([hideStr isEqualToString:@"1"]) {
+        self.moneyLab.text = @"";
+    }else{
+        self.moneyLab.text = self.moneyStr;
+        
+    }
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -241,15 +249,17 @@
         //下方属性描述富文本
         UILabel *_shopLabel = [UILabel new];
         _shopLabel.textColor = [UIColor whiteColor];
+        _shopLabel.numberOfLines = 0;
         _shopLabel.textAlignment = NSTextAlignmentCenter;
+
         
         NSString *str1;
         if (_nowId == -1) {
             str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 距离" , waterStr1];
         }else if ([waterStr2 integerValue] == -1) {
-            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 获得了\"%@\"" , waterStr1, medalStr1];
+            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 获得\"%@\",\n继续加油哦!" , waterStr1, medalStr1];
         }else{
-            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 获得了\"%@\", 距离" , waterStr1, medalStr1];
+            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 获得\"%@\", 距离" , waterStr1, medalStr1];
         }
         
         NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:str1];
@@ -258,10 +268,17 @@
                     range:NSMakeRange(5, waterStr1.length)]; //5, 2
         [str addAttribute:NSForegroundColorAttributeName
                     value:[UIColor yellowColor]
-                    range:NSMakeRange(14 + waterStr1.length, medalStr1.length)];//16
+                    range:NSMakeRange(13 + waterStr1.length, medalStr1.length)];//16
         _shopLabel.font = [UIFont systemFontOfSize:13];
         _shopLabel.attributedText = str;
         _shopLabel.frame = FRAMEMAKE_F(0, CGRectGetMaxY(_moreButton.frame) + 5, SCREEN_WIDTH, 14);
+        
+        // Jxd-start---------------
+#pragma mark - Jxd-修改
+//        CGFloat shopLabH = CGRectGetMaxY(headView.frame) - CGRectGetMaxY(_moreButton.frame) - 10;
+//        _shopLabel.frame = FRAMEMAKE_F(0, CGRectGetMaxY(_moreButton.frame) + 5, SCREEN_WIDTH, shopLabH);
+        // Jxd-end-----------------
+        
         [headView addSubview:_shopLabel];
         NSString *str2;
         if ([waterStr2 integerValue] == -1) {
@@ -272,6 +289,7 @@
             UILabel *_shopLabel1 = [UILabel new];
             _shopLabel1.textColor = [UIColor whiteColor];
             _shopLabel1.textAlignment = NSTextAlignmentCenter;
+            _shopLabel1.numberOfLines = 0;
             
             NSMutableAttributedString *strOne = [[NSMutableAttributedString alloc] initWithString:str2];
             [strOne addAttribute:NSForegroundColorAttributeName
@@ -283,6 +301,13 @@
             _shopLabel1.font = [UIFont systemFontOfSize:13];
             _shopLabel1.attributedText = strOne;
             _shopLabel1.frame = FRAMEMAKE_F(0, CGRectGetMaxY(_shopLabel.frame) + 5, SCREEN_WIDTH, 14);
+            
+            // Jxd-start---------------
+//#pragma mark - Jxd-修改
+//            CGFloat shopLabH = CGRectGetMaxY(headView.frame) - CGRectGetMaxY(_moreButton.frame) - 10;
+//            _shopLabel1.frame = FRAMEMAKE_F(0, CGRectGetMaxY(_moreButton.frame) + 5, SCREEN_WIDTH, shopLabH);
+            // Jxd-end-----------------
+            
             [headView addSubview:_shopLabel1];
         }
         

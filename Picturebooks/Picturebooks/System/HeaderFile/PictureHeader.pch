@@ -119,8 +119,10 @@
 #define COURSE_LIST                     @"/course/list"                         //课程列表
 #define MINE_COURSE                     @"/user/course"                         //我的课程
 #define User_medal                      @"/user/medal"                          //我的成就
-
 #define Balance_ratio                   @"/user/balance/ratio"                  //我的水滴
+
+#define Iap_ios                         @"/iap/ios"                             //获取内购商品列表
+#define Iap_iosValidate                 @"/iap/ios/validate"                    //获取验证内购支付凭证
 
 #define COURSE_HOT                      @"/course/hot/list"                     //热门课程
 #define COURSE_DETAIL                   @"/course/get"                          //课程详情
