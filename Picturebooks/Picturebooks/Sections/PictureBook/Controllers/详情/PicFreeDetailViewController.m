@@ -140,14 +140,18 @@
                 ageStr = @"3-5岁";
             }else if (model.fit == 1){
                 ageStr = @"6-8岁";
+            }else if (model.fit == 3){
+                ageStr = @"4-7岁";
+            }else if (model.fit == 4){
+                ageStr = @"8-10岁";
             }else{
                 ageStr = @"9-12岁";
             }
             NSString *keyStr = [model.tag componentsJoinedByString:@","];
             self.dataArr = @[model.outline, model.feeling, ageStr, keyStr];
             self.carouselArr = model.icon;
-            self.priceStr = [NSString stringWithFormat:@"%.2f元解锁绘本", model.price];
-            self.lockPrice = [NSString stringWithFormat:@"是否支付%.2f元解锁绘本?", model.price];
+            self.priceStr = [NSString stringWithFormat:@"%.0f H币解锁绘本", model.price];
+            self.lockPrice = [NSString stringWithFormat:@"是否支付%.0f H币解锁绘本?", model.price];
             
              self.price = [NSString stringWithFormat:@"%.2f", model.price];
             //-1 未解锁 >1已解锁 绘本或课程的ID值
@@ -271,7 +275,7 @@
                     [self.view addSubview:self.bottomView];
                     [self loadData];
                 }else if ([success[@"event"] isEqualToString:@"INSUFFICIENT_BALANCE"]){
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您的余额不足，是否需要充值？" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您的H币不足，是否需要充值？" preferredStyle:UIAlertControllerStyleAlert];
                     
                     [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                         
@@ -305,7 +309,7 @@
     UILabel *view = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 230, 50)];
     view.font = [UIFont systemFontOfSize:15 weight:2];
     view.textColor = [UIColor blackColor];
-    //view.text = @"是否支付1元解锁绘本?";
+    //view.text = @"是否支付1H币解锁绘本?";
     view.text = self.lockPrice;
     view.textAlignment = NSTextAlignmentCenter;
     view.backgroundColor = [UIColor whiteColor];

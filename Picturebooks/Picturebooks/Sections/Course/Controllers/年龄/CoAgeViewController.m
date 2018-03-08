@@ -43,7 +43,7 @@
     
 }
 
--(void)initSegment{
+-(void)initSegment {
     if (IS_IPHONE5()) {
         self.segment = [[SegmentTapView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44) withDataArray:[NSArray arrayWithObjects:@"3-5岁",@"6-8岁",@"9-12岁",nil] withFont:14];
         self.segment.delegate = self;
@@ -57,8 +57,8 @@
     }
 }
 
--(void)initFlipTableView{
-    if (!self.controllsArray){
+-(void)initFlipTableView {
+    if (!self.controllsArray) {
         self.controllsArray = [[NSMutableArray alloc] init];
     }
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 44, SCREEN_WIDTH, SCREEN_HEIGHT-PBNew64-44)];
@@ -102,12 +102,12 @@
 }
 
 #pragma mark -------- select Index
--(void)selectedIndex:(NSInteger)index{
+-(void)selectedIndex:(NSInteger)index {
     self.scrollView.contentOffset = CGPointMake(SCREEN_WIDTH * index, 0);
     //[self.flipView selectIndex:index];
 }
 
--(void)scrollChangeToIndex:(NSInteger)index{
+-(void)scrollChangeToIndex:(NSInteger)index {
     [self.segment selectIndex:index];
 }
 

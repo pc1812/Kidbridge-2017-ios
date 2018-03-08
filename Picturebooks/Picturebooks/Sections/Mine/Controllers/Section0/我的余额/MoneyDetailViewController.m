@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.titleView = [UINavigationItem titleViewForTitle:@"余额明细"];
+    self.navigationItem.titleView = [UINavigationItem titleViewForTitle:@"H币明细"];
     self.modelArray = [[NSMutableArray alloc] init];
     [self.view addSubview:self.tableView];
     
@@ -138,10 +138,10 @@
 //    waterLab.text = waterStr;
     if ([model.fees floatValue] >= 0) {
         waterLab.textColor = RGBHex(0x14d02f);
-        waterLab.text = [NSString stringWithFormat:@"+%.2f", [model.fees floatValue]];
+        waterLab.text = [NSString stringWithFormat:@"+%.0f", [model.fees floatValue]];
     }else{
         waterLab.textColor = [Global convertHexToRGB:@"fe6a76"];
-        waterLab.text = [NSString stringWithFormat:@"%.2f", [model.fees floatValue]];
+        waterLab.text = [NSString stringWithFormat:@"%.0f", [model.fees floatValue]];
     }
     
     waterLab.font = [UIFont systemFontOfSize:19 weight:2];

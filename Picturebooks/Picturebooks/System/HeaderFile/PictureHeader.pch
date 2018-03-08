@@ -44,7 +44,7 @@
 #define PICTUREBOOK_READTOP         @"/user/book/repeat/rank"               //绘本跟读榜
 #define PICTUREBOOK_ENJOY           @"/book/appreciation"                   //赏析内容
 #define PICTUREBOOK_COMMENT         @"/book/appreciation/comment/list"      //赏析评论
-#define User_balance                @"/user/balance"                        //获取登录用户现金余额
+#define User_balance                @"/user/balance"                        //获取登录用户现金H币
 #define User_bonus                  @"/user/bonus"                          //获取用户水滴余额
 #define User_bill                   @"/bill/list"                           //获取用户余额/水滴明细  feeType 0：现金余额，1：水滴
 #define User_feedback               @"/feedback/add"                        //用户反馈

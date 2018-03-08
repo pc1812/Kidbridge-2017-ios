@@ -17,15 +17,15 @@
         }else if ([[NSString stringWithFormat:@"%@", value] isEqualToString:@"1"]) {
             self.type = @"解锁课程";
         }else if ([[NSString stringWithFormat:@"%@", value] isEqualToString:@"2"]) {
-            self.type = @"余额充值";
+            self.type = @"H币充值";
         }else if ([[NSString stringWithFormat:@"%@", value] isEqualToString:@"3"]) {
             self.type = @"打赏";
         }else if ([[NSString stringWithFormat:@"%@", value] isEqualToString:@"4"]) {
             self.type = @"被打赏";
         }else if ([[NSString stringWithFormat:@"%@", value] isEqualToString:@"5"]) {
-            self.type = @"余额兑换,积分扣除";
+            self.type = @"H币兑换";
         }else if ([[NSString stringWithFormat:@"%@", value] isEqualToString:@"6"]) {
-            self.type = @"余额兑换,金额增加";
+            self.type = @"H币兑换";
         }else if ([[NSString stringWithFormat:@"%@", value] isEqualToString:@"7"]) {
             self.type = @"绘本跟读";
         }else if ([[NSString stringWithFormat:@"%@", value] isEqualToString:@"8"]) {
@@ -35,7 +35,7 @@
         }else if ([[NSString stringWithFormat:@"%@", value] isEqualToString:@"10"]) {
             self.type = @"系统扣除";
         }else if ([[NSString stringWithFormat:@"%@", value] isEqualToString:@"11"]) {
-            self.type = @"余额充值";
+            self.type = @"H币充值";
         }
     }
     if ([key isEqualToString:@"createTime"]) {

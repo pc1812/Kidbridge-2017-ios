@@ -120,7 +120,7 @@
             self.carouselArr = model.icon;
             self.detailStr = model.outline;
           
-            self.lockPrice = [NSString stringWithFormat:@"是否支付%.2f元解锁课程?", model.price];
+            self.lockPrice = [NSString stringWithFormat:@"是否支付%.0f H币解锁课程?", model.price];
             
             self.price = [NSString stringWithFormat:@"%.2f", model.price];
             //-1 未解锁 >-1已解锁 用户绘本和课程的ID值
@@ -179,7 +179,7 @@
                         [self.view addSubview:self.endView];
                     } else {
                         // 可以解锁
-                        self.priceStr = [NSString stringWithFormat:@"%.2f元解锁课程", model.price];
+                        self.priceStr = [NSString stringWithFormat:@"%.0f H币解锁课程", model.price];
                         [self.view addSubview:self.payView];
                     }
                     
@@ -402,9 +402,9 @@
                         [self.payView removeFromSuperview];
                         self.priceStr = @"去打卡";
                         [self.view addSubview:self.bottomView];
-                      //余额不足去充值
+                      //H币不足去充值
                     }else if([success[@"event"] isEqualToString:@"INSUFFICIENT_BALANCE"]){
-                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您的余额不足，是否需要充值？" preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您的H币不足，是否需要充值？" preferredStyle:UIAlertControllerStyleAlert];
                         
                         [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                             

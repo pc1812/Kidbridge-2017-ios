@@ -254,62 +254,66 @@
 
         
         NSString *str1;
-        if (_nowId == -1) {
-            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 距离" , waterStr1];
-        }else if ([waterStr2 integerValue] == -1) {
-            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 获得\"%@\",\n继续加油哦!" , waterStr1, medalStr1];
-        }else{
-            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 获得\"%@\", 距离" , waterStr1, medalStr1];
+//        if (_nowId == -1) {
+//            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 距离" , waterStr1];
+//        }else if ([waterStr2 integerValue] == -1) {
+//            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 获得\"%@\",\n继续加油哦!" , waterStr1, medalStr1];
+//        }else{
+//            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 获得\"%@\", 距离" , waterStr1, medalStr1];
+//        }
+        
+        if (self.nowId == -1) { // 目前还未获得勋章
+            // 宝贝已经有 xx水滴,目前未获得勋章,\n继续加油哦!
+            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴,目前未获得勋章,\n继续加油哦!",waterStr1];
+        } else { // 已获得了勋章
+            // 宝贝已经有 xx 水滴了,获得xxx勋章,\n继续加油哦！
+            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴了,获得\"%@\"勋章,\n继续加油哦！",waterStr1,medalStr1];
         }
         
         NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:str1];
         [str addAttribute:NSForegroundColorAttributeName
                     value:[UIColor yellowColor]
                     range:NSMakeRange(5, waterStr1.length)]; //5, 2
-        [str addAttribute:NSForegroundColorAttributeName
-                    value:[UIColor yellowColor]
-                    range:NSMakeRange(13 + waterStr1.length, medalStr1.length)];//16
+        if (self.nowId != -1) {
+            [str addAttribute:NSForegroundColorAttributeName
+                        value:[UIColor yellowColor]
+                        range:NSMakeRange(12 + waterStr1.length, medalStr1.length)];//16
+        }
         _shopLabel.font = [UIFont systemFontOfSize:13];
         _shopLabel.attributedText = str;
-        _shopLabel.frame = FRAMEMAKE_F(0, CGRectGetMaxY(_moreButton.frame) + 5, SCREEN_WIDTH, 14);
+//        _shopLabel.frame = FRAMEMAKE_F(0, CGRectGetMaxY(_moreButton.frame) + 5, SCREEN_WIDTH, 14);
         
         // Jxd-start---------------
 #pragma mark - Jxd-修改
-//        CGFloat shopLabH = CGRectGetMaxY(headView.frame) - CGRectGetMaxY(_moreButton.frame) - 10;
-//        _shopLabel.frame = FRAMEMAKE_F(0, CGRectGetMaxY(_moreButton.frame) + 5, SCREEN_WIDTH, shopLabH);
+        CGFloat shopLabH = CGRectGetMaxY(headView.frame) - CGRectGetMaxY(_moreButton.frame) - 10;
+        _shopLabel.frame = FRAMEMAKE_F(0, CGRectGetMaxY(_moreButton.frame) + 5, SCREEN_WIDTH, shopLabH);
         // Jxd-end-----------------
-        
         [headView addSubview:_shopLabel];
-        NSString *str2;
-        if ([waterStr2 integerValue] == -1) {
-             str2 = @"";
-        }else{
-            
-           str2 = [NSString stringWithFormat:@"\"%@\"还差%@水滴, 继续加油哦!" ,  medalStr2, waterStr2];
-            UILabel *_shopLabel1 = [UILabel new];
-            _shopLabel1.textColor = [UIColor whiteColor];
-            _shopLabel1.textAlignment = NSTextAlignmentCenter;
-            _shopLabel1.numberOfLines = 0;
-            
-            NSMutableAttributedString *strOne = [[NSMutableAttributedString alloc] initWithString:str2];
-            [strOne addAttribute:NSForegroundColorAttributeName
-                           value:[UIColor yellowColor]
-                           range:NSMakeRange(1, medalStr2.length)];
-            [strOne addAttribute:NSForegroundColorAttributeName
-                           value:[UIColor yellowColor]
-                           range:NSMakeRange(8, waterStr2.length)];
-            _shopLabel1.font = [UIFont systemFontOfSize:13];
-            _shopLabel1.attributedText = strOne;
-            _shopLabel1.frame = FRAMEMAKE_F(0, CGRectGetMaxY(_shopLabel.frame) + 5, SCREEN_WIDTH, 14);
-            
-            // Jxd-start---------------
-//#pragma mark - Jxd-修改
-//            CGFloat shopLabH = CGRectGetMaxY(headView.frame) - CGRectGetMaxY(_moreButton.frame) - 10;
-//            _shopLabel1.frame = FRAMEMAKE_F(0, CGRectGetMaxY(_moreButton.frame) + 5, SCREEN_WIDTH, shopLabH);
-            // Jxd-end-----------------
-            
-            [headView addSubview:_shopLabel1];
-        }
+        
+//        NSString *str2;
+//        if ([waterStr2 integerValue] == -1) {
+//             str2 = @"";
+//        }else{
+//
+//           str2 = [NSString stringWithFormat:@"\"%@\"还差%@水滴, 继续加油哦!" ,  medalStr2, waterStr2];
+//            UILabel *_shopLabel1 = [UILabel new];
+//            _shopLabel1.textColor = [UIColor whiteColor];
+//            _shopLabel1.textAlignment = NSTextAlignmentCenter;
+//            _shopLabel1.numberOfLines = 0;
+//
+//            NSMutableAttributedString *strOne = [[NSMutableAttributedString alloc] initWithString:str2];
+//            [strOne addAttribute:NSForegroundColorAttributeName
+//                           value:[UIColor yellowColor]
+//                           range:NSMakeRange(1, medalStr2.length)];
+//            [strOne addAttribute:NSForegroundColorAttributeName
+//                           value:[UIColor yellowColor]
+//                           range:NSMakeRange(8, waterStr2.length)];
+//            _shopLabel1.font = [UIFont systemFontOfSize:13];
+//            _shopLabel1.attributedText = strOne;
+//            _shopLabel1.frame = FRAMEMAKE_F(0, CGRectGetMaxY(_shopLabel.frame) + 5, SCREEN_WIDTH, 14);
+//
+//            [headView addSubview:_shopLabel1];
+//        }
         
 
         //右上角小铃铛 25 40
@@ -425,7 +429,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        //隐藏我的余额
+        //隐藏我的H币
         if ([hideStr isEqualToString:@"1"]) {
             if (indexPath.row == 0) {
                 AchievementViewController *achieveVC = [[AchievementViewController alloc] init];
@@ -628,9 +632,9 @@
     
     [[HttpManager sharedManager] POST:USER_MESSAGE parame:parame sucess:^(id success) {
         
-//        NSLog(@"=======================");
-//        NSLog(@"%@",success);
-//        NSLog(@"=======================");
+        NSLog(@"=======================");
+        NSLog(@"%@",success);
+        NSLog(@"=======================");
         
         if ([[success objectForKey:@"event"] isEqualToString:@"SUCCESS"]) {
             
@@ -694,7 +698,7 @@
             if ([hideStr isEqualToString:@"1"]) {
                 arr1 = @[@"我的成就", @"我的资料", @"我的水滴", @"我的跟读", @"我的绘本", @"我的课程", @"老师评价"];
             }else{
-                arr1 = @[@"我的成就",@"我的余额", @"我的资料", @"我的水滴", @"我的跟读", @"我的绘本", @"我的课程", @"老师评价"];
+                arr1 = @[@"我的成就",@"我的 H币", @"我的资料", @"我的水滴", @"我的跟读", @"我的绘本", @"我的课程", @"老师评价"];
             }
             
             _titleLabel1.text = self.signString;

@@ -1558,7 +1558,7 @@
                     [Global showWithView:self.view withText:@"打赏成功"];
                     
                 }else if ([success[@"event"] isEqualToString:@"INSUFFICIENT_BALANCE"]){
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您的余额不足，是否需要充值？" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您的H币不足，是否需要充值？" preferredStyle:UIAlertControllerStyleAlert];
                     
                     [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                         
@@ -1595,7 +1595,7 @@
     view1.font = [UIFont systemFontOfSize:15 weight:2];
     view1.textColor = [UIColor blackColor];
 //    view1.text = @"请输入打赏水滴数";
-    view1.text = @"请输入打赏金额数";
+    view1.text = @"请输入打赏 H币数";
     view1.textAlignment = NSTextAlignmentCenter;
     
     [view addSubview:view1];

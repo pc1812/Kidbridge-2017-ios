@@ -36,8 +36,9 @@ static NSString *const identifier = @"cell_identifier";
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.tableFooterView = [UIView new];
+        
         // 注册 cell
-        [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
+//        [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
     }
     return _tableView;
     
@@ -101,6 +102,7 @@ static NSString *const identifier = @"cell_identifier";
     [[HttpManager sharedManager] POST:Iap_ios parame:parame sucess:^(id success) {
         [HUD hide:YES];
         
+//        NSLog(@"%@",success);
         if ([success[@"event"] isEqualToString:@"SUCCESS"]) {
             self.productsArray = success[@"data"];
             [self.tableView reloadData];
@@ -124,8 +126,17 @@ static NSString *const identifier = @"cell_identifier";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:15];
+        cell.detailTextLabel.textColor = [UIColor grayColor];
+    }
+    
     cell.textLabel.text = self.productsArray[indexPath.row][@"name"];
+    cell.detailTextLabel.text = self.productsArray[indexPath.row][@"des"];
+    
     return cell;
 }
 

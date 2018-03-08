@@ -88,7 +88,7 @@
 - (UILabel *)waterLab{
     if (!_waterLab) {
         _waterLab = [UILabel new];
-        LabelSet(_waterLab, @"水滴个数", [UIColor blackColor], 15, waterDic, waterSize);
+        LabelSet(_waterLab, @"水滴个数", [UIColor blackColor], 18, waterDic, waterSize);
         _waterLab.frame = FRAMEMAKE_F((SCREEN_WIDTH - waterSize.width) / 2, CGRectGetMaxY( _imageView.frame) + 22, waterSize.width, waterSize.height);
     }
     return _waterLab;
@@ -111,7 +111,7 @@
     if (!_detailLab) {
         _detailLab = [UILabel new];
         _detailLab.textColor = [Global convertHexToRGB:@"fe6b76"];
-        _detailLab.font = [UIFont systemFontOfSize:15];
+        _detailLab.font = [UIFont systemFontOfSize:18];
         NSString *textStr = @"水滴明细";
         // 下划线
         NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
@@ -132,7 +132,7 @@
     if (!_moneyBtn) {
         _moneyBtn=[UIButton buttonWithType:UIButtonTypeCustom];
         _moneyBtn.frame=CGRectMake(45, CGRectGetMaxY( _detailLab.frame) + 15, SCREEN_WIDTH- 90, 40);
-        [_moneyBtn setTitle:@"兑换成余额" forState:UIControlStateNormal];
+        [_moneyBtn setTitle:@"兑换成H币" forState:UIControlStateNormal];
         _moneyBtn.titleLabel.textColor = [UIColor whiteColor];
         _moneyBtn.titleLabel.font = [UIFont systemFontOfSize:15 weight:2];
         _moneyBtn.backgroundColor=[Global convertHexToRGB:@"14d02f"];
@@ -149,7 +149,7 @@
         _promptLab = [UILabel new];
         _promptLab.textColor = [Global convertHexToRGB:@"999999"];
         _promptLab.font = [UIFont systemFontOfSize:12 weight:2];
-        _promptLab.text = @"提示: 100水滴可兑换1元";
+        _promptLab.text = @"提示: 100水滴可兑换1 H币";
         NSDictionary *proDic = StringFont_DicK(_promptLab.font );
         CGSize proSize = [_promptLab.text  sizeWithAttributes:proDic];
         _promptLab.frame = FRAMEMAKE_F((SCREEN_WIDTH - proSize.width) / 2, CGRectGetMaxY( _moneyBtn.frame) + 20, proSize.width, proSize.height)
@@ -172,7 +172,7 @@
     [actionSheet show];
 }
 
-//兑换成余额
+//兑换成H币
 - (void)moneyClick:(UIButton *)button{
     
     CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];

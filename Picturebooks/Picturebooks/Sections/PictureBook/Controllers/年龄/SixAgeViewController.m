@@ -150,6 +150,10 @@ static NSString * const collectionIdentifier = @"collectionViewIdentifier";
         ageStr = @"3-5岁";
     }else if (model.fit == 1){
         ageStr = @"6-8岁";
+    }else if (model.fit == 3){
+        ageStr = @"4-7岁";
+    }else if (model.fit == 4){
+        ageStr = @"8-10岁";
     }else{
         ageStr = @"9-12岁";
     }

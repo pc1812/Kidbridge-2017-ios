@@ -31,14 +31,14 @@
 @implementation MineMoneysViewController
 
 - (void)dealloc{
-    NSLog(@"“我的余额”界面无内存泄漏");
+    NSLog(@"“我的H币”界面无内存泄漏");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.titleView = [UINavigationItem titleViewForTitle:@"我的余额"];
+    self.navigationItem.titleView = [UINavigationItem titleViewForTitle:@"我的 H币"];
     
     [self.view addSubview:self.rootScrollView];
     [self.rootScrollView addSubview:self.imageView];
@@ -71,7 +71,7 @@
         
         if ([[success objectForKey:@"event"] isEqualToString:@"SUCCESS"]) {
             
-            self.moneyLab.text = [NSString stringWithFormat:@"¥%.2f", [success[@"data"][@"balance"] floatValue]];
+            self.moneyLab.text = [NSString stringWithFormat:@"%.2f", [success[@"data"][@"balance"] floatValue]];
             
             NSDictionary *numDic = StringFont_DicK(_moneyLab.font);
             CGSize numSize = [_moneyLab.text sizeWithAttributes:numDic];
@@ -108,7 +108,7 @@
 - (UILabel *)balanceLab{
     if (!_balanceLab) {
         _balanceLab = [UILabel new];
-        LabelSet(_balanceLab, @"余额", [UIColor blackColor], 15, waterDic, waterSize);
+        LabelSet(_balanceLab, @"H币", [UIColor blackColor], 18, waterDic, waterSize);
         _balanceLab.frame = FRAMEMAKE_F((SCREEN_WIDTH - waterSize.width) / 2, CGRectGetMaxY( _imageView.frame) + 22, waterSize.width, waterSize.height);
     }
     return _balanceLab;
@@ -132,7 +132,7 @@
         _detailLab = [UILabel new];
         _detailLab.textColor = [Global convertHexToRGB:@"fe6b76"];
         _detailLab.font = [UIFont systemFontOfSize:18];
-        NSString *textStr = @"余额明细";
+        NSString *textStr = @"H币明细";
         // 下划线
         NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
         NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:textStr attributes:attribtDic];
@@ -168,7 +168,7 @@
         _promptLab = [UILabel new];
         _promptLab.textColor = [Global convertHexToRGB:@"999999"];
         _promptLab.font = [UIFont systemFontOfSize:12 weight:2];
-        _promptLab.text = @"注: 余额可用于购买绘本和课程,不可提现,可用水滴兑换";
+        _promptLab.text = @"注:H币可用于解锁绘本或兑换其他商品,不可提现.";
         _promptLab.textAlignment = NSTextAlignmentCenter;
         _promptLab.numberOfLines = 0;
         double height=[Global getSizeOfString:_promptLab.text  maxWidth:SCREEN_WIDTH- 60 maxHeight:10000 withFontSize:12].height;
@@ -297,7 +297,7 @@
                     //前端提示支付结果
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:strTitle message:strMsg preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        //刷新余额
+                        //刷新H币
                         [self reloadMyMoney];
                     }];
                     [alert addAction:action];
