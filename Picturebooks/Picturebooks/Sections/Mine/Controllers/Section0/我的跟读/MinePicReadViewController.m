@@ -364,6 +364,7 @@ static NSString * const collectionIdentifier = @"collectionViewIdentifier";
         mineReadVC.picRepeatType = PicRepeatAppreciation;
         mineReadVC.likeUrl = USER_LIKE;
         mineReadVC.rewardUrl =  PIC_RepeatReward;
+        mineReadVC.bottomTitle = @"评价";
         [self.navigationController pushViewController:mineReadVC animated:YES];
     }
 }

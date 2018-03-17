@@ -24,4 +24,23 @@ typedef NS_ENUM(NSUInteger, PicRepeatType) {
 @property (nonatomic, assign)PicRepeatType picRepeatType;
 @property (nonatomic, copy)NSString *publishTime;
 @property (nonatomic, assign)BOOL picPushShow;
+
+/** 底部按钮标题 */
+@property (nonatomic,strong) NSString *bottomTitle;
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -29,9 +29,11 @@
     //self.dataSource = [ForumDB getallforum];
 
     self.dataSource = [ForumDB getselectforum:userID];
+    
 //    NSLog(@"%@",self.dataSource);
 //    NSLog(@"0000000000000000000");
-//    NSLog(@"%@",userID);
+//    NSLog(@"userID:%@",userID);
+//    NSLog(@"dataSource:%@,count:%zd",self.dataSource,self.dataSource.count);
 //    for (MinePuComModel *item  in self.dataSource) {
 //        NSLog(@"%zd",item.pid);
 //        NSLog(@"%@",item.nickname);

@@ -189,7 +189,8 @@
 }
 
 /**
- * 判断手机号是否有效
+ * 判断手机号是否有效 // @"^((13[0-9])|(14[5,7])|(15[^4,\\D])|(17[0-9])|(18[0-9]))\\d{8}$"
+ /^[1][3,4,5,7,8][0-9]{9}$/;
  */
 +(BOOL)isValidatePhone:(NSString *)mobileString {
     if ([self isNullOrEmpty:mobileString]) {
@@ -197,7 +198,7 @@
     }
     NSMutableString *testString=[NSMutableString stringWithString:mobileString];
     NSRegularExpression *regularexpression = [[NSRegularExpression alloc]
-                                              initWithPattern:@"^((13[0-9])|(14[5,7])|(15[^4,\\D])|(17[0-9])|(18[0-9]))\\d{8}$"
+                                              initWithPattern:@"^[1][3,4,5,6,7,8,9][0-9]{9}$"
                                               options:NSRegularExpressionCaseInsensitive
                                               error:nil];
     NSUInteger numberofMatch = [regularexpression numberOfMatchesInString:testString

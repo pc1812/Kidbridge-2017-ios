@@ -113,7 +113,7 @@ static NSString * const cellIdentifier = @"draftCell";
 
     // Jxd-start--------------------------------------
 #pragma mark - Jxd-修改:暂停计时器
-    [self.currentTimer setFireDate:[NSDate distantFuture]];
+//    [self.currentTimer setFireDate:[NSDate distantFuture]];
     // Jxd-end--------------------------------------
     
     
@@ -330,7 +330,7 @@ static NSString * const cellIdentifier = @"draftCell";
                     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
                                                                                 cancelTitle:@"取消"
                                                                            destructiveTitle:nil
-                                                                                otherTitles:@[@"分享给微信好友", @"分享到朋友圈(+1水滴)"]
+                                                                                otherTitles:@[@"分享给微信好友", @"分享到朋友圈(+1滴水)"]
                                                                                 otherImages:@[[UIImage imageNamed:@"pic_wechat"],
                                                                                               [UIImage imageNamed:@"pic_friend"]
                                                                                               ]
@@ -387,14 +387,22 @@ static NSString * const cellIdentifier = @"draftCell";
 #pragma mark - SRActionSheetDelegate
 - (void)actionSheet:(SRActionSheet *)actionSheet didSelectSheet:(NSInteger)index {
     NSLog(@"%zd", index);
+    NSString *nickName = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickname"];
+    
+//    if ([Global isNullOrEmpty:nickName]) {
+//        nickName = @"我";
+//    }
+    nickName = @"我";
+    
     //微信好友
     if (index == 0) {
         if ([WXApi isWXAppInstalled]) {
             WXMediaMessage *message = [WXMediaMessage message];
-//            message.title = self.name;
-             message.title = @"HS英文绘本课堂";
-//            message.description = @"HS英文绘本课堂";
-             message.description = [NSString stringWithFormat:@"%@在HS英文绘本课堂朗读了，快来听听吧!",self.name];
+
+            // 修改后的
+            message.title = @"HS英文绘本课堂";
+            message.description = [NSString stringWithFormat:@"%@在HS英文绘本课堂朗读了%@绘本，快来听听吧!",nickName,self.name];
+            
 //            NSString *urlString = [NSString stringWithFormat:@"%@/Fof8KyLYA3xDcxiB3NbnI9maVjIi", URL_share];
             NSString *urlString = [NSString stringWithFormat:@"%@/FhoQUFJLkpWzFtouV2pAVBzsVcIN", URL_share];
             UIImage *image_pic=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:urlString]]];
@@ -422,8 +430,10 @@ static NSString * const cellIdentifier = @"draftCell";
     }else if (index == 1){
         if ([WXApi isWXAppInstalled]) {
             WXMediaMessage *message = [WXMediaMessage message];
-            message.title = self.name;
-            message.description = @"HS英文绘本课堂";
+
+            message.title = [NSString stringWithFormat:@"%@在HS英文绘本课堂朗读了%@绘本，快来听听吧!",nickName,self.name];
+//            message.description = @"HS英文绘本课堂";
+            
             //png图片压缩成data的方法，如果是jpg就要用 UIImageJPEGRepresentation
             //message.thumbData = UIImagePNGRepresentation(image);
 //            UIImage *image_pic=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/Fof8KyLYA3xDcxiB3NbnI9maVjIi", URL_share]]]];

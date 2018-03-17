@@ -162,6 +162,7 @@ static HttpManager *_instance;
                 [JPUSHService deleteAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
                     
                 } seq:0];
+                
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"changeRootViewController" object:@"AUTH_ABNORMAL"];
 
             }

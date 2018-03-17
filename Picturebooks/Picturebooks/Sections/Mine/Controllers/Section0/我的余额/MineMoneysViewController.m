@@ -71,7 +71,7 @@
         
         if ([[success objectForKey:@"event"] isEqualToString:@"SUCCESS"]) {
             
-            self.moneyLab.text = [NSString stringWithFormat:@"%.2f", [success[@"data"][@"balance"] floatValue]];
+            self.moneyLab.text = [NSString stringWithFormat:@"%.0f", [success[@"data"][@"balance"] floatValue]];
             
             NSDictionary *numDic = StringFont_DicK(_moneyLab.font);
             CGSize numSize = [_moneyLab.text sizeWithAttributes:numDic];

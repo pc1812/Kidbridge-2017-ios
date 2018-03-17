@@ -421,13 +421,15 @@
         [self.publishHud hide:YES];
         if ([[success objectForKey:@"event"] isEqualToString:@"SUCCESS"]) {
             [Global showWithView:self.view withText:@"评论成功！"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.navigationController popViewControllerAnimated:YES];
-            });
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"dataload" object:self userInfo:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"readload" object:self userInfo:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"codataload" object:self userInfo:nil];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+            
         }else{
             [Global showWithView:self.view withText:[success objectForKey:@"describe"]];
         }

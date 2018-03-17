@@ -60,12 +60,17 @@
         }
         
         NSString *userID =  [[NSUserDefaults standardUserDefaults] objectForKey:@"userid"];
+        
+//        NSLog(@"数据库:userID:%@",userID);
+        
         if(![db columnExists:@"userid" inTableWithName:@"pushtable"]){
             [db executeUpdate:@"alter table pushtable add userid text"];
         }
 
         
-         [db executeUpdate:@"insert into pushtable (textName,createTime) values (?,?,?)",pushModel.text,pushModel.createTime, userID];
+//         [db executeUpdate:@"insert into pushtable (textName,createTime) values (?,?,?)",pushModel.text,pushModel.createTime, userID];
+        // Jxd- 修改
+        [db executeUpdate:@"insert into pushtable (textName,createTime,userid) values (?,?,?)",pushModel.text,pushModel.createTime, userID];
         }];
 
 }

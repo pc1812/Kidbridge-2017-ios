@@ -50,7 +50,7 @@
     // 详情内容：首行缩进
     _detailLab.numberOfLines = 0;
     
-    [self settingLabelTextAttributesWithLineSpacing:3.0 FirstLineHeadIndent:2.0 FontOfSize:14.0 TextColor:[UIColor blackColor] text:detail AddLabel:_detailLab];
+    [self settingLabelTextAttributesWithLineSpacing:3.0 FirstLineHeadIndent:1.0 FontOfSize:14.0 TextColor:[UIColor blackColor] text:detail AddLabel:_detailLab];
     CGSize receSize = [_detailLab boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 15, 0)];
     // 计算文本内容的行数
     CGSize textSize = [_detailLab.text sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14]}];

@@ -28,17 +28,26 @@
     
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
-    //self.dataSource = [ForumDB getallPush];
+    
     NSString *userID =  [[NSUserDefaults standardUserDefaults] objectForKey:@"userid"];
     self.dataSource = [ForumDB getselectpush:userID];
+//    self.dataSource = [ForumDB getallPush];
+//    NSLog(@"userID:%@",userID);
+//    NSLog(@"dataSource:%@",self.dataSource);
+    
     //[ForumDB deletePushTable];
     if (self.dataSource.count) {
         self.noLabel.text = @"";
     }else{
         self.noLabel.text = @"暂无数据";
-        
+
     }
-    NSLog(@"-----tuisong%@, ---suoyou%@", [ForumDB getselectpush:userID], [ForumDB getallPush]);
+    
+//    if (self.dataSource.count == 0) {
+//        self.noLabel.text = @"暂无数据";
+//    }
+    
+//    NSLog(@"-----tuisong%@, ---suoyou%@", [ForumDB getselectpush:userID], [ForumDB getallPush]);
 
 }
 
@@ -131,12 +140,17 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 40;
+    return XDHightRatio(35); // 之前:40
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return [UIView new];
 }
 
 //设置区尾高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.001;
+    return XDHightRatio(10);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -147,13 +161,20 @@
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     __strong UIView *view = [UIView new];
+//    view.backgroundColor = JXDRandomColor;
     UILabel *label = [UILabel new];
-    label.backgroundColor = [UIColor grayColor];
+    label.backgroundColor = [UIColor lightGrayColor];
     label.textAlignment = NSTextAlignmentCenter;
     MinePushModel *model = self.dataSource[section];
     LabelSet(label, model.createTime, [UIColor whiteColor], 12, labDic, labSize);
-    label.frame = FRAMEMAKE_F((SCREEN_WIDTH - labSize.width + 20) / 2, 18, labSize.width + 20, labSize.height + 10);
-    label.layer.cornerRadius = 10;
+    
+//    label.frame = FRAMEMAKE_F((SCREEN_WIDTH - labSize.width + 20) / 2, 18, labSize.width + 20, labSize.height + 10);
+    CGFloat labWidth = labSize.width + XDWidthRatio(20);
+    CGFloat labHeight = labSize.height + XDWidthRatio(10);
+    CGFloat labY = (XDHightRatio(35) - labHeight) * 0.5;
+    label.frame = FRAMEMAKE_F((SCREEN_WIDTH - labWidth) * 0.5, labY, labWidth, labHeight);
+//    label.layer.cornerRadius = 10;
+    label.layer.cornerRadius = labHeight * 0.5;
     label.clipsToBounds = YES;
     
     [view addSubview:label];

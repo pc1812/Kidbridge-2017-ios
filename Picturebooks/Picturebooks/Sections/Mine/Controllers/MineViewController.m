@@ -18,7 +18,10 @@
 #import "InfoNoticeViewController.h"
 #import "MineMoneysViewController.h"
 #import "ClearCacheViewController.h"
-#import "AchievementViewController.h"
+
+#import "AchievementViewController.h" //我的成就
+#import "MyAchievementViewController.h"
+
 #import "MineEvaluateViewController.h"
 #import "MineTeacherViewController.h"
 #import "ZJImageMagnification.h"
@@ -209,8 +212,8 @@
         NSDictionary *nameDic = [NSDictionary dictionaryWithObjectsAndKeys:nameLabs.font,NSFontAttributeName, nil];
         CGSize nameSize = [nameLabs.text sizeWithAttributes:nameDic];
         
-        if (nameSize.width > 76) {
-            nameSize.width = 76;
+        if (nameSize.width > 120) { // 76
+            nameSize.width = 120;
         }
         
         nameLabs.frame = FRAMEMAKE_F(SCREEN_WIDTH/2-(nameSize.width + 10) / 2, CGRectGetMaxY(self.photoImage.frame) - 10, nameSize.width + 10, nameSize.height);
@@ -255,19 +258,19 @@
         
         NSString *str1;
 //        if (_nowId == -1) {
-//            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 距离" , waterStr1];
+//            str1 = [NSString stringWithFormat:@"宝贝已经有%@滴水啦, 距离" , waterStr1];
 //        }else if ([waterStr2 integerValue] == -1) {
-//            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 获得\"%@\",\n继续加油哦!" , waterStr1, medalStr1];
+//            str1 = [NSString stringWithFormat:@"宝贝已经有%@滴水啦, 获得\"%@\",\n继续加油哦!" , waterStr1, medalStr1];
 //        }else{
-//            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 获得\"%@\", 距离" , waterStr1, medalStr1];
+//            str1 = [NSString stringWithFormat:@"宝贝已经有%@滴水啦, 获得\"%@\", 距离" , waterStr1, medalStr1];
 //        }
         
         if (self.nowId == -1) { // 目前还未获得勋章
-            // 宝贝已经有 xx水滴,目前未获得勋章,\n继续加油哦!
-            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴,目前未获得勋章,\n继续加油哦!",waterStr1];
+            // 宝贝已经有 xx滴水,目前未获得勋章,\n继续加油哦!
+            str1 = [NSString stringWithFormat:@"宝贝已经有%@滴水,目前未获得勋章\n继续加油哦!",waterStr1];
         } else { // 已获得了勋章
-            // 宝贝已经有 xx 水滴了,获得xxx勋章,\n继续加油哦！
-            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴了,获得\"%@\"勋章,\n继续加油哦！",waterStr1,medalStr1];
+            // 宝贝已经有 xx 滴水了,获得xxx勋章,\n继续加油哦！
+            str1 = [NSString stringWithFormat:@"宝贝已经有%@滴水了,获得\"%@\"勋章\n继续加油哦！",waterStr1,medalStr1];
         }
         
         NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:str1];
@@ -279,7 +282,7 @@
                         value:[UIColor yellowColor]
                         range:NSMakeRange(12 + waterStr1.length, medalStr1.length)];//16
         }
-        _shopLabel.font = [UIFont systemFontOfSize:13];
+        _shopLabel.font = [UIFont systemFontOfSize:15];
         _shopLabel.attributedText = str;
 //        _shopLabel.frame = FRAMEMAKE_F(0, CGRectGetMaxY(_moreButton.frame) + 5, SCREEN_WIDTH, 14);
         
@@ -295,7 +298,7 @@
 //             str2 = @"";
 //        }else{
 //
-//           str2 = [NSString stringWithFormat:@"\"%@\"还差%@水滴, 继续加油哦!" ,  medalStr2, waterStr2];
+//           str2 = [NSString stringWithFormat:@"\"%@\"还差%@滴水, 继续加油哦!" ,  medalStr2, waterStr2];
 //            UILabel *_shopLabel1 = [UILabel new];
 //            _shopLabel1.textColor = [UIColor whiteColor];
 //            _shopLabel1.textAlignment = NSTextAlignmentCenter;
@@ -432,7 +435,9 @@
         //隐藏我的H币
         if ([hideStr isEqualToString:@"1"]) {
             if (indexPath.row == 0) {
-                AchievementViewController *achieveVC = [[AchievementViewController alloc] init];
+//                AchievementViewController *achieveVC = [[AchievementViewController alloc] init];
+//                [self.navigationController pushViewController:achieveVC animated:YES];
+                MyAchievementViewController *achieveVC = [[MyAchievementViewController alloc] init];
                 [self.navigationController pushViewController:achieveVC animated:YES];
             }else if (indexPath.row == 1) {
                 MineInfoViewController *infoVC = [[MineInfoViewController alloc] init];
@@ -455,8 +460,11 @@
             }
         }else{
             if (indexPath.row == 0) {
-                AchievementViewController *achieveVC = [[AchievementViewController alloc] init];
+//                AchievementViewController *achieveVC = [[AchievementViewController alloc] init];
+//                [self.navigationController pushViewController:achieveVC animated:YES];
+                MyAchievementViewController *achieveVC = [[MyAchievementViewController alloc] init];
                 [self.navigationController pushViewController:achieveVC animated:YES];
+                
             }else if (indexPath.row == 1) {
                 MineMoneysViewController *moneyVC = [[MineMoneysViewController alloc] init];
                 [self.navigationController pushViewController:moneyVC animated:YES];
@@ -632,9 +640,9 @@
     
     [[HttpManager sharedManager] POST:USER_MESSAGE parame:parame sucess:^(id success) {
         
-        NSLog(@"=======================");
-        NSLog(@"%@",success);
-        NSLog(@"=======================");
+//        NSLog(@"=======================");
+//        NSLog(@"%@",success);
+//        NSLog(@"=======================");
         
         if ([[success objectForKey:@"event"] isEqualToString:@"SUCCESS"]) {
             
@@ -647,7 +655,7 @@
             //头像地址存在NSUserDefault里，方便在其他地方取用
             [[NSUserDefaults standardUserDefaults] setObject:[Qiniu_host stringByAppendingString:success[@"data"][@"user"][@"head"]] forKey:@"User_headimage"];
             [[NSUserDefaults standardUserDefaults] synchronize];
-            self.moneyStr = [NSString stringWithFormat:@"%.2f", [success[@"data"][@"user"][@"balance"] floatValue]];
+            self.moneyStr = [NSString stringWithFormat:@"%.0f", [success[@"data"][@"user"][@"balance"] floatValue]];
           
             //年龄
             self.ageStr = [NSString stringWithFormat:@"%@", success[@"data"][@"user"][@"age"]];
@@ -663,7 +671,15 @@
             if ([Global isNullOrEmpty:self.nameStr]) {
                 self.nameStr = @"未设置";
             }else{
-                self.nameStr = [NSString stringWithFormat:@"%@", success[@"data"][@"user"][@"nickname"]];
+                NSString *name = [NSString stringWithFormat:@"%@", success[@"data"][@"user"][@"nickname"]];
+                if (name.length > 9) {
+                    NSLog(@"大于9个字符");
+                    self.nameStr = [NSString stringWithFormat:@"%@...",[name substringToIndex:9]];
+                } else {
+                    NSLog(@"没有大于9个字符");
+                    self.nameStr = name;
+                }
+                
             }
             
             //签名
@@ -696,9 +712,9 @@
             
             hideStr = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"hide"]];
             if ([hideStr isEqualToString:@"1"]) {
-                arr1 = @[@"我的成就", @"我的资料", @"我的水滴", @"我的跟读", @"我的绘本", @"我的课程", @"老师评价"];
+                arr1 = @[@"我的成就", @"我的资料", @"我的滴水", @"我的跟读", @"我的绘本", @"我的课程", @"老师评价"];
             }else{
-                arr1 = @[@"我的成就",@"我的 H币", @"我的资料", @"我的水滴", @"我的跟读", @"我的绘本", @"我的课程", @"老师评价"];
+                arr1 = @[@"我的成就",@"我的 H币", @"我的资料", @"我的滴水", @"我的跟读", @"我的绘本", @"我的课程", @"老师评价"];
             }
             
             _titleLabel1.text = self.signString;

@@ -524,6 +524,10 @@
         mineReadVC.picRepeatType = PicRepeatAppreciation;
         mineReadVC.likeUrl = USER_LIKE;
         mineReadVC.rewardUrl =  PIC_RepeatReward;
+        
+        // Jxd-修改:添加属性(用于修改:底部按钮的标题)
+        mineReadVC.bottomTitle = @"评价";
+        
         [self.navigationController pushViewController:mineReadVC animated:YES];
 
     }
@@ -689,7 +693,6 @@
 
 //欣赏区
 - (void)enjoyClick:(UIButton *)button{
-   
 
     PicWithReadViewController *readVC = [[PicWithReadViewController alloc] init];
     readVC.name = self.name;

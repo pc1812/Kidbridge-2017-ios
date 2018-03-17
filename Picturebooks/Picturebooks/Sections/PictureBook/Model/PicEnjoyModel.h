@@ -11,7 +11,7 @@
 @interface PicEnjoyModel : YKBaseModel
 
 @property (nonatomic, assign) NSInteger readId;
-@property (nonatomic, strong)NSString *outline;//概要
+@property (nonatomic, strong) NSString *outline;//概要
 @property (nonatomic, copy) NSString *rewardStr;
 
 @end

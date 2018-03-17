@@ -89,7 +89,7 @@ static NSInteger limit = 10;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = @"讨论区";
+    self.navigationItem.title = @"Comments to class"; // 之前:讨论区
 
     // 添加 tableView
     [self tableView];

@@ -518,7 +518,7 @@ static NSString * const footIdentifierView = @"footView";
             titleImg.frame = CGRectMake(12, (30 - titleImg.image.size.height) / 2, titleImg.image.size.width, titleImg.image.size.height);
             
             UILabel *_titleLabel = [UILabel new];
-            LabelSet(_titleLabel, @"热门书单", [UIColor blackColor], 16, titleDic, titleSize);
+            LabelSet(_titleLabel, @"系列书单", [UIColor blackColor], 16, titleDic, titleSize);
             _titleLabel.frame = FRAMEMAKE_F(CGRectGetMaxX(titleImg.frame) + 10, (30 - titleSize.height) / 2, titleSize.width, titleSize.height);
             
             UIImageView *moreImage = [UIImageView new];
@@ -605,7 +605,7 @@ static NSString * const footIdentifierView = @"footView";
 //热门菜单
 - (void)hotClick:(UIButton *)button{
     CardBookViewController *cardVC = [[CardBookViewController alloc] init];
-    cardVC.titleStr = @"热门书单";
+    cardVC.titleStr = @"系列书单";
     cardVC.url =  PICTUREBOOK_HOT;
     [self.navigationController pushViewController:cardVC animated:YES];
 }

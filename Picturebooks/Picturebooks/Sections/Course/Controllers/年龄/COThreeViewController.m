@@ -20,10 +20,25 @@ static NSString * const collectionIdentifier = @"collectionIdentifier";
 @property (nonatomic) BOOL isMorePage;
 @property (nonatomic, strong)NSMutableArray *dataSource;
 @property (nonatomic) NSInteger full;
-
+/** 没有数据-- Label */
+@property (nonatomic,strong) UILabel *noDataLab;
 @end
 
 @implementation COThreeViewController
+
+#pragma mark - 懒加载
+/** 懒加载--没有数据 */
+- (UILabel *)noDataLab {
+    if (!_noDataLab) {
+        _noDataLab = [[UILabel alloc] initWithFrame:self.view.bounds];
+        [self.view addSubview:_noDataLab];
+        // 设置相关属性
+        _noDataLab.text = @"暂无数据";
+        _noDataLab.textAlignment = NSTextAlignmentCenter;
+    }
+    
+    return _noDataLab;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -98,7 +113,13 @@ static NSString * const collectionIdentifier = @"collectionIdentifier";
                 self.collectionView.mj_footer.state = MJRefreshStateIdle;
                 _isMorePage = YES;
             }
-            [self.collectionView reloadData];
+//            [self.collectionView reloadData];
+            if (self.dataSource.count) {
+                [self.noDataLab removeFromSuperview];
+                [self.collectionView reloadData];
+            } else {
+                [self noDataLab];
+            }
         }
     } failure:^(NSError *error) {
         [HUD hide:YES ];

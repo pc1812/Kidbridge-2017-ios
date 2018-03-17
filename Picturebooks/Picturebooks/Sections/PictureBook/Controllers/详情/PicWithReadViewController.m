@@ -32,6 +32,7 @@
 @property (nonatomic, strong)NSTimer *avTimer;
 @property (nonatomic, strong)NSString  *detailStr;
 @property (nonatomic, strong)NSMutableArray  *audioArr;
+
 @property (nonatomic, strong)NSMutableArray  *iconArr;
 @property (nonatomic, assign)NSInteger pageNum;//页数
 @property (nonatomic, assign)BOOL isMorePage;
@@ -58,6 +59,9 @@
 @property (nonatomic,strong) UIButton *preBtn;
 /** 下一段音频按钮 */
 @property (nonatomic,strong) UIButton *nextBtn;
+
+/** 音频可变数组 */
+@property (nonatomic,strong) NSMutableArray *audioArrayM;
 
 @end
 
@@ -244,6 +248,8 @@
     self.audioArr = [NSMutableArray arrayWithCapacity:0];
     self.iconArr = [NSMutableArray arrayWithCapacity:0];
 
+    self.audioArrayM = [NSMutableArray array];
+    
     [self loadData];
     
     _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
@@ -325,6 +331,23 @@
     }];
 }
 
+#pragma mark - 服务器-- User_book_repeatShare
+- (void)requestUserBookRepeatShareData
+{
+    NSMutableDictionary *parame = [HttpManager necessaryParameterDictionary];
+    [parame setObject:User_book_repeatShare forKey:@"uri"];
+    [parame setObject:[HttpManager getAddSaltMD5Sign:parame] forKey:@"sign"];
+    //提交跟读信息接口参数
+    // 绘本跟读编号 id 
+    
+    [[HttpManager sharedManager] POST:User_book_repeatShare parame:parame sucess:^(id success) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
+
 #pragma mark - 分享回调
 //分享回调
 - (void)clickShare:(NSNotification *)notification{
@@ -332,6 +355,9 @@
     switch ([notification.object integerValue]) {
         case 0:
             [Global showWithView:self.view withText:@"分享成功"];
+            
+            // 服务器
+            
             break;
         case -1:
             [Global showWithView:self.view withText:@"普通类型错误"];
@@ -378,6 +404,10 @@
     
     [[HttpManager sharedManager] POST:PICTUREBOOK_ENJOY parame:parame sucess:^(id success) {
         
+        NSLog(@"success:%@",success);
+        NSDictionary *dict = success[@"data"];
+//        [dict writeToFile:@"/Users/jixiaodong/Desktop/plist/audio.plist" atomically:YES];
+        
         if ([success[@"event"] isEqualToString:@"SUCCESS"]) {
             [HUD hide:YES];
             PicEnjoyModel *model = [PicEnjoyModel modelWithDictionary:success[@"data"][@"book"]];
@@ -387,6 +417,14 @@
             }
             
            self.audioArr = success[@"data"][@"book"][@"bookSegmentList"];
+            
+            // Jxd-start--------------
+#pragma mark - Jxd-修改
+            NSDictionary *dict = [NSDictionary dictionaryWithObject:success[@"data"][@"book"][@"audio"] forKey:@"audio"];
+            [self.audioArrayM addObject:dict];
+            NSLog(@"audioArrayM:%@",self.audioArrayM);
+            // Jxd-end--------------
+            
             if (![self.audioArr isEqual:[NSNull null]]) {
                 for (NSDictionary *dic in self.audioArr) {
                     NSString * iconUrl = [NSString stringWithFormat:@"%@%@", Qiniu_host, dic[@"icon"]];
@@ -406,7 +444,14 @@
 //            [self downloadVideo:self.audioArr];
 //        }
         
-         [self downloadVideo:self.audioArr];
+
+        // Jxd-start--------------
+#pragma mark - Jxd-修改
+//         [self downloadVideo:self.audioArr]; // 之前
+        
+        [self downloadVideo:self.audioArrayM]; // 修改
+        // Jxd-end--------------
+
 
     } failure:^(NSError *error) {
         [HUD hide:YES ];
@@ -434,6 +479,9 @@
         for (NSDictionary *dic in audioArr) {
             [[HttpManager sharedManager] downLoad:[NSString stringWithFormat:@"%@", dic[@"audio"]] success:^(id success) {
                 //[HUD hide:YES];
+                
+                NSLog(@"success:%@",success);
+                
                 NSMutableDictionary *tmpDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@([dic[@"id"] integerValue]), @"Id", [NSString stringWithFormat:@"%@", success], @"soundPath", nil];
                 [newMessageArray addObject:tmpDic];
                 
@@ -450,17 +498,9 @@
         
     });
     
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//         [self.progressHUD  hide:YES];
-//    });
-    
-    
-    //    //栅栏
-    //    dispatch_barrier_async(queue, ^{
-    //        [self audioSynthesis:newMessageArray];
-    //    });
-    
+
 }
+
 //音频合成
 - (void)audioSynthesis:(NSMutableArray *)newMessageArray{
      //[self.progressHUD  hide:YES];
@@ -592,7 +632,7 @@
     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
                                                                 cancelTitle:@"取消"
                                                            destructiveTitle:nil
-                                                                otherTitles:@[@"分享给微信好友", @"分享到朋友圈(+1水滴)"]
+                                                                otherTitles:@[@"分享给微信好友", @"分享到朋友圈(+1滴水)"]
                                                                 otherImages:@[[UIImage imageNamed:@"pic_wechat"],
                                                                               [UIImage imageNamed:@"pic_friend"]
                                                                               ]
@@ -604,12 +644,21 @@
 #pragma mark - SRActionSheetDelegate
 - (void)actionSheet:(SRActionSheet *)actionSheet didSelectSheet:(NSInteger)index {
     NSLog(@"%zd", index);
+    NSString *nickName = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickname"];
+    
+//    if ([Global isNullOrEmpty:nickName]) {
+//        nickName = @"我";
+//    }
+    nickName = @"我";
+    
     //微信好友
     if (index == 0) {
         if ([WXApi isWXAppInstalled]) {
             WXMediaMessage *message = [WXMediaMessage message];
-            message.title = @"标题";
-            message.description = @"描述";
+
+            message.title = @"HS英文绘本课堂";
+            message.description = message.description = [NSString stringWithFormat:@"%@在HS英文绘本课堂朗读了%@绘本，快来听听吧!",nickName,self.name];
+            
             [message setThumbImage:[UIImage imageNamed:@"m_wechat"]];
             WXWebpageObject *webpage = [WXWebpageObject object];
             webpage.webpageUrl = @"https://open.weixin.qq.com";
@@ -627,8 +676,10 @@
     }else if (index == 1){
         if ([WXApi isWXAppInstalled]) {
             WXMediaMessage *message = [WXMediaMessage message];
-            message.title = @"标题";
-            message.description = @"描述";
+
+            message.title = [NSString stringWithFormat:@"%@在HS英文绘本课堂朗读了%@绘本，快来听听吧!",nickName,self.name];
+//            message.description = @"";
+            
             //png图片压缩成data的方法，如果是jpg就要用 UIImageJPEGRepresentation
             //message.thumbData = UIImagePNGRepresentation(image);
             [message setThumbImage:[UIImage imageNamed:@"m_wechat"]];
@@ -919,7 +970,7 @@
             [view addSubview:freeBtn];
             
             UILabel *encourLab = [UILabel new];
-            LabelSet(encourLab, @"宝贝,轻轻一点可以打赏作者哦~", [Global convertHexToRGB:@"999999"], 13, enDic, enSize);
+            LabelSet(encourLab, @"宝贝，轻轻一点即可打赏鼓励小伙伴哦!", [Global convertHexToRGB:@"999999"], 13, enDic, enSize);
             encourLab.frame = FRAMEMAKE_F((SCREEN_WIDTH - enSize.width) / 2, CGRectGetMaxY(freeBtn.frame) + 15, enSize.width, enSize.height);
             [view addSubview:encourLab];
             
@@ -1203,6 +1254,18 @@
     [alertView setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
         //关闭
         if (buttonIndex == 0) {
+            
+            
+            // Jxd-start-----------------
+#pragma mark - Jxd-添加判断, 判断不能输入小数,0
+            if ([_numField.text containsString:@"."] || [_numField.text isEqualToString:@"0"] || [Global isNullOrEmpty:_numField.text] || [_numField.text hasPrefix:@"0"]) {
+                [Global showWithView:self.view withText:@"请输入整数金额"];
+                _numField.text = @"";
+                return;
+            }
+            // Jxd-end-------------------
+            
+            
             //得到基本固定参数字典，加入调用接口所需参数
             NSMutableDictionary *parame = [HttpManager necessaryParameterDictionary];
             [parame setObject:self.rewardUrl forKey:@"uri"];
@@ -1367,7 +1430,7 @@
             self.token = [[success objectForKey:@"data"] objectForKey:@"token"];
             
             PicFreeWithViewController *freeVC = [[PicFreeWithViewController alloc] init];
-            freeVC.name = self.navigationItem.title;
+            freeVC.name = self.name;
             freeVC.token = self.token;
             freeVC.unlockState = self.belong;
             [self.navigationController pushViewController:freeVC animated:YES];

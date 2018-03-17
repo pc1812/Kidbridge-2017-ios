@@ -8,10 +8,11 @@
 
 #import "MinePushModel.h"
 
+//yyyy-MM-dd  MM/dd
 @implementation MinePushModel
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     if ([key isEqualToString:@"message"]) {
-        self.createTime = [AppTools timestampToTime:value[@"createTime"] format:@"MM/dd HH:mm"];
+        self.createTime = [AppTools timestampToTime:value[@"createTime"] format:@"yyyy-MM-dd HH:mm"];
         self.text = value[@"text"];
     }
     

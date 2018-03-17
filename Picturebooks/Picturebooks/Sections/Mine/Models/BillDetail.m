@@ -36,6 +36,8 @@
             self.type = @"系统扣除";
         }else if ([[NSString stringWithFormat:@"%@", value] isEqualToString:@"11"]) {
             self.type = @"H币充值";
+        }else if ([[NSString stringWithFormat:@"%@", value] isEqualToString:@"12"] || [[NSString stringWithFormat:@"%@", value] isEqualToString:@"13"]) {
+            self.type = @"跟读分享";
         }
     }
     if ([key isEqualToString:@"createTime"]) {

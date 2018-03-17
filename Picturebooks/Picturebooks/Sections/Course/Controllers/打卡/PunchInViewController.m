@@ -445,6 +445,7 @@
         
         // Jxd-增加类型判断
         mineReadVC.picPushShow = YES;
+        mineReadVC.bottomTitle = @"Comments to student";
         
         mineReadVC.rewardUrl =  COURSE_RepeatReward;
         
@@ -617,7 +618,7 @@
     [self.downView addSubview:comment];
     comment.backgroundColor = RGBHex(0x14d02f);
 #pragma mark - Jxd 修改--之前:讨论区,后:去评价
-    [comment setTitle:@"去评价" forState:UIControlStateNormal];
+    [comment setTitle:@"集中纠错 To class" forState:UIControlStateNormal];
     comment.titleLabel.textColor = [UIColor whiteColor];
     comment.titleLabel.font = [UIFont systemFontOfSize:15 weight:2];
     [comment mas_makeConstraints:^(MASConstraintMaker *make) {

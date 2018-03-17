@@ -1,4 +1,4 @@
-//
+ //
 //  MineShadowViewController.m
 //  Picturebooks
 //
@@ -57,6 +57,9 @@
 // 添加一个顶部切换图片的数组
 //@property (nonatomic, copy)NSArray *cycleImgArray;
 
+/** 导航标题 */
+@property (nonatomic,strong)  NSString *navTitle;
+
 // 添加一个upView
 @property (nonatomic, strong)UIView *upView;
 /** 上一段音频按钮 */
@@ -66,6 +69,11 @@
 
 /** 当前用户点赞的状态 */
 @property (nonatomic,strong)  NSNumber *likeState;
+
+/** 分享成功控制 */
+@property (nonatomic,assign) BOOL shareSuccess;
+/** 分享的场景(0:好友,1:朋友圈) */
+@property (nonatomic, assign) int scene;
 
 @end
 
@@ -229,6 +237,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.shareSuccess = YES;
+    
     self.view.backgroundColor = [UIColor whiteColor];
 //    self.navigationItem.titleView = [UINavigationItem titleViewForTitle:self.nameStr];
     // 修改导航头部标题为用户的昵称
@@ -236,8 +247,6 @@
 //        NSString *nickName = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickname"];
 //        self.title = nickName ? nickName : self.nameStr;
 //    }
-    
-    
     
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem rightBarButtonItemWithImage:[UIImage imageNamed:@"pic_share"] highlighted:[UIImage imageNamed:@"pic_share"] target:self selector:@selector(share)];
     
@@ -260,8 +269,6 @@
     
     [self commentData];
     
-    
-  
     self.navigationController.navigationBar.barTintColor = RGBHex(0x14d02f);
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18 weight:2], NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.view.backgroundColor = RGBHex(0xefeff4);
@@ -290,14 +297,53 @@
     
 }
 
+#pragma mark - 服务器--用户绘本跟读分享(+1滴水) User_book_repeatShare
+- (void)requestUserBookAndCourseRepeatShareData
+{
+    NSString *urlStr;
+    if (self.picRepeatType == PicRepeatAppreciation ) {
+        // 绘本跟读赏析
+        urlStr = User_book_repeatShare;
+        
+    } else if (self.picRepeatType == CoRepeatAppreciation) {
+        // 课程跟读赏析
+        urlStr = User_course_repeatShare;
+    }
+    
+    NSMutableDictionary *parame = [HttpManager necessaryParameterDictionary];
+    [parame setObject:urlStr forKey:@"uri"];
+    [parame setObject:[HttpManager getAddSaltMD5Sign:parame] forKey:@"sign"];
+    //提交跟读信息接口参数
+    [parame setObject:@(self.readId) forKey:@"id"]; // 绘本跟读编号 id
+    
+    [[HttpManager sharedManager] POST:urlStr parame:parame sucess:^(id success) {
+        
+        NSLog(@"添加水滴成功:%@",success);
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 #pragma mark - 分享回调
 //分享回调
 - (void)clickShare:(NSNotification *)notification{
     
+    // 好友分享不加 1  朋友圈分享 + 1
+    
     switch ([notification.object integerValue]) {
         case 0:
             [Global showWithView:self.view withText:@"分享成功"];
+            
+            if (self.scene == 1) { // 朋友圈
+                if (self.shareSuccess) {
+                    [self requestUserBookAndCourseRepeatShareData];
+                    self.shareSuccess = NO;
+                }
+            }
+            
             break;
+            
         case -1:
             [Global showWithView:self.view withText:@"普通类型错误"];
             break;
@@ -347,6 +393,9 @@
     [[HttpManager sharedManager] POST:self.urlStr parame:parame sucess:^(id success) {
         [HUD hide:YES];
         
+        NSLog(@"success!!!!%@",success);
+        
+        
         if ([success[@"event"] isEqualToString:@"SUCCESS"]) {
             
             MineWithReModel *model = [MineWithReModel modelWithDictionary:success[@"data"][@"repeat"]];
@@ -356,6 +405,8 @@
 #pragma mark - Jxd-修改标题
 //            self.title = model.book[@"name"];
             self.navigationItem.titleView = [UINavigationItem titleViiewWithTitle:model.book[@"name"]];
+            self.navTitle = model.book[@"name"];
+            
             // 当前用户的点赞的状态
             self.likeState = success[@"data"][@"user"][@"like"];
             likeBtn.selected = self.likeState.integerValue;
@@ -625,6 +676,8 @@
     
     [[HttpManager sharedManager] POST:self.commentUrl parame:parame sucess:^(id success) {
         
+//        NSLog(@"评论数据:success:%@",success);
+        
         if ([success[@"event"] isEqualToString:@"SUCCESS"]) {
             if (_pageNum == 0) {
                 [self.commentArr removeAllObjects];
@@ -640,6 +693,7 @@
                 }
                 
                 NSMutableArray *boyarray= success[@"data"][@"normal"];
+                
                 if (![boyarray isEqual:[NSNull null]]) {
                     for (NSDictionary *dic in boyarray) {
                         MineCommentModel *model = [MineCommentModel modelWithDictionary:dic];
@@ -657,6 +711,8 @@
                         [self.commentArr addObject:model];
                     }
                 }
+                
+//                NSLog(@"%@,count:%zd",self.commentArr,self.commentArr.count);
 
             }
             
@@ -696,14 +752,20 @@
     }];
 }
 
-//下方评价视图
+//下方评价视图 Comments to student
 - (UIView *)bottomView{
     if (!_bottomView) {
         _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - PBNew64 - 44, SCREEN_WIDTH, 44)];
         _bottomView.backgroundColor = [UIColor whiteColor];
         UIButton *freeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         freeBtn.titleLabel.font = [UIFont systemFontOfSize:15 weight:2];
-        [freeBtn setTitle:@"评价" forState:UIControlStateNormal];
+
+        if ([Global isNullOrEmpty:self.bottomTitle]) {
+            [freeBtn setTitle:@"评价" forState:UIControlStateNormal];
+        } else {
+            [freeBtn setTitle:self.bottomTitle forState:UIControlStateNormal];
+        }
+        
         [freeBtn addTarget:self action:@selector(commentClick:) forControlEvents:UIControlEventTouchUpInside];
         freeBtn.backgroundColor = [Global convertHexToRGB:@"14d02f"];
         [_bottomView addSubview:freeBtn];
@@ -738,10 +800,13 @@
 
 //分享
 - (void)share{
+    
+    self.shareSuccess = YES;
+    
     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
                                                                 cancelTitle:@"取消"
                                                            destructiveTitle:nil
-                                                                otherTitles:@[@"分享给微信好友", @"分享到朋友圈(+1水滴)"]
+                                                                otherTitles:@[@"分享给微信好友", @"分享到朋友圈(+1滴水)"]
                                                                 otherImages:@[[UIImage imageNamed:@"pic_wechat"],
                                                                               [UIImage imageNamed:@"pic_friend"]
                                                                               ]
@@ -753,14 +818,16 @@
 #pragma mark - SRActionSheetDelegate
 - (void)actionSheet:(SRActionSheet *)actionSheet didSelectSheet:(NSInteger)index {
     NSLog(@"%zd", index);
+    
     //微信好友
     if (index == 0) {
         if ([WXApi isWXAppInstalled]) {
             WXMediaMessage *message = [WXMediaMessage message];
-//            message.title = self.nameStr;
+
             message.title = @"HS英文绘本课堂";
-//            message.description = @"HS英文绘本课堂";
-            message.description = [NSString stringWithFormat:@"%@在HS英文绘本课堂朗读了%@绘本，快来听听吧!",self.userArr[0],self.nameStr];
+//            message.description = [NSString stringWithFormat:@"%@在HS英文绘本课堂朗读了%@绘本，快来听听吧!",self.nameStr,self.navTitle];
+            message.description = [NSString stringWithFormat:@"我在HS英文绘本课堂朗读了%@绘本，快来听听吧!",self.navTitle];
+            
 #warning change--01--jixiaodong
 //            UIImage *image_pic=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/Fof8KyLYA3xDcxiB3NbnI9maVjIi", URL_share]]]];
             UIImage *image_pic=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/FhoQUFJLkpWzFtouV2pAVBzsVcIN", URL_share]]]];
@@ -781,6 +848,7 @@
             req.bText = NO;
             req.message = message;
             req.scene = WXSceneSession;
+            self.scene = WXSceneSession; // 好友
             [WXApi sendReq:req];
         }else{
             [self setupAlertController];
@@ -789,10 +857,11 @@
     }else if(index == 1) {
         if ([WXApi isWXAppInstalled]) {
             WXMediaMessage *message = [WXMediaMessage message];
-//            message.title = self.nameStr;
-            message.title = @"HS英文绘本课堂";
-//            message.description = @"HS英文绘本课堂";
-            message.description = [NSString stringWithFormat:@"%@在HS英文绘本课堂朗读了%@绘本，快来听听吧!",self.userArr[0],self.nameStr];
+            
+//            message.title = [NSString stringWithFormat:@"%@在HS英文绘本课堂朗读了%@绘本，快来听听吧!",self.nameStr,self.navTitle];
+            message.title = [NSString stringWithFormat:@"我在HS英文绘本课堂朗读了%@绘本，快来听听吧!",self.navTitle];
+//            message.description = @""
+            
             //png图片压缩成data的方法，如果是jpg就要用 UIImageJPEGRepresentation
             //message.thumbData = UIImagePNGRepresentation(image);
 //            UIImage *image_pic=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/Fof8KyLYA3xDcxiB3NbnI9maVjIi", URL_share]]]];
@@ -815,6 +884,7 @@
             req.bText = NO;//不使用文本信息
             req.message = message;
             req.scene = WXSceneTimeline;
+            self.scene = WXSceneTimeline; // 朋友圈
             [WXApi sendReq:req];
         }else{
             [self setupAlertController];
@@ -916,33 +986,38 @@
         cell.playBtn.tag = 500 + indexPath.row;
 
         return cell;
+        
+    } else {
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellIdentifier"];
+        }
+        
+        UIImageView *imageView = [[UIImageView alloc ] init];
+        imageView.image = [UIImage imageNamed:@"noComment"];
+        [cell.contentView addSubview:imageView];
+        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(cell.contentView.mas_top).offset(50);
+            make.centerX.mas_equalTo(cell.contentView.mas_centerX);
+        }];
+        
+        UILabel *commnetLab = [UILabel new];
+        [cell.contentView addSubview:commnetLab];
+        commnetLab.text = @"暂时还没评论哦~";
+        commnetLab.font = [UIFont systemFontOfSize:13];
+        commnetLab.textColor = [Global convertHexToRGB:@"999999"];
+        [commnetLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(imageView.mas_bottom).offset(10);
+            make.centerX.mas_equalTo(cell.contentView.mas_centerX);
+        }];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+        
     }
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellIdentifier"];
-    }
-    
-    UIImageView *imageView = [[UIImageView alloc ] init];
-    imageView.image = [UIImage imageNamed:@"noComment"];
-    [cell.contentView addSubview:imageView];
-    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(cell.contentView.mas_top).offset(50);
-        make.centerX.mas_equalTo(cell.contentView.mas_centerX);
-    }];
-    
-    UILabel *commnetLab = [UILabel new];
-    [cell.contentView addSubview:commnetLab];
-    commnetLab.text = @"暂时还没评论哦~";
-    commnetLab.font = [UIFont systemFontOfSize:13];
-    commnetLab.textColor = [Global convertHexToRGB:@"999999"];
-    [commnetLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(imageView.mas_bottom).offset(10);
-        make.centerX.mas_equalTo(cell.contentView.mas_centerX);
-    }];
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
+   
 }
 
 //播放音频
@@ -962,7 +1037,7 @@
         [[HttpManager sharedManager] downLoad:model.contentModel.source success:^(id success) {
             
             //[HUD hide:YES];
-            NSLog(@"------bofang%@", success);
+//            NSLog(@"------bofang%@", success);
             
             [[LGAudioPlayer sharePlayer] playAudioWithURLString:[NSString stringWithFormat:@"%@", success] atIndex:button.tag- 500];
         } failure:^(NSError *error) {
@@ -1211,7 +1286,7 @@
         [view addSubview:freeBtn];
         
         UILabel *encourLab = [UILabel new];
-        LabelSet(encourLab, @"宝贝,轻轻一点可以打赏作者哦~", [Global convertHexToRGB:@"999999"], 13, enDic, enSize);
+        LabelSet(encourLab, @"宝贝，轻轻一点即可打赏鼓励小伙伴哦!", [Global convertHexToRGB:@"999999"], 13, enDic, enSize);
         encourLab.frame = FRAMEMAKE_F((SCREEN_WIDTH - enSize.width) / 2, CGRectGetMaxY(freeBtn.frame) + 15, enSize.width, enSize.height);
         [view addSubview:encourLab];
 
@@ -1541,6 +1616,17 @@
     [alertView setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
         //关闭
         if (buttonIndex == 0) {
+            
+            // Jxd-start-----------------
+#pragma mark - Jxd-添加判断, 判断不能输入小数,0
+            if ([_numField.text containsString:@"."] || [_numField.text isEqualToString:@"0"] || [Global isNullOrEmpty:_numField.text] || [_numField.text hasPrefix:@"0"]) {
+                [Global showWithView:self.view withText:@"请输入整数金额"];
+                _numField.text = @"";
+                return;
+            }
+            // Jxd-end-------------------
+            
+            
             //得到基本固定参数字典，加入调用接口所需参数
             NSMutableDictionary *parame = [HttpManager necessaryParameterDictionary];
             [parame setObject:self.rewardUrl forKey:@"uri"];
@@ -1594,7 +1680,7 @@
     UILabel *view1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 230, 50)];
     view1.font = [UIFont systemFontOfSize:15 weight:2];
     view1.textColor = [UIColor blackColor];
-//    view1.text = @"请输入打赏水滴数";
+//    view1.text = @"请输入打赏滴水数";
     view1.text = @"请输入打赏 H币数";
     view1.textAlignment = NSTextAlignmentCenter;
     

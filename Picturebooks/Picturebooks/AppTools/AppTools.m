@@ -388,6 +388,7 @@
     NSString *timestamp = [NSString stringWithFormat:@"%ld", (long)([senddate timeIntervalSince1970] * 1000)];
     return timestamp;
 }
+
 + (UIImage*)imageByScalingAndCroppingForSize:(CGSize)targetSize withSourceImage:(UIImage *)sourceImage
 {
     UIImage *newImage = nil;

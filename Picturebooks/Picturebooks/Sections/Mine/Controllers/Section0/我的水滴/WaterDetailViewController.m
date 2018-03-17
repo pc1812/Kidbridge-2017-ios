@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.titleView = [UINavigationItem titleViewForTitle:@"水滴明细"];
+    self.navigationItem.titleView = [UINavigationItem titleViewForTitle:@"滴水明细"];
     self.modelArray = [[NSMutableArray alloc] init];
     [self.view addSubview:self.tableView];
     
@@ -105,10 +105,12 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *cellIdentifier = [NSString stringWithFormat:@"cell%ld,%ld",(long)[indexPath section],(long)[indexPath row]];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        
     }
+    
     BillDetail *model = [self.modelArray objectAtIndex:indexPath.row];
     
     UILabel *nameLab = [[UILabel alloc] init];

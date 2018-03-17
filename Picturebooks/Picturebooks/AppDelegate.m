@@ -52,8 +52,8 @@
                  apsForProduction:isProduction
             advertisingIdentifier:nil];
     // 3.0.0及以后版本注册可以这样写，也可以继续用旧的注册方式
-    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
-    entity.types= JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
+    JPUSHRegisterEntity *entity = [[JPUSHRegisterEntity alloc] init];
+    entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
         //可以添加自定义categories
         //    if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
@@ -70,9 +70,9 @@
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
 
-    
     //更改根视图监听
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootViewController:) name:@"changeRootViewController" object:nil];
+    
     //判断是否为新用户，新用户先走欢迎页
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"notFirst"]) {
         WelcomeViewController *welcomeVC = [[WelcomeViewController alloc] init];
@@ -111,10 +111,13 @@
 
 //激光推送获取消息
 - (void)networkDidReceiveMessage:(NSNotification *)notification {
+    
     NSDictionary * userInfo = [notification userInfo];
     NSString *content = [userInfo valueForKey:@"content"];
     NSDictionary *extras = [userInfo valueForKey:@"extras"];
     NSString *customizeField1 = [extras valueForKey:@"customizeField1"]; //服务端传递的Extras附加字段，key是自己定义的
+    
+    // info 用于我的界面中"小铃铛"添加未读小红点
     [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"info"];
     [[NSUserDefaults standardUserDefaults] synchronize];
   
@@ -125,13 +128,12 @@
     if ([responseDictionary[@"type"] integerValue] == 0) {
         //评论消息
         MinePuComModel *model = [MinePuComModel modelWithDictionary:responseDictionary[@"body"]];
-        
         [ForumDB saveSystemInfo:model];
         
     }else{
         //推送消息
-         MinePushModel *model = [MinePushModel modelWithDictionary:responseDictionary[@"body"]];
-           [ForumDB savePushInfo:model];
+        MinePushModel *model = [MinePushModel modelWithDictionary:responseDictionary[@"body"]];
+        [ForumDB savePushInfo:model];
     }
     
 }
@@ -209,11 +211,14 @@
         SendAuthResp *temp = (SendAuthResp *)resp;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"bindingPhoneNum" object:temp.code];
     }
+    
     // 微信分享后，得到相应结果
     if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
         SendMessageToWXResp *response = (SendMessageToWXResp *)resp;
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"wechatShare" object:[NSString stringWithFormat:@"%d", response.errCode]];
     }
+    
     // 微信支付后，得到相应结果
     if([resp isKindOfClass:[PayResp class]]){
         NSString *strMsg = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
@@ -374,13 +379,11 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
         [JPUSHService handleRemoteNotification:userInfo];
         NSLog(@"iOS10 前台收到远程通知:%@", [self logDic:userInfo]);
         
-       
-        
-    }
-    else {
+    } else {
         // 判断为本地通知
         NSLog(@"iOS10 前台收到本地通知:{\nbody:%@，\ntitle:%@,\nsubtitle:%@,\nbadge：%@，\nsound：%@，\nuserInfo：%@\n}",body,title,subtitle,badge,sound,userInfo);
     }
+    
     completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以设置
 }
 
@@ -400,7 +403,6 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
         [JPUSHService handleRemoteNotification:userInfo];
         NSLog(@"iOS10 收到远程通知:%@", [self logDic:userInfo]);
        
-        
     }
     else {
         // 判断为本地通知

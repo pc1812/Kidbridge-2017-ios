@@ -22,6 +22,11 @@
 		31B030FB20492C2400556C78 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B030FA20492C2400556C78 /* StoreKit.framework */; };
 		31B030FE2049450C00556C78 /* JxdAppPurchaseTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B030FD2049450C00556C78 /* JxdAppPurchaseTool.m */; };
 		31B031012049527700556C78 /* SaveFileTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B031002049527700556C78 /* SaveFileTools.m */; };
+		31B0313F2056890700556C78 /* AchievementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B0313D2056890700556C78 /* AchievementViewController.m */; };
+		31B03142205689B500556C78 /* Medal.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B03140205689B500556C78 /* Medal.m */; };
+		31B03145205689C000556C78 /* MedalCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B03144205689C000556C78 /* MedalCollectionViewCell.m */; };
+		31B0314E20575DF400556C78 /* MyAchievementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B0314D20575DF400556C78 /* MyAchievementViewController.m */; };
+		31B0319A205CD68F00556C78 /* EdgeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B03199205CD68F00556C78 /* EdgeLabel.m */; };
 		3823FDD31F3EE9F500006D7D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3823FDD21F3EE9F500006D7D /* LoginViewController.m */; };
 		3823FDD61F3EEA0100006D7D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3823FDD51F3EEA0100006D7D /* RegisterViewController.m */; };
 		3823FDD91F3EEA4D00006D7D /* MissViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3823FDD81F3EEA4D00006D7D /* MissViewController.m */; };
@@ -43,8 +48,6 @@
 		38454E281F445B3F0042A97B /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 38454E271F445B3F0042A97B /* MBProgressHUD.m */; };
 		38454E2B1F445E600042A97B /* FollowCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38454E2A1F445E600042A97B /* FollowCollectionViewCell.m */; };
 		38454E2E1F445E8B0042A97B /* Segment.m in Sources */ = {isa = PBXBuildFile; fileRef = 38454E2D1F445E8B0042A97B /* Segment.m */; };
-		3873C83D1F20BF1200268735 /* Medal.m in Sources */ = {isa = PBXBuildFile; fileRef = 3873C83C1F20BF1200268735 /* Medal.m */; };
-		3873C8401F20BF1D00268735 /* MedalCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3873C83F1F20BF1D00268735 /* MedalCollectionViewCell.m */; };
 		3879E3591F5508E5006B2384 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3879E3551F5508E5006B2384 /* libWeChatSDK.a */; };
 		3879E35B1F550973006B2384 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3879E35A1F550973006B2384 /* libsqlite3.0.tbd */; };
 		3879E35D1F550982006B2384 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3879E35C1F550982006B2384 /* libc++.tbd */; };
@@ -72,7 +75,6 @@
 		38C8F13F1F218E8A00FC0644 /* InfoCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C8F1111F218E8A00FC0644 /* InfoCommentViewController.m */; };
 		38C8F1401F218E8A00FC0644 /* InfoNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C8F1131F218E8A00FC0644 /* InfoNoticeViewController.m */; };
 		38C8F1411F218E8A00FC0644 /* InfoPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C8F1151F218E8A00FC0644 /* InfoPushViewController.m */; };
-		38C8F1421F218E8A00FC0644 /* AchievementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C8F1181F218E8A00FC0644 /* AchievementViewController.m */; };
 		38C8F1471F218E8A00FC0644 /* MineMoneysViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C8F1241F218E8A00FC0644 /* MineMoneysViewController.m */; };
 		38C8F1481F218E8A00FC0644 /* MoneyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C8F1261F218E8A00FC0644 /* MoneyDetailViewController.m */; };
 		38C8F1491F218E8A00FC0644 /* MinePicFreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C8F1291F218E8A00FC0644 /* MinePicFreeViewController.m */; };
@@ -391,6 +393,16 @@
 		31B030FD2049450C00556C78 /* JxdAppPurchaseTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JxdAppPurchaseTool.m; sourceTree = "<group>"; };
 		31B030FF2049527700556C78 /* SaveFileTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveFileTools.h; sourceTree = "<group>"; };
 		31B031002049527700556C78 /* SaveFileTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaveFileTools.m; sourceTree = "<group>"; };
+		31B0313D2056890700556C78 /* AchievementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementViewController.m; sourceTree = "<group>"; };
+		31B0313E2056890700556C78 /* AchievementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AchievementViewController.h; sourceTree = "<group>"; };
+		31B03140205689B500556C78 /* Medal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Medal.m; sourceTree = "<group>"; };
+		31B03141205689B500556C78 /* Medal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Medal.h; sourceTree = "<group>"; };
+		31B03143205689C000556C78 /* MedalCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MedalCollectionViewCell.h; sourceTree = "<group>"; };
+		31B03144205689C000556C78 /* MedalCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MedalCollectionViewCell.m; sourceTree = "<group>"; };
+		31B0314C20575DF400556C78 /* MyAchievementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAchievementViewController.h; sourceTree = "<group>"; };
+		31B0314D20575DF400556C78 /* MyAchievementViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAchievementViewController.m; sourceTree = "<group>"; };
+		31B03198205CD68F00556C78 /* EdgeLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EdgeLabel.h; sourceTree = "<group>"; };
+		31B03199205CD68F00556C78 /* EdgeLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EdgeLabel.m; sourceTree = "<group>"; };
 		3823FDCE1F3EE98500006D7D /* LoginAndRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginAndRegisterViewController.h; sourceTree = "<group>"; };
 		3823FDCF1F3EE98500006D7D /* LoginAndRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginAndRegisterViewController.m; sourceTree = "<group>"; };
 		3823FDD11F3EE9F500006D7D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -435,10 +447,6 @@
 		38454E2A1F445E600042A97B /* FollowCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowCollectionViewCell.m; sourceTree = "<group>"; };
 		38454E2C1F445E8B0042A97B /* Segment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Segment.h; sourceTree = "<group>"; };
 		38454E2D1F445E8B0042A97B /* Segment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Segment.m; sourceTree = "<group>"; };
-		3873C83B1F20BF1200268735 /* Medal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Medal.h; sourceTree = "<group>"; };
-		3873C83C1F20BF1200268735 /* Medal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Medal.m; sourceTree = "<group>"; };
-		3873C83E1F20BF1D00268735 /* MedalCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MedalCollectionViewCell.h; sourceTree = "<group>"; };
-		3873C83F1F20BF1D00268735 /* MedalCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MedalCollectionViewCell.m; sourceTree = "<group>"; };
 		3879E3551F5508E5006B2384 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		3879E3561F5508E5006B2384 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
 		3879E3571F5508E5006B2384 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
@@ -556,8 +564,6 @@
 		38C8F1131F218E8A00FC0644 /* InfoNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoNoticeViewController.m; sourceTree = "<group>"; };
 		38C8F1141F218E8A00FC0644 /* InfoPushViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoPushViewController.h; sourceTree = "<group>"; };
 		38C8F1151F218E8A00FC0644 /* InfoPushViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoPushViewController.m; sourceTree = "<group>"; };
-		38C8F1171F218E8A00FC0644 /* AchievementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AchievementViewController.h; sourceTree = "<group>"; };
-		38C8F1181F218E8A00FC0644 /* AchievementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementViewController.m; sourceTree = "<group>"; };
 		38C8F1231F218E8A00FC0644 /* MineMoneysViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineMoneysViewController.h; sourceTree = "<group>"; };
 		38C8F1241F218E8A00FC0644 /* MineMoneysViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineMoneysViewController.m; sourceTree = "<group>"; };
 		38C8F1251F218E8A00FC0644 /* MoneyDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyDetailViewController.h; sourceTree = "<group>"; };
@@ -1158,6 +1164,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		31B031362056882500556C78 /* 我的成就 */ = {
+			isa = PBXGroup;
+			children = (
+				31B0313C2056890700556C78 /* Controller */,
+				31B0313A2056890700556C78 /* Model */,
+				31B0313B2056890700556C78 /* View */,
+			);
+			path = "我的成就";
+			sourceTree = "<group>";
+		};
+		31B0313A2056890700556C78 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				31B03141205689B500556C78 /* Medal.h */,
+				31B03140205689B500556C78 /* Medal.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		31B0313B2056890700556C78 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				31B03143205689C000556C78 /* MedalCollectionViewCell.h */,
+				31B03144205689C000556C78 /* MedalCollectionViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		31B0313C2056890700556C78 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				31B0313E2056890700556C78 /* AchievementViewController.h */,
+				31B0313D2056890700556C78 /* AchievementViewController.m */,
+				31B0314C20575DF400556C78 /* MyAchievementViewController.h */,
+				31B0314D20575DF400556C78 /* MyAchievementViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		3823FDCD1F3EE91400006D7D /* LoginAndRegister */ = {
 			isa = PBXGroup;
 			children = (
@@ -1345,8 +1390,7 @@
 		38C8F1161F218E8A00FC0644 /* Section0 */ = {
 			isa = PBXGroup;
 			children = (
-				38C8F1171F218E8A00FC0644 /* AchievementViewController.h */,
-				38C8F1181F218E8A00FC0644 /* AchievementViewController.m */,
+				31B031362056882500556C78 /* 我的成就 */,
 				38C8F1221F218E8A00FC0644 /* 我的余额 */,
 				38C8F11B1F218E8A00FC0644 /* 我的资料 */,
 				38C8F1351F218E8A00FC0644 /* 我的水滴 */,
@@ -1601,6 +1645,8 @@
 				3135DA632005C18600E18723 /* UICollectionView+HitAreaExpand.m */,
 				31A79BAF2010945600A31079 /* UIImage+Category.h */,
 				31A79BB02010945600A31079 /* UIImage+Category.m */,
+				31B03198205CD68F00556C78 /* EdgeLabel.h */,
+				31B03199205CD68F00556C78 /* EdgeLabel.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2107,8 +2153,6 @@
 			children = (
 				38EC1D841F3C3F76008CF137 /* BillDetail.h */,
 				38EC1D851F3C3F76008CF137 /* BillDetail.m */,
-				3873C83B1F20BF1200268735 /* Medal.h */,
-				3873C83C1F20BF1200268735 /* Medal.m */,
 				8484B9B11F47D06B00F7DA6C /* MineReadModel.h */,
 				8484B9B21F47D06B00F7DA6C /* MineReadModel.m */,
 				841A94E21F6F7873001AE5E7 /* MineCoReadModel.h */,
@@ -2148,8 +2192,6 @@
 				843AF3BC1F4D2E300048F8E3 /* ZJImageMagnification.m */,
 				84E23FBB1F272F4E00010706 /* QQInputView.h */,
 				84E23FBC1F272F4E00010706 /* QQInputView.m */,
-				3873C83E1F20BF1D00268735 /* MedalCollectionViewCell.h */,
-				3873C83F1F20BF1D00268735 /* MedalCollectionViewCell.m */,
 				848DCBE81F1DF5980008B291 /* DatePickerView.h */,
 				848DCBE91F1DF5980008B291 /* DatePickerView.m */,
 				848DCBEA1F1DF5980008B291 /* InfoCommentViewCell.h */,
@@ -3009,7 +3051,6 @@
 				848DCD961F1DF6910008B291 /* MJRefreshFooter.m in Sources */,
 				848DCD9D1F1DF6910008B291 /* MJRefreshBackStateFooter.m in Sources */,
 				848DCD7D1F1DF6910008B291 /* LGAudioPlayer.m in Sources */,
-				38C8F1421F218E8A00FC0644 /* AchievementViewController.m in Sources */,
 				848DCD5C1F1DF6910008B291 /* AFAutoPurgingImageCache.m in Sources */,
 				38D9C6441F45B497008D33B9 /* QNPHAssetResource.m in Sources */,
 				38D9C6581F45B497008D33B9 /* QNDnspodEnterprise.m in Sources */,
@@ -3040,7 +3081,7 @@
 				848DCDBD1F1DF6910008B291 /* UIView+WebCacheOperation.m in Sources */,
 				38385F871F2AC1820054E307 /* CardStateViewController.m in Sources */,
 				848DCDB81F1DF6910008B291 /* UIButton+WebCache.m in Sources */,
-				3873C83D1F20BF1200268735 /* Medal.m in Sources */,
+				31B03142205689B500556C78 /* Medal.m in Sources */,
 				843A5E391F7F9209007AEC3C /* ForumDB.m in Sources */,
 				848DCD951F1DF6910008B291 /* MJRefreshComponent.m in Sources */,
 				38D9C65D1F45B497008D33B9 /* QNResolvUtil.m in Sources */,
@@ -3056,7 +3097,6 @@
 				843AF3BD1F4D2E300048F8E3 /* ZJImageMagnification.m in Sources */,
 				848DCC551F1DF5980008B291 /* PicCommentViewCell.m in Sources */,
 				38D9C65A1F45B497008D33B9 /* QNHijackingDetectWrapper.m in Sources */,
-				3873C8401F20BF1D00268735 /* MedalCollectionViewCell.m in Sources */,
 				38D9C6551F45B497008D33B9 /* QNLruCache.m in Sources */,
 				38454E2E1F445E8B0042A97B /* Segment.m in Sources */,
 				38C8F14A1F218E8A00FC0644 /* MinePicPayViewController.m in Sources */,
@@ -3067,6 +3107,7 @@
 				8484B9B61F47DC9900F7DA6C /* MineWithReModel.m in Sources */,
 				84054F691F62B81400E28787 /* PicAgeViewCell.m in Sources */,
 				848DCD671F1DF6910008B291 /* UIDevice+FCUUID.m in Sources */,
+				31B03145205689C000556C78 /* MedalCollectionViewCell.m in Sources */,
 				8484B6601F20885600F86025 /* AppTools.m in Sources */,
 				38D9C6411F45B497008D33B9 /* QNEtag.m in Sources */,
 				841A94EA1F6F9F4A001AE5E7 /* MineCoPicModel.m in Sources */,
@@ -3086,6 +3127,7 @@
 				848DCD7A1F1DF6910008B291 /* amrFileCodec.m in Sources */,
 				848DCD5D1F1DF6910008B291 /* AFImageDownloader.m in Sources */,
 				38D9C6461F45B497008D33B9 /* QNUrlSafeBase64.m in Sources */,
+				31B0313F2056890700556C78 /* AchievementViewController.m in Sources */,
 				38CA3C141F1D9CE80070AC93 /* PBNavViewController.m in Sources */,
 				38C8F14E1F218E8A00FC0644 /* MineReadViewController.m in Sources */,
 				848DCC421F1DF5980008B291 /* InfoPushViewCell.m in Sources */,
@@ -3198,6 +3240,7 @@
 				38C8F1521F218E8A00FC0644 /* MineSuggestViewController.m in Sources */,
 				848DCD971F1DF6910008B291 /* MJRefreshHeader.m in Sources */,
 				848DCD931F1DF6910008B291 /* MJRefreshAutoFooter.m in Sources */,
+				31B0319A205CD68F00556C78 /* EdgeLabel.m in Sources */,
 				848DCD701F1DF6910008B291 /* IQUIWindow+Hierarchy.m in Sources */,
 				848DCDAE1F1DF6910008B291 /* SDCycleScrollView.m in Sources */,
 				848DCC241F1DF5980008B291 /* CoMineViewController.m in Sources */,
@@ -3269,6 +3312,7 @@
 				840138F51F595DCF00B4E1CD /* CoDiscussViewController.m in Sources */,
 				848DCDA51F1DF6910008B291 /* UIScrollView+MJRefresh.m in Sources */,
 				38385F8A1F2AC1820054E307 /* TeacherCardViewController.m in Sources */,
+				31B0314E20575DF400556C78 /* MyAchievementViewController.m in Sources */,
 				848DCDB01F1DF6910008B291 /* NSData+ImageContentType.m in Sources */,
 				383C9D901F1DAF16005998FC /* RootViewController.m in Sources */,
 			);

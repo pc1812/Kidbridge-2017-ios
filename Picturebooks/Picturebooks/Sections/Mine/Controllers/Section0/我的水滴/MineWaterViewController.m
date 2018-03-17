@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.titleView = [UINavigationItem titleViewForTitle:@"我的水滴"];
+    self.navigationItem.titleView = [UINavigationItem titleViewForTitle:@"我的滴水"];
     [self.view addSubview:self.rootScrollView];
 
     [self.rootScrollView addSubview:self.imageView];
@@ -88,7 +88,7 @@
 - (UILabel *)waterLab{
     if (!_waterLab) {
         _waterLab = [UILabel new];
-        LabelSet(_waterLab, @"水滴个数", [UIColor blackColor], 18, waterDic, waterSize);
+        LabelSet(_waterLab, @"滴水个数", [UIColor blackColor], 18, waterDic, waterSize);
         _waterLab.frame = FRAMEMAKE_F((SCREEN_WIDTH - waterSize.width) / 2, CGRectGetMaxY( _imageView.frame) + 22, waterSize.width, waterSize.height);
     }
     return _waterLab;
@@ -112,7 +112,7 @@
         _detailLab = [UILabel new];
         _detailLab.textColor = [Global convertHexToRGB:@"fe6b76"];
         _detailLab.font = [UIFont systemFontOfSize:18];
-        NSString *textStr = @"水滴明细";
+        NSString *textStr = @"滴水明细";
         // 下划线
         NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
         NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:textStr attributes:attribtDic];
@@ -132,7 +132,7 @@
     if (!_moneyBtn) {
         _moneyBtn=[UIButton buttonWithType:UIButtonTypeCustom];
         _moneyBtn.frame=CGRectMake(45, CGRectGetMaxY( _detailLab.frame) + 15, SCREEN_WIDTH- 90, 40);
-        [_moneyBtn setTitle:@"兑换成H币" forState:UIControlStateNormal];
+        [_moneyBtn setTitle:@"兑换成 H币" forState:UIControlStateNormal];
         _moneyBtn.titleLabel.textColor = [UIColor whiteColor];
         _moneyBtn.titleLabel.font = [UIFont systemFontOfSize:15 weight:2];
         _moneyBtn.backgroundColor=[Global convertHexToRGB:@"14d02f"];
@@ -149,7 +149,7 @@
         _promptLab = [UILabel new];
         _promptLab.textColor = [Global convertHexToRGB:@"999999"];
         _promptLab.font = [UIFont systemFontOfSize:12 weight:2];
-        _promptLab.text = @"提示: 100水滴可兑换1 H币";
+        _promptLab.text = @"提示: 100滴水可兑换1 H币";
         NSDictionary *proDic = StringFont_DicK(_promptLab.font );
         CGSize proSize = [_promptLab.text  sizeWithAttributes:proDic];
         _promptLab.frame = FRAMEMAKE_F((SCREEN_WIDTH - proSize.width) / 2, CGRectGetMaxY( _moneyBtn.frame) + 20, proSize.width, proSize.height)
@@ -186,7 +186,7 @@
         
         if (buttonIndex == 0) {
             if ([Global isNullOrEmpty:_numField.text]) {
-                [Global showWithView:self.view withText:@"输入的水滴不能为空～"];
+                [Global showWithView:self.view withText:@"输入的滴水不能为空～"];
                 return;
             }
             
@@ -249,7 +249,7 @@
     UILabel *view1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 230, 50)];
     view1.font = [UIFont systemFontOfSize:15 weight:2];
     view1.textColor = [UIColor blackColor];
-    view1.text = @"请输入要兑换的水滴数";
+    view1.text = @"请输入要兑换的滴水数";
     view1.textAlignment = NSTextAlignmentCenter;
     [view addSubview:view1];
     

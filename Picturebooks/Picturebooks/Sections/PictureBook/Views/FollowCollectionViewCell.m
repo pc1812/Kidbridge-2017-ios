@@ -21,6 +21,8 @@
 
 @property (nonatomic, strong)UIImageView *loadingImageView;
 @property (nonatomic, strong)CALayer *player;
+/** 滚动条背景 容器 View */
+@property (nonatomic,strong) UIView *scrollBarBackground;
 @end
 
 @implementation FollowCollectionViewCell
@@ -157,6 +159,8 @@
         //自定义scrollBar背景初始化与布局
         UIView *scrollBarBackground = [[UIView alloc] init];
         [boundsView addSubview:scrollBarBackground];
+        self.scrollBarBackground = scrollBarBackground;
+        
         scrollBarBackground.backgroundColor = RGBHex(0xf0f0f0);
         scrollBarBackground.layer.masksToBounds = YES;
         scrollBarBackground.layer.cornerRadius = 4;
@@ -581,7 +585,26 @@
 //            self.scrollBar.frame = CGRectMake(0, 0, 8, 194 / self.content.frame.size.height * 194);
         }
     
-    self.scrollBar.frame = CGRectMake(0, 0, 8, contentScrollH / self.content.frame.size.height * contentScrollH);
+    // jxd-start---------------
+#pragma mark - Jxd-修改
+    // 修改前
+//     self.scrollBar.frame = CGRectMake(0, 0, 8, contentScrollH / self.content.frame.size.height * contentScrollH);
+    
+    // 修改后,增加判断
+    if (self.content.frame.size.height <= (self.bounds.size.height - 90) ) {
+        self.scrollBar.hidden = YES;
+        self.scrollBarBackground.hidden = YES;
+    } else {
+        self.scrollBar.hidden = NO;
+        self.scrollBarBackground.hidden = NO;
+        self.scrollBar.frame = CGRectMake(0, 0, 8, contentScrollH / self.content.frame.size.height * contentScrollH);
+    }
+    
+    // jxd-end---------------
+    
+   
+    
+    
     
     self.soundUrl = _segment.audio;
 }

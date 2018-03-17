@@ -19,6 +19,6 @@
 
 
 /** 计时器 */
-@property (nonatomic,weak)  NSTimer *currentTimer;
+//@property (nonatomic,weak)  NSTimer *currentTimer;
 
 @end

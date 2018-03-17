@@ -68,7 +68,8 @@
     NSLog(@"没有内存泄漏");
     [LameTools clearSoundFile];
     [LameTools clearUploadFile];
-    
+    // 移除定时器
+    [self killNSTimer];
     //移除所有通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -86,7 +87,6 @@
     //navigationBar标题
     self.navigationItem.titleView = [UINavigationItem titleViiewWithTitle:self.name];
 
-    
     //navigationBar标题字体、颜色
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18], NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
@@ -170,6 +170,7 @@
         self.getTokenUrl = Course_repeat_token;
     }
 }
+
 
 #pragma mark - 分享回调
 //分享回调
@@ -714,9 +715,12 @@
 - (void)completeButtonClick:(UIButton *)sender
 {
     if (sender.selected) {
+        // 暂停计时器
+        [self killNSTimer];
 //        NSLog(@"完成,开始发布");
         [self pushPreviewViewController];
     }
+    
 }
 
 #pragma mark - 创建音频草稿 ScrollView
@@ -815,11 +819,6 @@
     }];
 }
 
-#pragma mark - 暂停当前的计时器
-- (void)pauseCurrentTimer
-{
-    [self.countDownTimer setFireDate:[NSDate distantFuture]];
-}
 
 #pragma mark - 跟读完成按钮触发方法
 //用户可选择直接在该页面发布，或者跳转到预览页面，预览后再发布
@@ -848,7 +847,7 @@
             previewController.type = self.type;
             
             // 计时器
-            previewController.currentTimer = self.countDownTimer;
+//            previewController.currentTimer = self.countDownTimer;
             
 #pragma mark - Jxd-temp
             NSLog(@"messageArray:%@",self.messageArray);
@@ -860,7 +859,7 @@
             
             // Jxd-start--------------------------------------
 #pragma mark - Jxd-修改:暂停计时器
-            [self pauseCurrentTimer];
+//            [self killNSTimer];
             // Jxd-end--------------------------------------
             
             //显示的文字
@@ -1086,7 +1085,7 @@
                     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
                                                                                 cancelTitle:@"取消"
                                                                            destructiveTitle:nil
-                                                                                otherTitles:@[@"分享给微信好友", @"分享到朋友圈(+1水滴)"]
+                                                                                otherTitles:@[@"分享给微信好友", @"分享到朋友圈(+1滴水)"]
                                                                                 otherImages:@[[UIImage imageNamed:@"pic_wechat"],
                                                                                               [UIImage imageNamed:@"pic_friend"]
                                                                                               ]
@@ -1123,6 +1122,9 @@
                         //mineReadVC.publishTime = model.dateModel.time;
                         mineReadVC.likeUrl = USERCO_LIKE;
                         mineReadVC.isFromPublish = YES;
+                        // Jxd-增加类型判断
+                        mineReadVC.picPushShow = YES;
+                        
                         mineReadVC.rewardUrl =  COURSE_RepeatReward;
                         [self.navigationController pushViewController:mineReadVC animated:YES];
 
@@ -1151,6 +1153,12 @@
     NSLog(@"%zd", index);
     
     NSString *nickName = [[NSUserDefaults standardUserDefaults] objectForKey:@"nickname"];
+    
+//    if ([Global isNullOrEmpty:nickName]) {
+//        nickName = @"我";
+////    }
+    nickName = @"我";
+    
     //微信好友
     if (index == 0) {
         if ([WXApi isWXAppInstalled]) {
@@ -1160,6 +1168,7 @@
             // 修改后的
             message.title = @"HS英文绘本课堂";
             message.description = [NSString stringWithFormat:@"%@在HS英文绘本课堂朗读了%@绘本，快来听听吧!",nickName,self.name];
+            
 //            NSString *urlString = [NSString stringWithFormat:@"%@/Fof8KyLYA3xDcxiB3NbnI9maVjIi", URL_share];
              NSString *urlString = [NSString stringWithFormat:@"%@/FhoQUFJLkpWzFtouV2pAVBzsVcIN", URL_share];
             UIImage *image_pic=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:urlString]]];
@@ -1187,11 +1196,13 @@
     }else if (index == 1){
         if ([WXApi isWXAppInstalled]) {
             WXMediaMessage *message = [WXMediaMessage message];
-//            message.title = self.name;
-//            message.description = @"HS英文绘本课堂";
+
             // 修改后的
-            message.title = @"HS英文绘本课堂";
-            message.description = [NSString stringWithFormat:@"%@在HS英文绘本课堂朗读了%@绘本，快来听听吧!",nickName,self.name];
+            message.title = [NSString stringWithFormat:@"%@在HS英文绘本课堂朗读了%@绘本，快来听听吧!",nickName,self.name];
+
+            
+//            message.description = @"";
+            
             //png图片压缩成data的方法，如果是jpg就要用 UIImageJPEGRepresentation
             //message.thumbData = UIImagePNGRepresentation(image);
 //             UIImage *image_pic=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/Fof8KyLYA3xDcxiB3NbnI9maVjIi", URL_share]]]];
