@@ -41,7 +41,8 @@
         }
     }
     if ([key isEqualToString:@"createTime"]) {
-        self.time = [AppTools timestampToTimeChinese:value];
+//        self.time = [AppTools timestampToTimeChinese:value];
+        self.time =  [AppTools timestampToTime:value format:@"YYYY-MM-dd HH:mm:ss"];
     }
     if ([key isEqualToString:@"fee"]) {
         self.fees = [NSString stringWithFormat:@"%@", value];
@@ -49,3 +50,23 @@
 }
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -9,8 +9,9 @@
 #import <CommonCrypto/CommonCrypto.h>
 
 //#define DEV // 开发环境
-#define TEST // 测试部测试环境
-//#define RELEASE // 上架生产环境
+//#define TEST // 测试部测试环境
+#define RELEASE // 上架生产环境
+
 
 // 开发环境
 #ifdef DEV 
@@ -21,12 +22,12 @@
 // 测试部测试环境 http://15y2926z54.imwork.net/zhefei-app-web
 #ifdef TEST
 #define language = "英文"
-#define URL_API_DOMAIN @"http://api.kidbridge.org"
+#define URL_API_DOMAIN @"http://kidbridge.test.dev.51zhiyuan.net/"
 #endif
 
 // 上架生产环境
 #ifdef RELEASE
-#define URL_API_DOMAIN @"http://www.srltsy.com/litong"
+#define URL_API_DOMAIN @"https://api.kidbridge.org"
 #endif
 
 #define kIsNull(x) (!x || [x isKindOfClass:[NSNull class]])

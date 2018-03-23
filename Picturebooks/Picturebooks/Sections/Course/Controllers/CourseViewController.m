@@ -76,10 +76,34 @@ static NSString * const footIdentifierView = @"foot";
     
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self carouselData];
+        [self myCourseDate];
         [self ageData];
         [self hotData];
         [self.collectionView.mj_header endRefreshing];
     }];
+    
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    switch (self.cellType) {
+        case CourseCellTypeOfNone:
+            break;
+        case CourseCellTypeOfAge:
+            //年龄
+            [self ageData];
+            break;
+        case CourseCellTypeOfHoc:
+            //热门
+            [self hotData];
+            break;
+            
+        default:
+            break;
+    }
     
 }
 
@@ -196,7 +220,7 @@ static NSString * const footIdentifierView = @"foot";
     [parame setObject:@(4) forKey:@"limit"];
     
     [[HttpManager sharedManager] POST:COURSE_HOT parame:parame sucess:^(id success) {
-    
+        
         if ([success[@"event"] isEqualToString:@"SUCCESS"]) {
             NSMutableArray *boyarray= success[@"data"];
             if (![boyarray isEqual:[NSNull null]]) {
@@ -308,7 +332,15 @@ static NSString * const footIdentifierView = @"foot";
     CourseModel *model = self.hotArray[indexPath.row];
     NSString * url = [NSString stringWithFormat:@"%@%@", Qiniu_host, model.icon[0]];
     [cell.photoImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"head_placeholder"]];
-     cell.lockImage.hidden = YES;
+    
+//     cell.lockImage.hidden = YES;
+    
+    if (model.lock == 1) {
+        cell.lockImage.hidden = YES;
+    }else{
+        cell.lockImage.hidden = NO;
+    }
+    
     NSString *courseStr;
     if (model.status == 0) {
         courseStr = [NSString stringWithFormat:@"%ld/%ld", (long)model.enter, (long)model.limit];
@@ -328,8 +360,10 @@ static NSString * const footIdentifierView = @"foot";
     if (indexPath.section == 0) {
         courseModel = self.myCourseArray[indexPath.row];
     }else if(indexPath.section == 1){
+        self.cellType = CourseCellTypeOfAge;
         courseModel = self.ageArray[indexPath.row];
     }else{
+        self.cellType = CourseCellTypeOfHoc;
         courseModel = self.hotArray[indexPath.row];
     }
     

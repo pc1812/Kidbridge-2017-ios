@@ -51,6 +51,11 @@
 /** 保存完成按钮的可变数组 */
 @property (nonatomic,strong)  NSMutableArray *btnArrayM;
 
+/** 分享的场景(0:好友,1:朋友圈) */
+@property (nonatomic, assign) int scene;
+/** 分享成功控制 */
+@property (nonatomic,assign) BOOL shareSuccess;
+
 @end
 
 @implementation PicFreeWithViewController
@@ -76,6 +81,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.shareSuccess = YES;
+    
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBHex(0xf0f0f0);
     self.navigationController.navigationBar.translucent = NO;
@@ -172,6 +180,35 @@
 }
 
 
+#pragma mark - 服务器--用户绘本跟读分享(+1水滴) User_book_repeatShare
+- (void)requestUserBookAndCourseRepeatShareData
+{
+    NSString *urlStr;
+    if (self.type == 0 ) {
+        // 绘本跟读赏析
+        urlStr = User_book_repeatShare;
+        
+    } else if (self.type == 3) {
+        // 课程跟读赏析
+        urlStr = User_course_repeatShare;
+    }
+    
+    NSMutableDictionary *parame = [HttpManager necessaryParameterDictionary];
+    [parame setObject:urlStr forKey:@"uri"];
+    [parame setObject:[HttpManager getAddSaltMD5Sign:parame] forKey:@"sign"];
+    //提交跟读信息接口参数
+    [parame setObject:@(self.repeatId) forKey:@"id"]; // 绘本跟读编号 id
+    
+    [[HttpManager sharedManager] POST:urlStr parame:parame sucess:^(id success) {
+        
+        NSLog(@"添加水滴成功:%@",success);
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+
 #pragma mark - 分享回调
 //分享回调
 - (void)clickShare:(NSNotification *)notification{
@@ -179,6 +216,14 @@
     switch ([notification.object integerValue]) {
         case 0:
             [Global showWithView:self.view withText:@"分享成功"];
+            
+            if (self.scene == 1) { // 朋友圈
+                if (self.shareSuccess) {
+                    [self requestUserBookAndCourseRepeatShareData];
+                    self.shareSuccess = NO;
+                }
+            }
+            
             break;
         case -1:
             [Global showWithView:self.view withText:@"普通类型错误"];
@@ -1081,11 +1126,12 @@
 //                            [self.navigationController popToViewController:tempVC animated:YES];
 //                        }
 //                    }
+                    self.shareSuccess = YES;
                     
                     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
                                                                                 cancelTitle:@"取消"
                                                                            destructiveTitle:nil
-                                                                                otherTitles:@[@"分享给微信好友", @"分享到朋友圈(+1滴水)"]
+                                                                                otherTitles:@[@"分享给微信好友", @"分享到朋友圈(+1水滴)"]
                                                                                 otherImages:@[[UIImage imageNamed:@"pic_wechat"],
                                                                                               [UIImage imageNamed:@"pic_friend"]
                                                                                               ]
@@ -1188,6 +1234,7 @@
             req.bText = NO;
             req.message = message;
             req.scene = WXSceneSession;
+            self.scene = WXSceneSession; // 好友
             [WXApi sendReq:req];
         }else{
             [self setupAlertController];
@@ -1224,6 +1271,7 @@
             req.bText = NO;//不使用文本信息
             req.message = message;
             req.scene = WXSceneTimeline;
+            self.scene = WXSceneTimeline; // 朋友圈
             [WXApi sendReq:req];
         }else{
             [self setupAlertController];
@@ -1264,8 +1312,12 @@
         //mineReadVC.publishTime = model.dateModel.time;
         mineReadVC.likeUrl = USERCO_LIKE;
         mineReadVC.isFromPublish = YES;
+        // Jxd-增加类型判断
+        mineReadVC.picPushShow = YES;
+        
         mineReadVC.rewardUrl =  COURSE_RepeatReward;
         [self.navigationController pushViewController:mineReadVC animated:YES];
+        
     }
 }
 

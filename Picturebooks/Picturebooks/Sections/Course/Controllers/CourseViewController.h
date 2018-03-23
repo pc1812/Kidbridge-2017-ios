@@ -8,6 +8,15 @@
 
 #import "PBBaseViewController.h"
 
+typedef NS_ENUM(NSInteger,CourseCellType) {
+    CourseCellTypeOfNone = 0,
+    CourseCellTypeOfAge = 1,
+    CourseCellTypeOfHoc = 2
+};
+
 @interface CourseViewController : PBBaseViewController
+
+/** 枚举 */
+@property (nonatomic,assign) CourseCellType cellType;
 
 @end

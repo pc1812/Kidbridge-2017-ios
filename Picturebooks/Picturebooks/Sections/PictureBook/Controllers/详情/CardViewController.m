@@ -27,6 +27,7 @@ static NSString * const footIdentifierView = @"MainfootView";
 @property (nonatomic, copy)NSString *imgIcon;
 @property (nonatomic, copy)NSString *imgUrl;
 
+
 @end
 
 @implementation CardViewController
@@ -43,6 +44,13 @@ static NSString * const footIdentifierView = @"MainfootView";
     self.noSearchImageView.backgroundColor = [UIColor clearColor];
     self.noSearchImageView.center = self.collectionView.center;
     [self.view addSubview:self.noSearchImageView];
+    
+//    [self loadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     [self loadData];
 }
@@ -64,7 +72,10 @@ static NSString * const footIdentifierView = @"MainfootView";
     
     [[HttpManager sharedManager] POST:PICTUREBOOK_DETAIL parame:parame sucess:^(id success) {
         
+        
         if ([success[@"event"] isEqualToString:@"SUCCESS"]) {
+            
+            [self.dataSource removeAllObjects];
             
             NSMutableArray *boyarray= success[@"data"][@"bookList"];
             if (![boyarray isEqual:[NSNull null]]) {
@@ -77,6 +88,7 @@ static NSString * const footIdentifierView = @"MainfootView";
             self.imgUrl = success[@"data"][@"cover"][@"link"];
             [self.collectionView reloadData];
         }
+        
     } failure:^(NSError *error) {
         [Global showWithView:self.view withText:@"网络错误"];
     }];

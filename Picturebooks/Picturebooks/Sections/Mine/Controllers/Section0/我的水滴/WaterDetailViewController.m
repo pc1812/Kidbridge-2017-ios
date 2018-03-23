@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.titleView = [UINavigationItem titleViewForTitle:@"滴水明细"];
+    self.navigationItem.titleView = [UINavigationItem titleViewForTitle:@"水滴明细"];
     self.modelArray = [[NSMutableArray alloc] init];
     [self.view addSubview:self.tableView];
     

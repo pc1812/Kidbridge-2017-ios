@@ -8,6 +8,16 @@
 
 #import "PBBaseViewController.h"
 
+typedef NS_ENUM(NSInteger,PictureCellType) {
+    PictureCellTypeOfNone = 0,
+    PictureCellTypeOfToday = 1,
+    PictureCellTypeOfAge = 2,
+    PictureCellTypeOfHoc = 3
+};
+
 @interface PictureViewController : PBBaseViewController
+
+/** 枚举 */
+@property (nonatomic,assign) PictureCellType cellType;
 
 @end

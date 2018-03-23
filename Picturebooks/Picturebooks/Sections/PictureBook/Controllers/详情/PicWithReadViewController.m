@@ -632,7 +632,7 @@
     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
                                                                 cancelTitle:@"取消"
                                                            destructiveTitle:nil
-                                                                otherTitles:@[@"分享给微信好友", @"分享到朋友圈(+1滴水)"]
+                                                                otherTitles:@[@"分享给微信好友", @"分享到朋友圈(+1水滴)"]
                                                                 otherImages:@[[UIImage imageNamed:@"pic_wechat"],
                                                                               [UIImage imageNamed:@"pic_friend"]
                                                                               ]

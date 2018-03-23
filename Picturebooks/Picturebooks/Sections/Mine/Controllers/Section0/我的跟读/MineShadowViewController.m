@@ -297,7 +297,7 @@
     
 }
 
-#pragma mark - 服务器--用户绘本跟读分享(+1滴水) User_book_repeatShare
+#pragma mark - 服务器--用户绘本跟读分享(+1水滴) User_book_repeatShare
 - (void)requestUserBookAndCourseRepeatShareData
 {
     NSString *urlStr;
@@ -501,6 +501,8 @@
                 NSMutableDictionary *tmpDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@([dic[@"id"] integerValue]), @"Id", [NSString stringWithFormat:@"%@", success], @"soundPath", nil];
                 [newMessageArray addObject:tmpDic];
                 
+                NSLog(@"newMessageArray:%@",newMessageArray);
+                
                 if (newMessageArray.count == audioArr.count) {
                     [self audioSynthesis:newMessageArray];
                 }
@@ -676,7 +678,7 @@
     
     [[HttpManager sharedManager] POST:self.commentUrl parame:parame sucess:^(id success) {
         
-//        NSLog(@"评论数据:success:%@",success);
+        NSLog(@"评论数据:success:%@",success);
         
         if ([success[@"event"] isEqualToString:@"SUCCESS"]) {
             if (_pageNum == 0) {
@@ -806,7 +808,7 @@
     SRActionSheet *actionSheet = [SRActionSheet sr_actionSheetViewWithTitle:nil
                                                                 cancelTitle:@"取消"
                                                            destructiveTitle:nil
-                                                                otherTitles:@[@"分享给微信好友", @"分享到朋友圈(+1滴水)"]
+                                                                otherTitles:@[@"分享给微信好友", @"分享到朋友圈(+1水滴)"]
                                                                 otherImages:@[[UIImage imageNamed:@"pic_wechat"],
                                                                               [UIImage imageNamed:@"pic_friend"]
                                                                               ]
@@ -1611,11 +1613,11 @@
     alertView.backgroundColor = [UIColor whiteColor];
     [alertView setSubView:[self addSubView]];
     //添加按钮标题数组
-    [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"确定", @"取消", nil]];
+    [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"取消", @"确定", nil]];
     //添加按钮点击方法
     [alertView setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
         //关闭
-        if (buttonIndex == 0) {
+        if (buttonIndex == 1) {
             
             // Jxd-start-----------------
 #pragma mark - Jxd-添加判断, 判断不能输入小数,0
@@ -1680,7 +1682,7 @@
     UILabel *view1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 230, 50)];
     view1.font = [UIFont systemFontOfSize:15 weight:2];
     view1.textColor = [UIColor blackColor];
-//    view1.text = @"请输入打赏滴水数";
+//    view1.text = @"请输入打赏水滴数";
     view1.text = @"请输入打赏 H币数";
     view1.textAlignment = NSTextAlignmentCenter;
     

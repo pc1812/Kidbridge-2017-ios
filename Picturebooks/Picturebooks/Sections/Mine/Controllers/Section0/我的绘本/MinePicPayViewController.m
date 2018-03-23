@@ -182,6 +182,9 @@ static NSString * const collectionIdentifier = @"collectionViewIdentifier";
         cell.ageLabel.hidden = YES;
         cell.lockImage.hidden = NO;
     }
+    
+     cell.lockImage.hidden = YES;
+    
     return cell;
 }
 

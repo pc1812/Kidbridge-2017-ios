@@ -52,8 +52,8 @@
     
     [self clearCommentSounfFileCaches];
     
-    //文本输入框
-    self.nickNameTextView=[GCPlaceholderTextView initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180) andText:@"请输入评论内容"];
+    //文本输入框 之前高度 180
+    self.nickNameTextView=[GCPlaceholderTextView initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 150) andText:@"请输入评论内容"];
     self.nickNameTextView.delegate=self;
     self.nickNameTextView.scrollEnabled = YES;
     [self.view addSubview:self.nickNameTextView];

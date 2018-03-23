@@ -19,7 +19,9 @@
 
 #define Qiniu_host                  @"http://res.kidbridge.org/"    //(所有图片.音频的域名)资源暂定请求地址：（GET）
 
-#define URL_api @"http://api.kidbridge.org" //
+#define URL_api @"https://api.kidbridge.org" //
+
+//#define URL_api @"http://kidbridge.test.dev.51zhiyuan.net/" // 测试
 
 #define URL_share @"http://res.kidbridge.org" //
 
@@ -45,8 +47,8 @@
 #define PICTUREBOOK_ENJOY           @"/book/appreciation"                   //赏析内容
 #define PICTUREBOOK_COMMENT         @"/book/appreciation/comment/list"      //赏析评论
 #define User_balance                @"/user/balance"                        //获取登录用户现金H币
-#define User_bonus                  @"/user/bonus"                          //获取用户滴水余额
-#define User_bill                   @"/bill/list"                           //获取用户余额/滴水明细  feeType 0：现金余额，1：滴水
+#define User_bonus                  @"/user/bonus"                          //获取用户水滴余额
+#define User_bill                   @"/bill/list"                           //获取用户余额/水滴明细  feeType 0：现金余额，1：水滴
 #define User_feedback               @"/feedback/add"                        //用户反馈
 #define User_info                   @"/user/info"                           //我的资料
 #define USER_MESSAGE                @"/user/my"                             //我的用户信息
@@ -108,8 +110,8 @@
 #define PICTUREBOOK_ENJOY               @"/book/appreciation"                   //赏析内容
 #define PICTUREBOOK_COMMENT             @"/book/appreciation/comment/list"      //赏析评论
 #define User_balance                    @"/user/balance"                        //获取登录用户现金余额
-#define User_bonus                      @"/user/bonus"                          //获取用户滴水余额
-#define User_bill                       @"/bill/list"                           //获取用户余额/滴水明细  feeType 0：现金余额，1：滴水
+#define User_bonus                      @"/user/bonus"                          //获取用户水滴余额
+#define User_bill                       @"/bill/list"                           //获取用户余额/水滴明细  feeType 0：现金余额，1：水滴
 #define User_feedback                   @"/feedback/add"                        //用户反馈
 #define User_info                       @"/user/info"                           //我的资料
 #define USER_MESSAGE                    @"/user/my"                             //我的用户信息
@@ -119,7 +121,7 @@
 #define COURSE_LIST                     @"/course/list"                         //课程列表
 #define MINE_COURSE                     @"/user/course"                         //我的课程
 #define User_medal                      @"/user/medal/v2"                          //我的成就
-#define Balance_ratio                   @"/user/balance/ratio"                  //我的滴水
+#define Balance_ratio                   @"/user/balance/ratio"                  //我的水滴
 
 #define Iap_ios                         @"/iap/ios"                             //获取内购商品列表
 #define Iap_iosValidate                 @"/iap/ios/validate"                    //获取验证内购支付凭证
@@ -157,8 +159,8 @@
 #define User_update_password            @"/user/update/password"                //修改用户密码
 
 // /user/book/repeat/share    /user/course/repeat/share
-#define User_book_repeatShare           @"/user/book/repeat/share"              // 用户绘本跟读分享(+1滴水)
-#define User_course_repeatShare         @"/user/course/repeat/share"            // 用户课程跟读分享(+1滴水)
+#define User_book_repeatShare           @"/user/book/repeat/share"              // 用户绘本跟读分享(+1水滴)
+#define User_course_repeatShare         @"/user/course/repeat/share"            // 用户课程跟读分享(+1水滴)
 
 #define COURSE_UNLOCK                   @"/course/unlock"                       //课程解锁
 #define PIC_Reward                      @"/book/reward"                         //绘本打赏

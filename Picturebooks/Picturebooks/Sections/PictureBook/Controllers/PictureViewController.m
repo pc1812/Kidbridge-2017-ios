@@ -121,6 +121,32 @@ static NSString * const footIdentifierView = @"footView";
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    // 刷新指定的数据
+    switch (self.cellType) {
+        case PictureCellTypeOfNone:
+            break;
+        case PictureCellTypeOfToday:
+            //今日打卡
+            [self todayData];
+            break;
+        case PictureCellTypeOfAge:
+            //年龄
+            [self ageData];
+            break;
+        case PictureCellTypeOfHoc:
+            //热门书单
+            [self hotData];
+            break;
+        default:
+            break;
+    }
+
+}
+
+
 - (NSMutableArray *)carouselArray{
     if (!_carouselArray) {
         _carouselArray = [NSMutableArray arrayWithCapacity:0];
@@ -198,13 +224,13 @@ static NSString * const footIdentifierView = @"footView";
     [parame setObject:@(0 * kOffset) forKey:@"offset"];
     [parame setObject:@(2) forKey:@"limit"];
     
-    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    HUD.labelText = @"加载中...";
-    HUD.backgroundColor = [UIColor clearColor];
+//    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    HUD.labelText = @"加载中...";
+//    HUD.backgroundColor = [UIColor clearColor];
     [[HttpManager sharedManager] POST:PICTUREBOOK_TODAY parame:parame sucess:^(id success) {
        
         if ([success[@"event"] isEqualToString:@"SUCCESS"]) {
-            [HUD hide:YES];
+//            [HUD hide:YES];
             NSMutableArray *boyarray= success[@"data"];
             if (![boyarray isEqual:[NSNull null]]) {
                 for (NSDictionary *dic in boyarray) {
@@ -216,7 +242,7 @@ static NSString * const footIdentifierView = @"footView";
              [self.collectionView reloadData];
         }
     } failure:^(NSError *error) {
-        [HUD hide:YES];
+//        [HUD hide:YES];
         [Global showWithView:self.view withText:@"网络错误"];
     }];
 }
@@ -391,6 +417,8 @@ static NSString * const footIdentifierView = @"footView";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 0) {
+        self.cellType = PictureCellTypeOfToday;
+        
         PicBookModel *model = self.todayArray[indexPath.row];
         
         CardViewController *cardVC = [[CardViewController alloc] init];
@@ -398,6 +426,8 @@ static NSString * const footIdentifierView = @"footView";
         cardVC.bookId = model.ID;
         [self.navigationController pushViewController:cardVC animated:YES];
     }else if (indexPath.section == 1) {
+        self.cellType = PictureCellTypeOfAge;
+        
         PictureModel *model = self.ageArray[indexPath.row];
         
         PicFreeDetailViewController *freeVC = [[PicFreeDetailViewController alloc] init];
@@ -405,6 +435,8 @@ static NSString * const footIdentifierView = @"footView";
         freeVC.name = model.name;
         [self.navigationController pushViewController:freeVC animated:YES];
     }else{
+        self.cellType = PictureCellTypeOfHoc;
+        
         PicBookModel *model = self.hotArray[indexPath.row];
         
         CardViewController *cardVC = [[CardViewController alloc] init];

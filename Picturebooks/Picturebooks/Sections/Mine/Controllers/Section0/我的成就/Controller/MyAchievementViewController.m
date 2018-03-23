@@ -162,7 +162,7 @@ static NSString *const HeaderView_identifier = @"HeaderView_identifier";
     
     UILabel *remarkLabel = [[UILabel alloc] init];
     [backgroundView addSubview:remarkLabel];
-    remarkLabel.text = @"（注：购买的滴水不计算在内）";
+    remarkLabel.text = @"（注：购买的水滴不计算在内）";
     remarkLabel.font = [UIFont systemFontOfSize:14 * PROPORTION];
     remarkLabel.textColor = [UIColor grayColor];
     [remarkLabel sizeToFit];
@@ -176,20 +176,20 @@ static NSString *const HeaderView_identifier = @"HeaderView_identifier";
 /** 头部视图的子控件 */
 - (void)setUpHeaderSubView:(UIView *)view
 {
-    /** 1.滴水图标 */
+    /** 1.水滴图标 */
     UIImageView *imageView = [UIImageView new];
     [view addSubview:imageView];
     imageView.image = [UIImage imageNamed:@"m_water"];
     imageView.frame = FRAMEMAKE_F((SCREEN_WIDTH - imageView.image.size.width) / 2, XDHightRatio(20), imageView.image.size.width, imageView.image.size.height);
     
-    /** 2.滴水个数标题 */
+    /** 2.水滴个数标题 */
     UILabel *waterLab = [UILabel new];
     [view addSubview:waterLab];
     waterLab.textColor = [Global convertHexToRGB:@"585552"];
-    LabelSet(waterLab, @"滴水个数", [UIColor blackColor], 15, waterDic, waterSize);
+    LabelSet(waterLab, @"水滴个数", [UIColor blackColor], 15, waterDic, waterSize);
     waterLab.frame = FRAMEMAKE_F((SCREEN_WIDTH - waterSize.width) / 2, CGRectGetMaxY(imageView.frame) + XDHightRatio(10), waterSize.width, waterSize.height);
     
-    /** 3.滴水个数 */
+    /** 3.水滴个数 */
     UILabel *numLab = [UILabel new];
     [view addSubview:numLab];
     numLab.textColor = [Global convertHexToRGB:@"15CF30"];

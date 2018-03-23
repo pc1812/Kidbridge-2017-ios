@@ -45,11 +45,13 @@
 /** 客服手机号 */
 @property (nonatomic,strong)  NSNumber *telNumber;
 
+/** 签名按钮 */
+@property (nonatomic,strong) UIButton *signBtn;
+
 @end
 
 @implementation MineViewController
 {
-    UILabel *_titleLabel1;
     UILabel *ageLab;
     UILabel *nameLabs;
     NSURL *url;
@@ -79,7 +81,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.imgArr = [NSMutableArray array];
-    _titleLabel1 = [UILabel new];
+
 }
 
 - (NSArray *)nameArr{
@@ -229,25 +231,24 @@
         ageLab.frame = FRAMEMAKE_F(SCREEN_WIDTH/2-ageSize.width  / 2, CGRectGetMaxY( nameLabs.frame) + 5, ageSize.width + 10, ageSize.height);
         [headView addSubview:ageLab];
         
-        //签名
-        _titleLabel1.textColor = [UIColor whiteColor];
-        _titleLabel1.font = [UIFont systemFontOfSize:13 weight:2];
-        NSDictionary *titDic = [NSDictionary dictionaryWithObjectsAndKeys:_titleLabel1.font,NSFontAttributeName, nil];
-        CGSize titSize = [_titleLabel1.text sizeWithAttributes:titDic];
-               _titleLabel1.frame = FRAMEMAKE_F(SCREEN_WIDTH / 2 - 200 / 2 + 15, CGRectGetMaxY(ageLab.frame) + 5, 200, titSize.height);
-        [headView addSubview:_titleLabel1];
+        // 签名
+        CGFloat signX = XDWidthRatio(30);
+        CGFloat signW = SCREEN_WIDTH - signX * 2;
+        CGFloat signY = CGRectGetMaxY(ageLab.frame) + 5;
+        CGFloat signH = XDHightRatio(20);
+        UIButton *signBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.signBtn = signBtn;
+        [headView addSubview:signBtn];
+        signBtn.frame = FRAMEMAKE_F(signX, signY, signW, signH);
+        // 设置相关属性
+        signBtn.titleLabel.font = [UIFont systemFontOfSize:13 weight:2];
+        [signBtn setImage:[UIImage imageNamed:@"m_sign"] forState:UIControlStateNormal];
+        [signBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, XDWidthRatio(10))];
+        [signBtn setTitle:self.signString forState:UIControlStateNormal];
+        signBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         
-        //编辑签名
-        UIImageView *moreImage = [UIImageView new];
-        moreImage.image = [UIImage imageNamed:@"m_sign"];
-        moreImage.frame = FRAMEMAKE_F(CGRectGetMinX(_titleLabel1.frame) - moreImage.image.size.width - 5, CGRectGetMaxY(ageLab.frame) + 5,  moreImage.image.size.width,  moreImage.image.size.height);
-        [headView addSubview:moreImage];
-        
-        UIButton *_moreButton = [UIButton new];
-        [_moreButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        _moreButton.frame = FRAMEMAKE_F(SCREEN_WIDTH / 2  - CGRectGetWidth(moreImage.frame) - CGRectGetWidth(_titleLabel1.frame) / 2 - 10 , _titleLabel1.frame.origin.y, 200 + CGRectGetWidth(moreImage.frame) + 10, titSize.height);
-        [_moreButton addTarget:self action:@selector(signClick:) forControlEvents:UIControlEventTouchUpInside];
-        [headView addSubview:_moreButton];
+        // 添加点击事件
+        [signBtn addTarget:self action:@selector(signClick:) forControlEvents:UIControlEventTouchUpInside];
         
         //下方属性描述富文本
         UILabel *_shopLabel = [UILabel new];
@@ -258,18 +259,18 @@
         
         NSString *str1;
 //        if (_nowId == -1) {
-//            str1 = [NSString stringWithFormat:@"宝贝已经有%@滴水啦, 距离" , waterStr1];
+//            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 距离" , waterStr1];
 //        }else if ([waterStr2 integerValue] == -1) {
-//            str1 = [NSString stringWithFormat:@"宝贝已经有%@滴水啦, 获得\"%@\",\n继续加油哦!" , waterStr1, medalStr1];
+//            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 获得\"%@\",\n继续加油哦!" , waterStr1, medalStr1];
 //        }else{
-//            str1 = [NSString stringWithFormat:@"宝贝已经有%@滴水啦, 获得\"%@\", 距离" , waterStr1, medalStr1];
+//            str1 = [NSString stringWithFormat:@"宝贝已经有%@水滴啦, 获得\"%@\", 距离" , waterStr1, medalStr1];
 //        }
         
         if (self.nowId == -1) { // 目前还未获得勋章
-            // 宝贝已经有 xx滴水,目前未获得勋章,\n继续加油哦!
+            // 宝贝已经有 xx水滴,目前未获得勋章,\n继续加油哦!
             str1 = [NSString stringWithFormat:@"宝贝已经有%@滴水,目前未获得勋章\n继续加油哦!",waterStr1];
         } else { // 已获得了勋章
-            // 宝贝已经有 xx 滴水了,获得xxx勋章,\n继续加油哦！
+            // 宝贝已经有 xx 水滴了,获得xxx勋章,\n继续加油哦！
             str1 = [NSString stringWithFormat:@"宝贝已经有%@滴水了,获得\"%@\"勋章\n继续加油哦！",waterStr1,medalStr1];
         }
         
@@ -288,8 +289,11 @@
         
         // Jxd-start---------------
 #pragma mark - Jxd-修改
-        CGFloat shopLabH = CGRectGetMaxY(headView.frame) - CGRectGetMaxY(_moreButton.frame) - 10;
-        _shopLabel.frame = FRAMEMAKE_F(0, CGRectGetMaxY(_moreButton.frame) + 5, SCREEN_WIDTH, shopLabH);
+//        CGFloat shopLabH = CGRectGetMaxY(headView.frame) - CGRectGetMaxY(_moreButton.frame) - 10;
+//        _shopLabel.frame = FRAMEMAKE_F(0, CGRectGetMaxY(_moreButton.frame) + 5, SCREEN_WIDTH, shopLabH);
+        CGFloat shopLabH = CGRectGetMaxY(headView.frame) - CGRectGetMaxY(signBtn.frame) - 10;
+        _shopLabel.frame = FRAMEMAKE_F(0, CGRectGetMaxY(signBtn.frame) + 5, SCREEN_WIDTH, shopLabH);
+        
         // Jxd-end-----------------
         [headView addSubview:_shopLabel];
         
@@ -298,7 +302,7 @@
 //             str2 = @"";
 //        }else{
 //
-//           str2 = [NSString stringWithFormat:@"\"%@\"还差%@滴水, 继续加油哦!" ,  medalStr2, waterStr2];
+//           str2 = [NSString stringWithFormat:@"\"%@\"还差%@水滴, 继续加油哦!" ,  medalStr2, waterStr2];
 //            UILabel *_shopLabel1 = [UILabel new];
 //            _shopLabel1.textColor = [UIColor whiteColor];
 //            _shopLabel1.textAlignment = NSTextAlignmentCenter;
@@ -385,11 +389,14 @@
         //得到加盐MD5加密后的sign，并添加到参数字典
         [parame setObject:[HttpManager getAddSaltMD5Sign:parame] forKey:@"sign"];
         [parame setObject:signField.text forKey:@"signature"];
-        
+
         [[HttpManager sharedManager]POST:USER_sign parame:parame sucess:^(id success) {
             [HUD hide:YES afterDelay:1];
             if ([[success objectForKey:@"event"] isEqualToString:@"SUCCESS"]){
-                _titleLabel1.text = signField.text;
+
+                // 修改签名内容
+                [self.signBtn setTitle:signField.text forState:UIControlStateNormal];
+
                 [Global showWithView:self.view withText:@"修改成功"];
             }
         } failure:^(NSError *error) {
@@ -685,7 +692,7 @@
             //签名
             self.signString =  [NSString stringWithFormat:@"%@", success[@"data"][@"user"][@"signature"]];
             if ([Global isNullOrEmpty:self.signString]) {
-                self.signString = @"请设置你的个性签名";
+                self.signString = @"你还没有签名哦~~~";
             }else{
                 self.signString = [NSString stringWithFormat:@"%@", success[@"data"][@"user"][@"signature"]];
             }
@@ -712,12 +719,14 @@
             
             hideStr = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"hide"]];
             if ([hideStr isEqualToString:@"1"]) {
-                arr1 = @[@"我的成就", @"我的资料", @"我的滴水", @"我的跟读", @"我的绘本", @"我的课程", @"老师评价"];
+                arr1 = @[@"我的成就", @"我的资料", @"我的水滴", @"我的跟读", @"我的绘本", @"我的课程", @"老师评价"];
             }else{
-                arr1 = @[@"我的成就",@"我的 H币", @"我的资料", @"我的滴水", @"我的跟读", @"我的绘本", @"我的课程", @"老师评价"];
+                arr1 = @[@"我的成就",@"我的 H币", @"我的资料", @"我的水滴", @"我的跟读", @"我的绘本", @"我的课程", @"老师评价"];
             }
             
-            _titleLabel1.text = self.signString;
+            // 设置签名
+            [self.signBtn setTitle:self.signString forState:UIControlStateNormal];
+            
             [self.view addSubview:self.tableView];
             
             [self.tableView reloadData];
