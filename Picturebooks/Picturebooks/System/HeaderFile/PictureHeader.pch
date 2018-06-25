@@ -1,0 +1,280 @@
+//
+//  PrictureHeader.pch
+//  Picturebooks
+//
+//  Created by 尹凯 on 2017/7/18.
+//  Copyright © 2017年 ZhiyuanNetwork. All rights reserved.
+//
+
+#ifndef PrictureHeader_pch
+#define PrictureHeader_pch
+
+#ifdef __OBJC__  //表示宏内引用的文件确保只被使用Objective-C语言的文件所引用，保证引用关系的清晰。
+
+#define DocumentDirectory  [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
+#define CachesDirectory    [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject]
+#define SoundFilesCaches   [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"SoundFiles"]
+#define CommentSoundFilesCaches   [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CommentSoundFiles"]
+
+
+#define Qiniu_host                  @"http://res.kidbridge.org/"    //(所有图片.音频的域名)资源暂定请求地址：（GET）
+
+//#define URL_api @"http://kidbridge.test.dev.51zhiyuan.net/" // 测试环境
+#define URL_api @"http://api.kidbridge.org" // 生产环境
+
+#define URL_share @"http://res.kidbridge.org" //
+
+
+
+//#define URL_api @"http://52.53.124.16" //
+//
+//#define URL_share @"http://52.53.124.16" //
+
+// /version/check
+#define App_version     @"/version/check"   // App版本号
+
+#define User_login                  @"/user/login"                          //用户登录
+#define User_logout                 @"/user/logout"                         //用户退出登录
+#define Pageflow_list               @"/whirligig/list"                      //获取轮播图片
+#define Picturebook_list            @"/book/list"                           //获取绘本列表
+#define Picturebook_detail          @"/book/get"                            //获取单个绘本详情
+#define Picturebook_search          @"/book/search"                         //搜索绘本
+#define PICTUREBOOK_TODAY           @"/bookshelf/recommend/list"            //今日打卡
+#define PICTUREBOOK_HOT             @"/bookshelf/hot/list"                  //热门书单
+#define PICTUREBOOK_DETAIL          @"/bookshelf/get"                       //书单详情
+#define PICTUREBOOK_READTOP         @"/user/book/repeat/rank"               //绘本跟读榜
+#define PICTUREBOOK_ENJOY           @"/book/appreciation"                   //赏析内容
+#define PICTUREBOOK_COMMENT         @"/book/appreciation/comment/list"      //赏析评论
+#define User_balance                @"/user/balance"                        //获取登录用户现金H币
+#define User_bonus                  @"/user/bonus"                          //获取用户水滴余额
+#define User_bill                   @"/bill/list"                           //获取用户余额/水滴明细  feeType 0：现金余额，1：水滴
+#define User_feedback               @"/feedback/add"                        //用户反馈
+#define User_info                   @"/user/info"                           //我的资料
+#define USER_MESSAGE                @"/user/my"                             //我的用户信息
+#define USER_PICTUREBOOK            @"/user/book"                           //我的绘本
+#define USER_PICTUREDEL             @"/user/book/repeat/delete"             //绘本删除
+#define USER_TEACHER                @"/teacher/course/list"                 //我是老师-课程
+#define PICTURE_UNLOCK              @"/book/unlock"                         //绘本解锁
+#define COURSE_LIST                 @"/course/list"                         //课程列表
+#define MINE_COURSE                 @"/user/course"                         //我的课程
+#define MINE_COURSE_Read            @"/user/course/repeat/list"             //我的课程跟读
+#define MINE_COURSE_Record          @"/user/course/book/repeat/list"         //我的课程记录
+#define MINE_COURSE_Detail          @"/user/course/repeat/detail"           //我的课程跟读详情
+#define MINE_COURSE_Comment         @"/user/course/repeat/comment/list"      //我的课程跟读评论
+#define User_medal                  @"/user/medal"                          //我的成就
+#define COURSE_HOT                  @"/course/hot/list"                     //热门课程
+#define COURSE_DETAIL               @"/course/get"                          //课程详情
+#define COURSE_DISCUSS              @"/course/appreciation/comment/list"    //课程讨论区
+#define COURSE_COMMENT              @"/course/appreciation/comment"         //课程发布评论
+#define COURSE_REPLY                @"/course/appreciation/comment/reply"   //课程评论回复
+#define COURSE_UNLOCK               @"/course/unlock"                       //课程解锁
+#define Repeat_token                @"/user/book/repeat/token"              //获取跟读token
+#define Upload_token                @"/file/upload/token"                   //获取上传七牛token
+#define Book_repeat                 @"/user/book/repeat"                    //提交绘本跟读信息
+#define USER_LIKE                   @"/user/book/repeat/like"               //跟读点赞/取消赞
+#define USER_READDETAIL             @"/user/book/repeat/detail"             //跟读详情
+#define USER_COMMENT                @"/user/book/repeat/comment/list"       //跟读评论
+#define USER_READ                   @"/user/book/repeat/list"               //我的跟读
+#define Repeat_comment              @"/user/book/repeat/comment"            //绘本跟读发布评论
+#define USER_head                   @"/user/update/head"                    //用户头像
+#define USER_nick                   @"/user/update/nickname"                //用户昵称
+#define USER_birth                  @"/user/update/birthday"                //用户生日
+
+#define USER_UpAddress              @"/user/update/receiving"               //用户收货地址
+
+#define USER_sign                   @"/user/update/signature"                //用户签名
+#define Appreciation_comment        @"/book/appreciation/comment"           //绘本赏析发布评论
+#define Repeat_commentreply         @"/user/book/repeat/comment/reply"      //绘本跟读评论回复
+#define Appreciation_commentreply   @"/book/appreciation/comment/reply"     //绘本赏析评论回复
+#define Course_sign                 @"/course/sign"                         //获取课程打卡信息
+#define Schedule_list               @"/user/course/schedule/list"           //获取用户课程打卡记录
+#define Today_list                  @"/course/sign/today/list"              //获取课程-用户今日打卡记录
+#define Register_verification       @"/user/register/verification"          //获取注册短信验证码（中国区域）
+#define User_register               @"/user/register"                       //用户注册
+#define User_auth                   @"/user/auth"                           //第三方登录授权
+#define Course_repeat_token         @"/user/course/book/repeat/token"       //获取课程中的绘本跟读token
+#define Payment_wechat              @"/payment/wechat"                      //微信支付
+#define Payment_alipay              @"/payment/alipay"                      //支付宝支付
+
+#define User_login                      @"/user/login"                          //用户登录
+#define User_logout                     @"/user/logout"                         //用户退出登录
+#define Pageflow_list                   @"/whirligig/list"                      //获取轮播图片
+#define Picturebook_list                @"/book/list"                           //获取绘本列表
+#define Picturebook_detail              @"/book/get"                            //获取单个绘本详情
+#define Picturebook_search              @"/book/search"                         //搜索绘本
+#define PICTUREBOOK_TODAY               @"/bookshelf/recommend/list"            //今日打卡
+#define PICTUREBOOK_HOT                 @"/bookshelf/hot/list"                  //热门书单
+#define PICTUREBOOK_DETAIL              @"/bookshelf/get"                       //书单详情
+#define PICTUREBOOK_READTOP             @"/user/book/repeat/rank"               //绘本跟读榜
+#define PICTUREBOOK_ENJOY               @"/book/appreciation"                   //赏析内容
+#define PICTUREBOOK_COMMENT             @"/book/appreciation/comment/list"      //赏析评论
+#define User_balance                    @"/user/balance"                        //获取登录用户现金余额
+#define User_bonus                      @"/user/bonus"                          //获取用户水滴余额
+#define User_bill                       @"/bill/list"                           //获取用户余额/水滴明细  feeType 0：现金余额，1：水滴
+#define User_feedback                   @"/feedback/add"                        //用户反馈
+#define User_info                       @"/user/info"                           //我的资料
+#define USER_MESSAGE                    @"/user/my"                             //我的用户信息
+#define USER_PICTUREBOOK                @"/user/book"                           //我的绘本
+#define USER_TEACHER                    @"/teacher/course/list"                 //我是老师-课程
+#define PICTURE_UNLOCK                  @"/book/unlock"                         //绘本解锁
+#define COURSE_LIST                     @"/course/list"                         //课程列表
+#define MINE_COURSE                     @"/user/course"                         //我的课程
+#define User_medal                      @"/user/medal/v2"                          //我的成就
+#define Balance_ratio                   @"/user/balance/ratio"                  //我的水滴
+
+#define Iap_ios                         @"/iap/ios"                             //获取内购商品列表
+#define Iap_iosValidate                 @"/iap/ios/validate"                    //获取验证内购支付凭证
+
+#define COURSE_HOT                      @"/course/hot/list"                     //热门课程
+#define COURSE_DETAIL                   @"/course/get"                          //课程详情
+#define COURSE_DISCUSS                  @"/course/appreciation/comment/list"    //课程讨论区
+#define COURSE_COMMENT                  @"/course/appreciation/comment"         //课程发布评论
+#define COURSE_REPLY                    @"/course/appreciation/comment/reply"   //课程评论回复
+#define Repeat_token                    @"/user/book/repeat/token"              //获取跟读token
+#define Upload_token                    @"/file/upload/token"                   //获取上传七牛token
+#define Book_repeat                     @"/user/book/repeat"                    //提交绘本跟读信息
+#define USER_LIKE                       @"/user/book/repeat/like"               //跟读点赞/取消赞
+#define USERCO_LIKE                     @"/user/course/repeat/like"              //课程跟读点赞/取消赞
+#define USER_READDETAIL                 @"/user/book/repeat/detail"             //跟读详情
+#define USER_COMMENT                    @"/user/book/repeat/comment/list"       //跟读评论
+#define USER_COMMENTTea                 @"/user/course/repeat/teacher/comment"  //我的评论
+#define USER_READ                       @"/user/book/repeat/list"               //我的跟读
+#define Repeat_comment                  @"/user/book/repeat/comment"            //绘本跟读发布评论
+#define Appreciation_comment            @"/book/appreciation/comment"           //绘本赏析发布评论
+#define Co_comment                      @"/user/course/repeat/comment"           //我的课程赏析发布评论
+#define Co_commentreply                 @"/user/course/repeat/comment/reply"     //我的课程跟读评论回复
+#define Repeat_commentreply             @"/user/book/repeat/comment/reply"      //绘本跟读评论回复
+#define Appreciation_commentreply       @"/book/appreciation/comment/reply"     //绘本赏析评论回复
+#define Course_sign                     @"/course/sign"                         //获取课程打卡信息
+#define Schedule_list                   @"/user/course/schedule/list"           //获取用户课程打卡记录
+#define Today_list                      @"/course/sign/today/list"              //获取课程-用户今日打卡记录
+#define Register_verification           @"/user/register/verification"          //获取注册短信验证码（中国区域）
+#define User_register                   @"/user/register"                       //用户注册
+#define User_auth                       @"/user/auth"                           //第三方登录授权
+#define Course_repeat_token             @"/user/course/book/repeat/token"       //获取课程中的绘本跟读token
+#define Payment_wechat                  @"/payment/wechat"                      //微信支付
+#define Payment_alipay                  @"/payment/alipay"                      //支付宝支付
+#define Update_password_verification    @"/user/update/password/verification"   //修改用户密码(获取验证码)
+#define User_update_password            @"/user/update/password"                //修改用户密码
+
+// /user/book/repeat/share    /user/course/repeat/share
+#define User_book_repeatShare           @"/user/book/repeat/share"              // 用户绘本跟读分享(+1水滴)
+#define User_course_repeatShare         @"/user/course/repeat/share"            // 用户课程跟读分享(+1水滴)
+
+#define COURSE_UNLOCK                   @"/course/unlock"                       //课程解锁
+#define PIC_Reward                      @"/book/reward"                         //绘本打赏
+#define COURSE_Reward                   @"/course/reward"                       //课程打赏
+
+#define PIC_RepeatReward                @"/user/book/repeat/reward"             //我的绘本跟读打赏
+#define COURSE_RepeatReward             @"/user/course/repeat/reward"           //我的课程跟读打赏
+#define kOffset  10//请求条数
+
+#pragma mark - 微信登录相关参数 access_token openid refresh_token unionid
+#define WXPatient_App_ID            @"wxdb11265ac6b10f86"                   // 注册微信时的AppID
+#define WXPatient_App_Secret        @"77b574d35e34ab4cc1a39ea2cb466812"     // 注册时得到的AppSecret
+#define WX_ACCESS_TOKEN             @"access_token"
+#define WX_OPEN_ID                  @"openid"
+#define WX_REFRESH_TOKEN            @"refresh_token"
+#define WX_UNION_ID                 @"unionid"
+#define WX_BASE_URL                 @"https://api.weixin.qq.com/sns"
+
+
+// 日记输出宏
+#ifdef DEBUG // 调试状态, 打开LOG功能
+#define PBLog(...) NSLog(__VA_ARGS__)
+#else // 发布状态, 关闭LOG功能
+#define PBLog(...)
+#endif
+
+// 是否为空对象
+#define PBObjectIsNil(__object)  ((nil == __object) || [__object isKindOfClass:[NSNull class]])
+
+// 字符串为空
+#define PBStringIsEmpty(__string) ((__string.length == 0) || MHObjectIsNil(__string))
+
+// 字符串不为空
+#define PBStringIsNotEmpty(__string)  (!MHStringIsEmpty(__string))
+
+// 数组为空
+#define PBArrayIsEmpty(__array) ((MHObjectIsNil(__array)) || (__array.count==0))
+// 设置图片
+#define PBImageNamed(__imageName) [UIImage imageNamed:__imageName]
+
+//RGB色彩模式
+#define RGBHex(rgbValue)            [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+/** 随机色 */
+#define JXDRandomColor JXDRGBColor(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
+#define JXDRGBColor(r,g,b) [UIColor colorWithRed:(r) / 255.0 green:(g) / 255.0 blue:(b) / 255.0 alpha:1]
+#define JXDARGBColor(a,r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]
+
+//判断当前机型是否为iPhone5
+#define IS_IPHONE5() ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)// 是否是iphone5
+
+#define IS_IPHONE4    [UIScreen mainScreen].bounds.size.height == 480
+
+//判断当前系统是否为iOS7
+#define IOS7  [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0
+
+#define ZYAppDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])   // 系统的AppleDelegate
+
+//当前屏幕宽度,高度
+#define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
+#define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
+#define XDHightRatio(R) (R)*(SCREEN_WIDTH) / 375
+#define XDWidthRatio(R) (R)*(SCREEN_HEIGHT) / 686
+
+//适配iPhone X
+#define PBNew64 ([[UIApplication sharedApplication] statusBarFrame].size.height + self.navigationController.navigationBar.frame.size.height)
+#define TabbarHeight     ([[UIApplication sharedApplication] statusBarFrame].size.height > 20 ? 83 : 49) // 适配iPhone x 底栏高度
+//#define TabbarHeight     ([[UIApplication sharedApplication] statusBarFrame].size.height > 20 ? 49 : 49) // 取消适配iPhone x 底栏高度
+
+
+#define IOS11  [[[UIDevice currentDevice] systemVersion] floatValue] >= 11.0
+//判断当前机型是否为iPhone5
+#define IS_IPHONEX() ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)// 是否是iphone5
+
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+//状态栏高度 20
+#define STATUSBAR_HEIGHT [[UIApplication sharedApplication] statusBarFrame].size.height
+
+//导航栏高度 64
+#define NAVIGATION_HEIGHT ([[UIApplication sharedApplication] statusBarFrame].size.height + self.navigationController.navigationBar.frame.size.height)
+
+//tabBar高度 49
+#define TABBAR_HEIGHT [[UIApplication sharedApplication] statusBarFrame].size.height > 20 ? 83 : 49
+
+//初始化imageView
+#define KBACKGROUNDVIEW(name)  [[UIImageView alloc] initWithImage:[UIImage imageNamed:name]];
+
+//CellLabel初始化
+#define CellLabelAlloc_K(_Name_) (_Name_) = [[UILabel alloc]init];\
+[self addSubview:(_Name_)];
+
+//CellImg
+#define CellImage_K(_Img_) (_Img_) = [[UIImageView alloc]init];\
+[self addSubview:(_Img_)];
+
+//FROM
+#define FRAMEMAKE_F(_X_,_Y_,_WIDTH_,_HEIGHT_) CGRectMake(_X_,_Y_, _WIDTH_, _HEIGHT_);
+
+//字典font
+#define StringFont_DicK(_Font_) [[NSDictionary alloc]initWithObjectsAndKeys:(_Font_),NSFontAttributeName, nil];
+
+
+//label设置
+#define LabelSet(_NAME_,_TEXT_,_TEXTCOLOR_,_FONT_,_DIC_,_SIZE_)\
+(_NAME_).text = (_TEXT_);\
+(_NAME_).textColor = (_TEXTCOLOR_);\
+(_NAME_).font = [UIFont systemFontOfSize:(_FONT_)];\
+NSDictionary *(_DIC_) = StringFont_DicK((_NAME_).font);\
+CGSize (_SIZE_) = [(_NAME_).text sizeWithAttributes:(_DIC_)];
+
+//适配比例
+#define PROPORTION (([UIScreen mainScreen].bounds.size.width) / 414)
+
+#import "Picture.h"
+
+#endif /* PrictureHeader_pch */
+#endif
